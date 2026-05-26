@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contacto — Experience Connect</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#050D1A;color:#fff;font-family:Montserrat,sans-serif;overflow-x:hidden}
+nav{position:fixed;top:0;left:0;right:0;z-index:500;height:90px;display:flex;align-items:center;justify-content:space-between;padding:0 5%;background:rgba(5,13,26,.98);backdrop-filter:blur(20px);border-bottom:1px solid rgba(0,141,218,.15)}
+.nav-logo img{height:75px;width:auto;object-fit:contain;margin:-20px 0}
+.nav-links{display:flex;align-items:center;gap:24px;list-style:none;margin-left:auto}
+.nav-links a{font-size:.8rem;font-weight:500;color:rgba(255,255,255,.75);text-decoration:none;transition:color .25s}
+.nav-links a:hover,.nav-links a.active{color:#3BA7DF}
+.ncta{background:#008DDA;color:#fff;padding:9px 20px;border-radius:99px;font-weight:600;border:none;cursor:pointer;font-family:Montserrat;font-size:.8rem}
+.nwa{display:flex;align-items:center;gap:6px;background:#25D366;color:#fff;padding:8px 16px;border-radius:99px;font-size:.75rem;font-weight:600;text-decoration:none}
+.main{min-height:100vh;padding:130px 5% 80px;max-width:1200px;margin:0 auto}
+.slbl{display:inline-flex;align-items:center;gap:8px;font-family:DM Mono,monospace;font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:#3BA7DF;margin-bottom:12px}
+.slbl::before{content:'';width:22px;height:1.5px;background:#3BA7DF;border-radius:99px;display:inline-block}
+h1{font-size:clamp(2.8rem,5vw,5rem);font-weight:900;line-height:.9;letter-spacing:-.03em;margin-bottom:16px}
+h1 span{color:#3BA7DF;font-style:italic}
+.sub{font-size:1rem;color:rgba(255,255,255,.55);line-height:1.8;max-width:500px;margin-bottom:52px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start}
+.contact-cards{display:flex;flex-direction:column;gap:16px}
+.ccard{background:rgba(255,255,255,.04);border:1.5px solid rgba(0,141,218,.15);border-radius:20px;padding:28px;display:flex;align-items:center;gap:18px;text-decoration:none;transition:all .3s}
+.ccard:hover{background:rgba(0,141,218,.08);border-color:rgba(0,141,218,.35);transform:translateX(6px)}
+.ccard-ico{width:52px;height:52px;border-radius:14px;background:rgba(0,141,218,.15);display:flex;align-items:center;justify-content:center;font-size:1.4rem;flex-shrink:0}
+.ccard-t{font-weight:700;color:#fff;font-size:.95rem;margin-bottom:4px}
+.ccard-d{font-size:.8rem;color:rgba(255,255,255,.45);line-height:1.5}
+.ccard-v{font-size:.85rem;color:#3BA7DF;font-weight:600;margin-top:4px}
+.form-box{background:rgba(255,255,255,.03);border:1.5px solid rgba(0,141,218,.12);border-radius:24px;padding:36px}
+.form-box h2{font-size:1.4rem;font-weight:700;color:#fff;margin-bottom:6px}
+.form-box p{font-size:.82rem;color:rgba(255,255,255,.4);margin-bottom:24px}
+.fg{display:flex;flex-direction:column;gap:5px;margin-bottom:14px}
+.fg label{font-size:.65rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.4)}
+.fg input,.fg select,.fg textarea{background:rgba(255,255,255,.06);border:1.5px solid rgba(255,255,255,.08);border-radius:12px;padding:12px 15px;color:#fff;font-family:Montserrat;font-size:.88rem;outline:none;width:100%;transition:border-color .25s}
+.fg input:focus,.fg select:focus,.fg textarea:focus{border-color:#3BA7DF}
+.fg select option{background:#0A1628}
+.fg textarea{min-height:100px;resize:vertical}
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.sbtn{width:100%;padding:14px;background:linear-gradient(135deg,#006DB1,#3BA7DF);color:#fff;border:none;border-radius:99px;font-family:Montserrat;font-size:.92rem;font-weight:700;cursor:pointer;margin-bottom:10px}
+.wabtn{width:100%;padding:13px;background:#25D366;color:#fff;border:none;border-radius:99px;font-family:Montserrat;font-size:.88rem;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;text-decoration:none}
+.redes{display:flex;gap:12px;margin-top:16px}
+.red{width:44px;height:44px;border:1px solid rgba(255,255,255,.1);border-radius:12px;display:flex;align-items:center;justify-content:center;text-decoration:none;transition:all .25s}
+.red:hover{background:rgba(0,141,218,.2);border-color:#3BA7DF}
+footer{background:#020810;border-top:1px solid rgba(255,255,255,.05);padding:40px 5%;text-align:center;margin-top:80px}
+footer p{font-size:.78rem;color:rgba(255,255,255,.25)}
+footer a{color:#3BA7DF;text-decoration:none}
+@media(max-width:960px){.nav-links{display:none}.grid{grid-template-columns:1fr}.frow{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<nav id="nav">
+  <a href="index.html" class="nav-logo"><img src="images/logo.png" style="height:75px;width:auto;object-fit:contain;margin:-20px 0"></a>
+  <ul class="nav-links" style="margin-left:auto">
+    <li><a href="destinos.html">Destinos</a></li>
+    <li><a href="servicios.html">Servicios</a></li>
+    <li><a href="proceso.html">Proceso</a></li>
+    <li><a href="worktravel.html">Work &amp; Travel</a></li>
+    <li><a href="visados.html">Visados</a></li>
+    <li><a href="contacto.html">Contacto</a></li>
+    <li><a href="https://wa.me/593983234334" target="_blank" class="nwa"><svg viewBox="0 0 24 24" fill="white" width="14" height="14"><path d="M3 21l1.65-3.8a9 9 0 113.4 2.9L3 21"/><path d="M9 10c0 5 3.5 7.5 7.5 6" stroke="white" fill="none" stroke-width="1.5" stroke-linecap="round"/></svg>WhatsApp</a></li>
+    <li><button onclick="abrirModal()" class="ncta">Agendar asesoría</button></li>
+  </ul>
+  <div class="ham" id="ham"><span></span><span></span><span></span></div>
+</nav>
+
+<main class="main">
+  <div class="slbl">Contacto</div>
+  <h1>Hablemos de<br><span>tu futuro</span></h1>
+  <p class="sub">Estamos aquí para responder todas tus preguntas. Escríbenos por WhatsApp, correo o llena el formulario y te respondemos en menos de 24 horas.</p>
+
+  <div class="grid">
+    <div class="contact-cards">
+      <a href="https://wa.me/593983234334?text=Hola,%20vengo%20de%20la%20web%20de%20Experience%20Connect" target="_blank" class="ccard">
+        <div class="ccard-ico">💬</div>
+        <div><div class="ccard-t">WhatsApp Principal</div><div class="ccard-d">Respuesta inmediata · Lunes a Sábado</div><div class="ccard-v">+593 98 323 4334</div></div>
+      </a>
+      <a href="https://wa.me/593993528177?text=Hola,%20vengo%20de%20la%20web%20de%20Experience%20Connect" target="_blank" class="ccard">
+        <div class="ccard-ico">📱</div>
+        <div><div class="ccard-t">WhatsApp Secundario</div><div class="ccard-d">Línea de apoyo · Consultas generales</div><div class="ccard-v">+593 99 352 8177</div></div>
+      </a>
+      <a href="mailto:asesoria@experienceconnectec.com" class="ccard">
+        <div class="ccard-ico">📧</div>
+        <div><div class="ccard-t">Correo Asesoría</div><div class="ccard-d">Para consultas detalladas y documentación</div><div class="ccard-v">asesoria@experienceconnectec.com</div></div>
+      </a>
+      <a href="mailto:experienceconnectec@gmail.com" class="ccard">
+        <div class="ccard-ico">📨</div>
+        <div><div class="ccard-t">Correo General</div><div class="ccard-d">Consultas generales e información</div><div class="ccard-v">experienceconnectec@gmail.com</div></div>
+      </a>
+      <div class="ccard" style="cursor:default">
+        <div class="ccard-ico">🌐</div>
+        <div>
+          <div class="ccard-t">Redes Sociales</div>
+          <div class="ccard-d">Síguenos para tips y testimonios</div>
+          <div class="redes">
+            <a href="https://www.instagram.com/experience.connect" target="_blank" class="red"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" width="18" height="18"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.2" fill="white" stroke="none"/></svg></a>
+            <a href="https://www.facebook.com/share/18eC2YorDv/" target="_blank" class="red"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" width="18" height="18"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg></a>
+            <a href="https://www.tiktok.com/@experienceconnect" target="_blank" class="red"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" width="18" height="18"><path d="M9 12a4 4 0 104 4V4a5 5 0 005 5"/></svg></a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-box">
+      <h2>Envíanos un mensaje</h2>
+      <p>Te respondemos en menos de 24 horas en días hábiles.</p>
+      <div class="frow">
+        <div class="fg"><label>Nombre *</label><input type="text" id="cNom" placeholder="Tu nombre completo"></div>
+        <div class="fg"><label>Edad</label><input type="number" id="cEdad" placeholder="25"></div>
+      </div>
+      <div class="frow">
+        <div class="fg"><label>WhatsApp *</label><input type="tel" id="cWA" placeholder="+593 98..."></div>
+        <div class="fg"><label>Email *</label><input type="email" id="cEM" placeholder="tu@correo.com"></div>
+      </div>
+      <div class="fg"><label>¿Sobre qué nos escribes?</label>
+        <select id="cTema">
+          <option value="">Selecciona...</option>
+          <option>Estudios de Grado en el exterior</option>
+          <option>Posgrado o Maestría</option>
+          <option>Especialidad Médica / MIR</option>
+          <option>Work & Travel / Au Pair</option>
+          <option>Visados y trámites migratorios</option>
+          <option>Información general</option>
+          <option>Otro</option>
+        </select>
+      </div>
+      <div class="fg"><label>¿A qué país te interesa ir?</label>
+        <select id="cPais">
+          <option value="">Selecciona...</option>
+          <option>🇪🇸 España</option>
+          <option>🇩🇪 Alemania</option>
+          <option>🇮🇹 Italia</option>
+          <option>🇦🇷 Argentina</option>
+          <option>🇵🇹 Portugal</option>
+          <option>🇨🇿 República Checa</option>
+          <option>🇺🇸 Estados Unidos</option>
+          <option>🇨🇦 Canadá</option>
+          <option>🇲🇹 Malta</option>
+          <option>🇦🇺 Australia</option>
+          <option>🇦🇪 Dubái</option>
+          <option>Aún no lo sé</option>
+        </select>
+      </div>
+      <div class="fg"><label>Tu mensaje *</label><textarea id="cMsg" placeholder="Cuéntanos tu situación, tus metas o cualquier pregunta que tengas..."></textarea></div>
+      <button onclick="enviarContacto()" class="sbtn">Enviar mensaje →</button>
+      <a href="https://wa.me/593983234334?text=Hola,%20vengo%20de%20la%20web%20de%20Experience%20Connect" target="_blank" class="wabtn"><svg viewBox="0 0 24 24" fill="white" width="18" height="18"><path d="M3 21l1.65-3.8a9 9 0 113.4 2.9L3 21"/><path d="M9 10c0 5 3.5 7.5 7.5 6" stroke="white" fill="none" stroke-width="1.5" stroke-linecap="round"/></svg>O escríbenos por WhatsApp</a>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <p>© 2025 Experience Connect · <a href="index.html">Inicio</a> · <a href="servicios.html">Servicios</a> · <a href="proceso.html">Proceso</a> · <a href="worktravel.html">Work & Travel</a> · <a href="visados.html">Visados</a></p>
+</footer>
+
+<script>
+function enviarContacto(){
+  const n=document.getElementById('cNom').value.trim();
+  const w=document.getElementById('cWA').value.trim();
+  const e=document.getElementById('cEM').value.trim();
+  const m=document.getElementById('cMsg').value.trim();
+  if(!n||!w||!e||!m){alert('Por favor completa nombre, WhatsApp, email y mensaje.');return;}
+  fetch('https://formsubmit.co/ajax/asesoria@experienceconnectec.com',{
+    method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},
+    body:JSON.stringify({
+      _subject:'📩 Contacto — Experience Connect',
+      _captcha:'false',
+      nombre:n,edad:document.getElementById('cEdad').value,
+      whatsapp:w,email:e,
+      tema:document.getElementById('cTema').value,
+      pais_interes:document.getElementById('cPais').value,
+      mensaje:m
+    })
+  }).then(()=>{alert('✅ Mensaje enviado. Te respondemos en menos de 24 horas.');document.getElementById('cNom').value='';document.getElementById('cWA').value='';document.getElementById('cEM').value='';document.getElementById('cMsg').value='';})
+  .catch(()=>{alert('✅ Recibido. Te contactaremos pronto.');});
+}
+</script>
+</body>
+</html>

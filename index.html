@@ -1,0 +1,1406 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Experience Connect — Travel · Study · Work</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.min.js"></script>
+<style>
+:root{--b:#008DDA;--b2:#0066B3;--b3:#3BA7DF;--pale:#E8F4FD;--dk:#0A1628;--dk2:#0F1F38;--dk3:#050D1A;--w:#fff;--cr:#F8FBFF;--mu:#4A6080;--li:#8BA8C4;--gr:#25D366;--f1:'Montserrat',sans-serif;--f2:'Montserrat',sans-serif;--f3:'DM Mono',monospace;--ez:cubic-bezier(.4,0,.2,1);--ezs:cubic-bezier(.34,1.56,.64,1)}
+*{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}
+body{background:var(--w);color:var(--dk);font-family:var(--f2);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+::-webkit-scrollbar{width:3px}::-webkit-scrollbar-thumb{background:linear-gradient(var(--b2),var(--b3));border-radius:99px}
+nav{position:fixed;top:0;left:0;right:0;z-index:500;height:90px;display:flex;align-items:center;justify-content:space-between;padding:0 5% 0 2%;transition:all .4s var(--ez);background:rgba(5,13,26,.98);backdrop-filter:blur(20px);border-bottom:1px solid rgba(0,141,218,.15)}
+nav.scrolled{background:rgba(5,13,26,.98);backdrop-filter:blur(24px);box-shadow:0 1px 0 rgba(0,141,218,.15),0 4px 20px rgba(0,0,0,.3)}
+.nav-logo{display:flex;align-items:center;gap:11px;text-decoration:none;position:fixed;top:0;left:0;z-index:600}
+.nav-mark{width:36px;height:36px;background:linear-gradient(135deg,var(--b2),var(--b));border-radius:10px;display:flex;align-items:center;justify-content:center;transition:transform .4s var(--ezs);box-shadow:0 4px 14px rgba(0,141,218,.3)}
+.nav-mark svg{width:20px;height:20px}.nav-logo:hover .nav-mark{transform:rotate(-10deg) scale(1.08)}
+.nav-name{font-family:var(--f1);font-size:.95rem;font-weight:700;color:var(--w);line-height:1.1}
+.nav-sub{font-family:var(--f3);font-size:.46rem;letter-spacing:.2em;text-transform:uppercase;color:var(--b3)}
+.nav-links{display:flex;align-items:center;gap:24px;list-style:none;margin-left:auto}
+.nav-links a{font-size:.8rem;font-weight:500;color:rgba(255,255,255,.85);text-decoration:none;transition:color .25s;position:relative;padding:4px 0}
+.nav-links a::after{content:'';position:absolute;bottom:0;left:0;width:0;height:1.5px;background:var(--b);transition:width .3s;border-radius:99px}
+.nav-links a:hover{color:var(--b)}.nav-links a:hover::after{width:100%}
+.ncta{background:var(--b)!important;color:#fff!important;padding:9px 20px!important;border-radius:99px;font-weight:600!important;box-shadow:0 4px 18px rgba(0,141,218,.3)!important;transition:all .3s!important;border:none!important;cursor:pointer!important}
+.ncta::after{display:none!important}.ncta:hover{background:var(--b2)!important;transform:translateY(-1px)!important}
+.nwa{display:flex!important;align-items:center;gap:6px;background:var(--gr)!important;color:#fff!important;padding:8px 16px!important;border-radius:99px;font-size:.75rem!important;font-weight:600!important}
+.nwa::after{display:none!important}.nwa:hover{background:#1ebe5d!important;transform:translateY(-1px)!important}.nwa svg{width:14px;height:14px}
+.ham{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:6px}.ham span{width:22px;height:1.5px;background:var(--dk);border-radius:99px;transition:.3s}
+@media(max-width:960px){.nav-links{display:none}.ham{display:flex}}
+.mob{position:fixed;inset:0;z-index:490;background:rgba(255,255,255,.98);backdrop-filter:blur(20px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:24px;transform:translateX(100%);transition:transform .45s var(--ez)}
+.mob.open{transform:none}.mob a{font-family:var(--f1);font-size:2rem;font-weight:700;color:var(--dk);text-decoration:none;transition:color .2s}.mob a:hover{color:var(--b)}
+.mob-wa{display:flex;align-items:center;gap:10px;background:var(--gr);color:#fff;padding:14px 32px;border-radius:99px;font-size:1rem;font-weight:600;text-decoration:none;margin-top:8px}.mob-wa svg{width:20px;height:20px}
+.mob-x{position:absolute;top:22px;right:22px;width:44px;height:44px;border:1px solid rgba(0,0,0,.1);border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:1.1rem;color:var(--mu);transition:all .2s}.mob-x:hover{border-color:var(--b);color:var(--b)}
+#hero{min-height:100vh;background:linear-gradient(rgba(5,13,26,.88),rgba(5,13,26,.88)),url('images/universidad.jpg') center/cover no-repeat;position:relative;overflow:hidden;display:grid;grid-template-columns:1fr 1fr;padding-top:70px}
+.hgrid{position:absolute;inset:0;background-image:linear-gradient(rgba(0,141,218,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(0,141,218,.06) 1px,transparent 1px);background-size:64px 64px;mask-image:radial-gradient(ellipse 90% 90% at 50% 50%,black,transparent);pointer-events:none;animation:gS 20s linear infinite}
+@keyframes gS{from{background-position:0 0}to{background-position:64px 64px}}
+.hscan{position:absolute;top:-2px;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent,rgba(0,141,218,.9),var(--b3),rgba(0,141,218,.6),transparent);animation:scan 7s linear infinite;pointer-events:none;z-index:3}
+@keyframes scan{0%{top:-2px;opacity:0}5%{opacity:1}95%{opacity:.8}100%{top:100%;opacity:0}}
+.orb{position:absolute;border-radius:50%;filter:blur(80px);animation:oF 8s ease-in-out infinite;pointer-events:none}
+.o1{width:500px;height:500px;background:radial-gradient(circle,rgba(0,141,218,.35),transparent 70%);top:-100px;right:-100px}
+.o2{width:350px;height:350px;background:radial-gradient(circle,rgba(59,167,223,.12),transparent 70%);bottom:-80px;left:10%;animation-delay:-3s}
+.o3{width:250px;height:250px;background:radial-gradient(circle,rgba(0,102,179,.14),transparent 70%);top:40%;left:30%;animation-delay:-5s}
+@keyframes oF{0%,100%{transform:translate(0,0)}33%{transform:translate(20px,-20px)}66%{transform:translate(-15px,15px)}}
+.plane{position:absolute;z-index:4;pointer-events:none;animation:fly 18s linear infinite}
+@keyframes fly{0%{transform:translate(-200px,60vh) rotate(-15deg);opacity:0}5%{opacity:.7}50%{transform:translate(60vw,20vh) rotate(-15deg)}95%{opacity:.7}100%{transform:translate(120vw,-10vh) rotate(-15deg);opacity:0}}
+.plane svg{width:72px;height:72px;filter:drop-shadow(0 0 12px rgba(0,141,218,.8))}
+.hl{display:flex;flex-direction:column;justify-content:center;padding:80px 5% 80px 6%;position:relative;z-index:10}
+.hbadge{display:inline-flex;align-items:center;gap:8px;margin-bottom:24px;animation:fU .8s both}
+.hbdot{width:6px;height:6px;border-radius:50%;background:var(--b3);animation:bp 1.5s infinite;flex-shrink:0}
+@keyframes bp{0%,100%{box-shadow:0 0 0 0 rgba(59,167,223,.7)}70%{box-shadow:0 0 0 8px transparent}}
+.hbtxt{font-family:var(--f3);font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--b3);border:1px solid rgba(59,167,223,.25);padding:5px 14px;border-radius:99px;background:rgba(0,141,218,.06)}
+@keyframes fU{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.h1{font-family:var(--f1);font-size:clamp(3rem,5vw,5.5rem);font-weight:900;line-height:.9;letter-spacing:-.03em;color:var(--w);margin-bottom:20px;animation:fU .8s .1s both}
+.h1 .l1{display:block;opacity:1;font-size:clamp(1.8rem,3vw,3.2rem);font-weight:700}
+.h1 .l2{display:block;background:linear-gradient(135deg,var(--b3) 0%,#7DD3FC 40%,var(--b3) 100%);background-size:200% 100%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:sh 4s ease-in-out infinite .8s}
+@keyframes sh{0%,100%{background-position:0%}50%{background-position:100%}}
+.h1 .l3{display:block;font-size:clamp(2rem,3.5vw,4rem);opacity:.85;font-style:italic}
+.hp{font-size:.95rem;color:rgba(255,255,255,.92);line-height:1.85;max-width:480px;margin-bottom:28px;font-weight:300;animation:fU .8s .2s both}
+.hstats{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid rgba(255,255,255,.08);border-radius:18px;background:rgba(255,255,255,.03);backdrop-filter:blur(12px);overflow:hidden;animation:fU .8s .32s both;margin-bottom:26px}
+.hs{padding:16px 14px;text-align:center;border-left:1px solid rgba(255,255,255,.07);transition:background .3s}
+.hs:first-child{border-left:none}.hs:hover{background:rgba(0,141,218,.08)}
+.hsn{font-family:var(--f1);font-size:1.85rem;font-weight:900;color:#ffffff;line-height:1;margin-bottom:4px}
+.hsn b{color:var(--b3);font-style:normal}
+.hsl{font-family:var(--f3);font-size:.45rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.9)}
+.hbtns{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:22px;animation:fU .8s .26s both}
+.bhp{display:inline-flex;align-items:center;gap:10px;background:linear-gradient(135deg,var(--b2),var(--b));color:#fff;padding:15px 28px;border-radius:99px;font-weight:700;font-size:.9rem;border:none;cursor:pointer;box-shadow:0 6px 28px rgba(0,141,218,.45);transition:all .3s;position:relative;overflow:hidden}
+.bhp::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,var(--b),var(--b3));opacity:0;transition:opacity .3s}
+.bhp:hover::before{opacity:1}.bhp:hover{transform:translateY(-3px);box-shadow:0 12px 40px rgba(0,141,218,.6)}
+.bhp span,.bhp svg{position:relative;z-index:1}.bhp svg{width:16px;height:16px;transition:transform .3s}.bhp:hover svg{transform:translateX(5px)}
+.bhwa{display:inline-flex;align-items:center;gap:10px;background:var(--gr);color:#fff;padding:15px 26px;border-radius:99px;font-weight:600;font-size:.9rem;text-decoration:none;transition:all .3s;box-shadow:0 6px 24px rgba(37,211,102,.35)}
+.bhwa:hover{transform:translateY(-3px);box-shadow:0 12px 36px rgba(37,211,102,.5);background:#1ebe5d}.bhwa svg{width:18px;height:18px}
+.bhg{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.06);color:rgba(255,255,255,.8);padding:15px 22px;border-radius:99px;font-weight:500;font-size:.9rem;text-decoration:none;border:1px solid rgba(255,255,255,.14);transition:all .3s}
+.bhg:hover{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.28);transform:translateY(-2px)}
+.scue{display:flex;flex-direction:column;align-items:flex-start;gap:6px;animation:fU .8s .55s both}
+.scue span{font-family:var(--f3);font-size:.5rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.2)}
+.scue-line{width:1px;height:36px;background:linear-gradient(to bottom,rgba(0,141,218,.6),transparent);animation:sl 2s ease-in-out infinite}
+@keyframes sl{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+.hr{position:relative;overflow:hidden;min-height:600px;border:none;outline:none}
+#gc,#lc{position:absolute;inset:0;width:100%;height:100%;border:none;outline:none}
+#lc{z-index:6;pointer-events:none}
+.gov{display:none}
+.pins{position:absolute;inset:0;z-index:10;pointer-events:none}
+.pin{position:absolute;transform:translate(-50%,-100%);display:flex;flex-direction:column;align-items:center;gap:4px;animation:fU .7s both}
+.pb{background:rgba(8,18,38,.88);backdrop-filter:blur(16px);border:1px solid rgba(0,141,218,.28);border-radius:14px;padding:12px 18px;text-align:center;white-space:nowrap;transition:all .3s}
+.pb:hover{border-color:var(--b);background:rgba(0,80,140,.5);transform:translateY(-4px);box-shadow:0 10px 30px rgba(0,141,218,.3)}
+.pf{font-size:1.1rem;line-height:1;margin-bottom:4px}.pc2{font-size:.65rem;font-weight:700;color:var(--w);margin-bottom:2px}
+.pp2{font-family:var(--f3);font-size:.48rem;letter-spacing:.1em;text-transform:uppercase;color:rgba(0,141,218,.7)}
+.pdot{width:14px;height:14px;border-radius:50%;background:var(--b3);box-shadow:0 0 20px rgba(0,141,218,1),0 0 40px rgba(59,167,223,.6);animation:pdp 1.2s ease-in-out infinite}
+@keyframes pdp{0%,100%{box-shadow:0 0 14px rgba(0,141,218,.9),0 0 0 0 rgba(0,141,218,.4)}50%{box-shadow:0 0 22px rgba(59,167,223,1),0 0 0 9px transparent}}
+.dhi{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);z-index:20;pointer-events:none;animation:dhf 3s ease-in-out 2s forwards}
+.dhc{width:40px;height:40px;border:1px solid rgba(0,141,218,.3);border-radius:50%;margin:0 auto;animation:dhr 3s linear infinite}
+@keyframes dhr{from{transform:rotate(0)}to{transform:rotate(360deg)}}
+.dhi span{display:block;font-family:var(--f3);font-size:.5rem;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.3);text-align:center;margin-top:8px}
+@keyframes dhf{to{opacity:0}}
+.glbl{position:absolute;bottom:26px;left:50%;transform:translateX(-50%);font-family:var(--f3);font-size:.5rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.14);z-index:10;white-space:nowrap}
+.mq{background:linear-gradient(135deg,var(--b2),var(--b));padding:14px 0;overflow:hidden;position:relative;z-index:20}
+.mq::before,.mq::after{content:'';position:absolute;top:0;bottom:0;width:80px;z-index:2;pointer-events:none}
+.mq::before{left:0;background:linear-gradient(90deg,var(--b2),transparent)}.mq::after{right:0;background:linear-gradient(-90deg,var(--b2),transparent)}
+.mt{display:flex;animation:mq 28s linear infinite;white-space:nowrap}
+.mi{font-family:var(--f3);font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.82);padding:0 28px;display:flex;align-items:center;gap:12px;flex-shrink:0}
+.md{width:4px;height:4px;border-radius:50%;background:rgba(255,255,255,.4);flex-shrink:0}
+@keyframes mq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.waf{position:fixed;bottom:28px;right:28px;z-index:400;display:flex;flex-direction:column;align-items:flex-end;gap:10px}
+.wt{background:var(--dk);border-radius:14px;padding:10px 14px;font-size:.74rem;color:rgba(255,255,255,.7);max-width:200px;text-align:right;display:none;box-shadow:0 8px 24px rgba(0,0,0,.3);border:1px solid rgba(255,255,255,.06)}
+.waf:hover .wt{display:block;animation:fU .2s}
+.wb{width:58px;height:58px;background:linear-gradient(135deg,#128C7E,var(--gr));border-radius:50%;display:flex;align-items:center;justify-content:center;text-decoration:none;box-shadow:0 8px 28px rgba(37,211,102,.4);transition:all .3s;animation:wap 2.5s ease-in-out infinite}
+.wb:hover{transform:scale(1.12);box-shadow:0 12px 40px rgba(37,211,102,.6)}.wb svg{width:28px;height:28px}
+@keyframes wap{0%,100%{box-shadow:0 8px 28px rgba(37,211,102,.4)}50%{box-shadow:0 8px 40px rgba(37,211,102,.65)}}
+.sec{padding:110px 5%;max-width:1360px;margin:0 auto;position:relative;z-index:10}
+.sf{padding:110px 5%;position:relative;z-index:10}.sf .in{max-width:1360px;margin:0 auto}
+.slbl{display:inline-flex;align-items:center;gap:8px;font-family:var(--f3);font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--b);margin-bottom:12px;font-weight:500}
+.slbl::before{content:'';width:22px;height:1.5px;background:var(--b);border-radius:99px}
+.sh2{font-family:var(--f1);font-size:clamp(2.2rem,4vw,4rem);font-weight:900;line-height:.93;letter-spacing:-.03em;color:var(--dk);margin-bottom:14px}
+.sh2 em{font-style:italic;color:var(--b)}.sbody{font-size:.92rem;color:var(--mu);line-height:1.8;max-width:520px}
+.rv{opacity:0;transform:translateY(30px);transition:opacity .7s var(--ez),transform .7s var(--ez)}.rv.in{opacity:1;transform:none}
+.bwa{display:inline-flex;align-items:center;gap:8px;background:var(--gr);color:#fff;padding:12px 22px;border-radius:99px;font-weight:600;font-size:.85rem;text-decoration:none;transition:all .3s;box-shadow:0 4px 16px rgba(37,211,102,.3)}
+.bwa:hover{background:#1ebe5d;transform:translateY(-2px)}.bwa svg{width:16px;height:16px;flex-shrink:0}
+.bbl{display:inline-flex;align-items:center;gap:8px;background:var(--b);color:#fff;padding:12px 22px;border-radius:99px;font-weight:600;font-size:.85rem;text-decoration:none;transition:all .3s;box-shadow:0 4px 16px rgba(0,141,218,.3);border:none;cursor:pointer;font-family:var(--f2)}
+.bbl:hover{background:var(--b2);transform:translateY(-2px)}
+.bot{display:inline-flex;align-items:center;gap:8px;background:transparent;color:var(--b);padding:11px 20px;border-radius:99px;font-weight:600;font-size:.85rem;text-decoration:none;border:1.5px solid var(--b);transition:all .3s;cursor:pointer;font-family:var(--f2)}
+.bot:hover{background:var(--b);color:#fff;transform:translateY(-2px)}
+#perfil{background:var(--cr)}
+.pg{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:52px}
+.pcard{border-radius:28px;padding:46px;position:relative;overflow:hidden;transition:all .4s var(--ez)}
+.pca{background:linear-gradient(145deg,var(--b2),var(--b),var(--b3));color:#fff}
+.pcb{background:var(--w);border:1.5px solid rgba(0,141,218,.12);color:var(--dk)}
+.pcard:hover{transform:translateY(-6px)}.pca:hover{box-shadow:0 28px 70px rgba(0,102,179,.4)}.pcb:hover{box-shadow:0 28px 70px rgba(0,141,218,.14);border-color:rgba(0,141,218,.3)}
+.pblob{position:absolute;width:280px;height:280px;border-radius:50%;background:rgba(255,255,255,.07);top:-70px;right:-70px;pointer-events:none}
+.pblob2{position:absolute;width:150px;height:150px;border-radius:50%;background:rgba(255,255,255,.04);bottom:-40px;left:25%;pointer-events:none}
+.pnum{font-family:var(--f3);font-size:.54rem;letter-spacing:.22em;text-transform:uppercase;margin-bottom:18px;opacity:.45}
+.pico{width:54px;height:54px;border-radius:15px;display:flex;align-items:center;justify-content:center;margin-bottom:18px}
+.pca .pico{background:rgba(255,255,255,.15)}.pcb .pico{background:var(--pale)}.pico svg{width:28px;height:28px}
+.ptag{font-family:var(--f3);font-size:.56rem;letter-spacing:.14em;text-transform:uppercase;margin-bottom:8px;opacity:.55}
+.ptit{font-family:var(--f1);font-size:2.2rem;font-weight:900;line-height:1;margin-bottom:12px;letter-spacing:-.025em}
+.pdesc{font-size:.86rem;line-height:1.78;margin-bottom:24px;opacity:.7;max-width:380px}
+.plist{display:flex;flex-direction:column;gap:9px;margin-bottom:28px}
+.pli{display:flex;align-items:center;gap:10px;font-size:.82rem;font-weight:500}
+.pli::before{content:'';width:6px;height:6px;border-radius:50%;flex-shrink:0}
+.pca .pli::before{background:rgba(255,255,255,.55)}.pcb .pli::before{background:var(--b)}
+.pbtns{display:flex;gap:10px;flex-wrap:wrap}
+.paa{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.2);color:#fff;padding:12px 20px;border-radius:99px;font-weight:600;font-size:.84rem;border:none;cursor:pointer;transition:all .3s;backdrop-filter:blur(4px);font-family:var(--f2)}
+.paa:hover{background:rgba(255,255,255,.3);transform:translateX(4px)}
+.pab{display:inline-flex;align-items:center;gap:8px;background:var(--b);color:#fff;padding:12px 20px;border-radius:99px;font-weight:600;font-size:.84rem;border:none;cursor:pointer;transition:all .3s;box-shadow:0 4px 18px rgba(0,141,218,.3);font-family:var(--f2)}
+.pab:hover{background:var(--b2);transform:translateX(4px)}
+#destinos{background:var(--w)}
+.dh2{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:end;margin-bottom:52px}
+.dgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.dcard{border-radius:22px;overflow:hidden;border:1.5px solid rgba(0,0,0,.06);transition:all .4s var(--ez);background:var(--w);cursor:pointer}
+.dcard:hover{transform:translateY(-8px);box-shadow:0 24px 64px rgba(0,141,218,.14);border-color:rgba(0,141,218,.22)}
+.dim{height:178px;position:relative;overflow:hidden}
+.dibg{position:absolute;inset:0;transition:transform .6s var(--ez)}.dcard:hover .dibg{transform:scale(1.08)}
+.dig{position:absolute;inset:0;background:linear-gradient(to top,rgba(10,22,40,.92) 0%,rgba(10,22,40,.15) 60%,transparent 100%)}
+.dii{position:relative;z-index:2;padding:14px 16px;display:flex;align-items:flex-end;justify-content:space-between;height:100%}
+.dfn{display:flex;align-items:center;gap:8px}.dfl{font-size:1.6rem}.dcn{font-family:var(--f1);font-size:1.35rem;font-weight:900;color:#fff}
+.dcst{background:rgba(0,141,218,.88);backdrop-filter:blur(8px);border-radius:99px;padding:4px 12px;font-family:var(--f3);font-size:.52rem;letter-spacing:.1em;text-transform:uppercase;color:#fff}
+.dbod{padding:18px 18px 14px}.ddesc{font-size:.79rem;color:var(--mu);line-height:1.72;margin-bottom:12px}
+.dtags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px}
+.dtag{font-family:var(--f3);font-size:.54rem;letter-spacing:.08em;text-transform:uppercase;color:var(--b);background:var(--pale);border-radius:99px;padding:3px 10px}
+.dbtns{display:flex;gap:8px;flex-wrap:wrap;margin-top:4px}
+.dcta{display:inline-flex;align-items:center;gap:6px;background:var(--b);color:#fff;padding:9px 16px;border-radius:99px;font-size:.76rem;font-weight:600;text-decoration:none;transition:all .3s;border:none;cursor:pointer;font-family:var(--f2)}
+.dcta:hover{background:var(--b2);transform:scale(1.04)}
+.dcta-wa{display:inline-flex;align-items:center;gap:5px;background:var(--gr);color:#fff;padding:9px 14px;border-radius:99px;font-size:.76rem;font-weight:600;text-decoration:none;transition:all .3s}
+.dcta-wa:hover{background:#1ebe5d;transform:scale(1.04)}.dcta-wa svg{width:14px;height:14px}
+.dbe{background:linear-gradient(135deg,#7F1734,#C0392B,#E74C3C,#F39C12)}
+.dbi{background:linear-gradient(135deg,#005C29,#27AE60,#2980B9,#F1C40F)}
+.dba{background:linear-gradient(135deg,#1C1C1C,#3D3D3D,#B8860B,#FFD700)}
+.dbar{background:linear-gradient(135deg,#005B9A,#1E88E5,#64B5F6,#E8F5E9)}
+.dbp{background:linear-gradient(135deg,#006400,#228B22,#8B0000,#CC0000)}
+.dbc{background:linear-gradient(135deg,#8B0000,#CC0000,#003580,#4169E1)}
+#servicios{background:var(--dk)}
+#servicios .sh2{color:#fff}#servicios .sbody{color:rgba(255,255,255,.35)}
+#servicios .slbl{color:var(--b3)}#servicios .slbl::before{background:var(--b3)}
+.sgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:52px;border:1px solid rgba(255,255,255,.06);border-radius:26px;overflow:hidden}
+.sc{background:rgba(255,255,255,.03);padding:36px 28px;position:relative;overflow:hidden;transition:background .35s}
+.sc:hover{background:rgba(0,141,218,.09)}
+.sc::after{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--b2),var(--b3));transform:scaleX(0);transform-origin:left;transition:transform .45s var(--ez)}
+.sc:hover::after{transform:scaleX(1)}.sc+.sc{border-left:1px solid rgba(255,255,255,.05)}
+.sc:nth-child(n+4){border-top:1px solid rgba(255,255,255,.05)}.sc:nth-child(4){border-left:none}
+.scn{font-family:var(--f3);font-size:.54rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.16);margin-bottom:16px}
+.sci{width:44px;height:44px;background:rgba(0,141,218,.15);border-radius:12px;display:flex;align-items:center;justify-content:center;margin-bottom:16px;transition:background .3s}
+.sc:hover .sci{background:rgba(0,141,218,.3)}.sci svg{width:22px;height:22px}
+.sct{font-family:var(--f1);font-size:1.08rem;font-weight:700;color:#fff;margin-bottom:9px;line-height:1.15}
+.scd{font-size:.77rem;color:rgba(255,255,255,.38);line-height:1.8;margin-bottom:16px}
+.scl{font-family:var(--f3);font-size:.56rem;letter-spacing:.1em;text-transform:uppercase;color:var(--b3);text-decoration:none;display:flex;align-items:center;gap:5px;transition:gap .25s;cursor:pointer;border:none;background:none}
+.scl:hover{gap:9px}
+#proceso{background:var(--cr)}
+.prg{display:grid;grid-template-columns:1fr 1fr;gap:80px;margin-top:52px;align-items:start}
+.pasos{display:flex;flex-direction:column}
+.paso{display:flex;gap:20px;padding:22px 0;border-bottom:1px solid rgba(0,0,0,.06);cursor:pointer;transition:all .25s}.paso:last-child{border-bottom:none}
+.pason{width:44px;height:44px;border-radius:50%;border:1.5px solid rgba(0,0,0,.1);display:flex;align-items:center;justify-content:center;font-family:var(--f1);font-size:.85rem;font-weight:700;color:var(--mu);flex-shrink:0;transition:all .3s var(--ez)}
+.paso.on .pason,.paso:hover .pason{background:var(--b);color:#fff;border-color:var(--b);box-shadow:0 6px 20px rgba(0,141,218,.35)}
+.pasob{padding-top:8px}.pasot{font-family:var(--f1);font-size:1rem;font-weight:700;color:var(--dk);transition:color .25s;line-height:1.2}
+.paso.on .pasot,.paso:hover .pasot{color:var(--b)}
+.pasod{font-size:.77rem;color:var(--mu);line-height:1.72;margin-top:5px;max-height:0;overflow:hidden;transition:max-height .45s var(--ez),opacity .3s;opacity:0}
+.paso.on .pasod{max-height:240px;opacity:1}
+.pasotz{display:flex;flex-wrap:wrap;gap:5px;margin-top:7px;max-height:0;overflow:hidden;transition:max-height .45s,opacity .3s;opacity:0}
+.paso.on .pasotz{max-height:60px;opacity:1}
+.ptg{font-family:var(--f3);font-size:.52rem;letter-spacing:.1em;text-transform:uppercase;color:var(--b);background:var(--pale);border-radius:99px;padding:3px 9px}
+.pstep{position:sticky;top:110px;background:var(--w);border-radius:24px;padding:34px;box-shadow:0 24px 72px rgba(0,141,218,.1);border:1.5px solid rgba(0,141,218,.1);transition:all .45s}
+.psn{font-family:var(--f3);font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;color:var(--b);margin-bottom:10px}
+.pst{font-family:var(--f1);font-size:1.5rem;font-weight:900;color:var(--dk);margin-bottom:10px;line-height:1.1}
+.psd{font-size:.83rem;color:var(--mu);line-height:1.78}
+.pstgs{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px}
+.pstg{background:var(--pale);color:var(--b);font-family:var(--f3);font-size:.56rem;letter-spacing:.1em;text-transform:uppercase;padding:4px 12px;border-radius:99px}
+.ppr{margin-top:22px;background:rgba(0,141,218,.1);height:4px;border-radius:99px;overflow:hidden}
+.ppb{height:100%;background:linear-gradient(90deg,var(--b2),var(--b3));border-radius:99px;transition:width .55s var(--ez)}
+.pbox{margin-top:18px;background:var(--pale);border-radius:16px;padding:18px;display:flex;align-items:center;justify-content:space-between;gap:12px;border:1px solid rgba(0,141,218,.12);flex-wrap:wrap}
+.pbox p{font-size:.78rem;color:var(--dk);font-weight:500;line-height:1.5}.pbx{display:flex;gap:8px;flex-wrap:wrap}
+#requisitos{background:var(--w)}
+.rtabs{display:flex;gap:8px;margin-top:44px;flex-wrap:wrap}
+.rtab{font-family:var(--f2);font-size:.84rem;font-weight:600;padding:11px 22px;border-radius:99px;border:1.5px solid rgba(0,0,0,.1);background:transparent;color:var(--mu);cursor:pointer;transition:all .25s}
+.rtab.on{background:var(--b);color:#fff;border-color:var(--b);box-shadow:0 6px 20px rgba(0,141,218,.3)}
+.rp{display:none;grid-template-columns:1fr 1fr;gap:22px;margin-top:22px}.rp.on{display:grid}
+.rcol{background:var(--cr);border-radius:20px;padding:30px;border:1.5px solid rgba(0,141,218,.08)}
+.rct{font-family:var(--f1);font-size:.95rem;font-weight:700;color:var(--b);margin-bottom:18px;display:flex;align-items:center;gap:8px}
+.rct::before{content:'';width:12px;height:12px;border-radius:50%;background:var(--pale);border:2px solid var(--b);flex-shrink:0}
+.ri{display:flex;align-items:flex-start;gap:10px;margin-bottom:12px}
+.rck{width:18px;height:18px;border-radius:50%;background:var(--pale);border:1.5px solid var(--b);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}.rck svg{width:9px;height:9px}
+.rtxt{font-size:.79rem;color:var(--mu);line-height:1.6}.rtxt strong{color:var(--dk);font-weight:600;display:block;margin-bottom:1px}
+#testimonios{background:linear-gradient(160deg,var(--b2),var(--dk2))}
+#testimonios .sh2{color:#fff}#testimonios .sbody{color:rgba(255,255,255,.35)}
+#testimonios .slbl{color:var(--b3)}#testimonios .slbl::before{background:var(--b3)}
+.tgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:52px}
+.tcard{background:rgba(255,255,255,.06);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.1);border-radius:22px;padding:28px;transition:all .35s;position:relative;overflow:hidden}
+.tcard::before{content:'';position:absolute;top:0;left:0;width:3px;height:0;background:linear-gradient(to bottom,var(--b3),var(--b));transition:height .4s}
+.tcard:hover::before{height:100%}.tcard:hover{background:rgba(255,255,255,.1);transform:translateY(-5px);box-shadow:0 24px 64px rgba(0,0,0,.25)}
+.tstars{display:flex;gap:3px;margin-bottom:14px}.tstars svg{width:14px;height:14px}
+.tq{font-family:var(--f1);font-size:.95rem;color:rgba(255,255,255,.72);line-height:1.75;font-style:italic;margin-bottom:18px}
+.tp{display:flex;align-items:center;gap:12px}
+.tav{width:46px;height:46px;border-radius:50%;background:linear-gradient(135deg,var(--b2),var(--b3));display:flex;align-items:center;justify-content:center;font-family:var(--f1);font-size:1rem;font-weight:700;color:#fff;flex-shrink:0}
+.tname{font-family:var(--f1);font-size:.9rem;font-weight:700;color:#fff;margin-bottom:2px}
+.tinfo{font-size:.7rem;color:rgba(255,255,255,.4);font-family:var(--f3);letter-spacing:.08em;text-transform:uppercase}
+.trow{display:flex;gap:12px;justify-content:center;margin-top:44px;flex-wrap:wrap}
+.tnote{text-align:center;margin-top:14px;font-family:var(--f3);font-size:.58rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.22)}
+.tnote a{color:var(--b3);text-decoration:none;border-bottom:1px solid rgba(59,167,223,.25)}
+#galeria{background:var(--cr)}
+.ggrid{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:280px;gap:14px;margin-top:52px}
+.gi{border-radius:18px;overflow:hidden;position:relative;cursor:pointer}
+.gi:nth-child(1){grid-column:span 2;grid-row:span 2}.gi:nth-child(4){grid-column:span 2}
+.gin{width:100%;height:100%;transition:transform .6s var(--ez)}.gi:hover .gin{transform:scale(1.07)}
+.giov{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,102,179,.72),transparent 55%);opacity:0;transition:opacity .35s}
+.gi:hover .giov{opacity:1}
+.gilbl{position:absolute;bottom:14px;left:16px;font-family:var(--f3);font-size:.56rem;letter-spacing:.14em;text-transform:uppercase;color:#fff;opacity:0;transform:translateY(8px);transition:all .35s}
+.gi:hover .gilbl{opacity:1;transform:translateY(0)}
+.gc1{background:linear-gradient(135deg,#1565C0,#1E88E5,#64B5F6)}.gc2{background:linear-gradient(135deg,#1B5E20,#2E7D32,#66BB6A)}
+.gc3{background:linear-gradient(135deg,#4A148C,#7B1FA2,#BA68C8)}.gc4{background:linear-gradient(135deg,#BF360C,#E64A19,#FF8A65)}
+.gc5{background:linear-gradient(135deg,#006064,#00838F,#4DD0E1)}.gc6{background:linear-gradient(135deg,#33691E,#558B2F,#AED581)}
+.gnote{font-family:var(--f3);font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;color:var(--li);text-align:center;margin-top:16px}
+#cierre{background:var(--b);padding:130px 5%;text-align:center;position:relative;overflow:hidden}
+.cb1,.cb2,.cb3{position:absolute;border-radius:50%;pointer-events:none}
+.cb1{width:700px;height:700px;background:rgba(255,255,255,.05);top:-250px;left:-150px;animation:bF 10s ease-in-out infinite}
+.cb2{width:450px;height:450px;background:rgba(0,0,0,.08);bottom:-180px;right:-100px;animation:bF 8s ease-in-out infinite reverse}
+.cb3{width:250px;height:250px;background:rgba(255,255,255,.04);top:50%;left:60%;animation:bF 12s ease-in-out infinite 2s}
+@keyframes bF{0%,100%{transform:translate(0,0)}50%{transform:translate(15px,-20px)}}
+.ci{position:relative;z-index:2}
+.cilbl{display:inline-flex;align-items:center;gap:8px;font-family:var(--f3);font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.92);margin-bottom:18px}
+.cilbl::before{content:'';width:20px;height:1px;background:rgba(255,255,255,.35);border-radius:99px}
+.cih2{font-family:var(--f1);font-size:clamp(2.5rem,6vw,5.5rem);font-weight:900;color:#fff;line-height:.88;letter-spacing:-.03em;margin-bottom:18px}
+.cih2 em{font-style:italic;opacity:.6}.cip{font-size:.96rem;color:rgba(255,255,255,.65);max-width:440px;margin:0 auto 40px;line-height:1.8}
+.cibtns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-bottom:32px}
+.cibw{display:inline-flex;align-items:center;gap:9px;background:#fff;color:var(--b);padding:16px 34px;border-radius:99px;font-weight:700;font-size:.92rem;border:none;cursor:pointer;transition:all .3s;box-shadow:0 8px 32px rgba(0,0,0,.15);font-family:var(--f2)}
+.cibw:hover{transform:translateY(-4px);box-shadow:0 18px 48px rgba(0,0,0,.22)}
+.cibwa{display:inline-flex;align-items:center;gap:9px;background:var(--gr);color:#fff;padding:16px 32px;border-radius:99px;font-weight:700;font-size:.92rem;text-decoration:none;transition:all .3s;box-shadow:0 8px 28px rgba(37,211,102,.35)}
+.cibwa:hover{background:#1ebe5d;transform:translateY(-4px)}.cibwa svg{width:20px;height:20px}
+.cimeta{display:flex;align-items:center;justify-content:center;gap:28px;flex-wrap:wrap}
+.cim{display:flex;align-items:center;gap:6px;font-size:.76rem;color:rgba(255,255,255,.42)}
+.cim::before{content:'';width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,.28);flex-shrink:0}
+footer{background:var(--dk3);border-top:1px solid rgba(255,255,255,.05);padding:72px 5% 32px;position:relative;z-index:10}
+.ftg{display:grid;grid-template-columns:1.8fr 1fr 1fr 1fr;gap:52px;margin-bottom:52px}
+.ftbr{display:flex;align-items:center;gap:10px;margin-bottom:5px}
+.ftlm{width:32px;height:32px;background:linear-gradient(135deg,var(--b2),var(--b));border-radius:8px;display:flex;align-items:center;justify-content:center}
+.ftlm svg{width:17px;height:17px}.ftnm{font-family:var(--f1);font-size:1.15rem;font-weight:700;color:#fff}
+.ftsb{font-family:var(--f3);font-size:.5rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.2);margin-bottom:14px}
+.fttg{font-size:.78rem;color:rgba(255,255,255,.36);line-height:1.78;max-width:240px;margin-bottom:22px}
+.ftsc{display:flex;gap:9px;margin-bottom:22px}
+.fts{width:36px;height:36px;border:1px solid rgba(255,255,255,.1);border-radius:10px;display:flex;align-items:center;justify-content:center;text-decoration:none;transition:all .25s}
+.fts:hover{background:var(--b);border-color:var(--b);transform:translateY(-3px)}.fts svg{width:15px;height:15px}
+.ftwb{display:flex;align-items:center;gap:8px;background:rgba(37,211,102,.1);border:1px solid rgba(37,211,102,.2);border-radius:12px;padding:12px 14px;text-decoration:none;transition:all .3s}
+.ftwb:hover{background:rgba(37,211,102,.18)}.ftwb svg{width:18px;height:18px;flex-shrink:0}
+.ftwb span{font-size:.76rem;color:rgba(255,255,255,.65);line-height:1.3}.ftwb strong{display:block;font-size:.8rem;color:#fff;font-weight:600}
+.ftcol h5{font-family:var(--f2);font-size:.68rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.25);margin-bottom:18px}
+.ftcol ul{list-style:none;display:flex;flex-direction:column;gap:10px}
+.ftcol ul li a{font-size:.78rem;color:rgba(255,255,255,.38);text-decoration:none;transition:color .2s}.ftcol ul li a:hover{color:var(--b3)}
+.ftct li{display:flex;align-items:flex-start;gap:8px;margin-bottom:10px}
+.ftct li a{font-size:.74rem;color:rgba(255,255,255,.38);text-decoration:none;transition:color .2s;word-break:break-all}.ftct li a:hover{color:var(--b3)}
+.ftbot{border-top:1px solid rgba(255,255,255,.05);padding-top:24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px}
+.ftcp,.ftrf{font-size:.72rem;color:rgba(255,255,255,.18);font-family:var(--f3);letter-spacing:.06em}.ftrf span{color:var(--b3)}
+.mov{position:fixed;inset:0;z-index:9000;background:rgba(5,13,26,.85);backdrop-filter:blur(8px);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .35s var(--ez);padding:20px}
+.mov.open{opacity:1;pointer-events:all}
+.mbox{background:#fff;border-radius:24px;width:100%;max-width:640px;max-height:90vh;overflow-y:auto;position:relative;transform:translateY(30px) scale(.97);transition:transform .35s var(--ezs);box-shadow:0 40px 100px rgba(0,0,0,.4),0 0 0 1px rgba(0,141,218,.15)}
+.mov.open .mbox{transform:translateY(0) scale(1)}
+.mbox::-webkit-scrollbar{width:4px}.mbox::-webkit-scrollbar-thumb{background:var(--b);border-radius:99px}
+.mh{background:linear-gradient(135deg,var(--b2),var(--b));padding:32px 36px 24px;position:sticky;top:0;z-index:2;border-radius:24px 24px 0 0}
+.mh-top{display:flex;align-items:flex-start;justify-content:space-between;gap:16px}
+.mh-badge{font-family:var(--f3);font-size:.58rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.6);margin-bottom:6px;display:flex;align-items:center;gap:6px}
+.mh-badge::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--gr);flex-shrink:0;box-shadow:0 0 8px rgba(37,211,102,.8);animation:mdp 1.5s infinite}
+@keyframes mdp{0%,100%{box-shadow:0 0 8px rgba(37,211,102,.8)}50%{box-shadow:0 0 16px rgba(37,211,102,.6),0 0 0 4px rgba(37,211,102,.2)}}
+.mh-title{font-family:var(--f1);font-size:1.7rem;font-weight:900;color:#fff;line-height:1;letter-spacing:-.02em;margin-bottom:6px}
+.mh-sub{font-size:.82rem;color:rgba(255,255,255,.6);font-weight:300}
+.mclose{width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,.12);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#fff;font-size:1.1rem;transition:all .25s;flex-shrink:0}
+.mclose:hover{background:rgba(255,255,255,.24);transform:rotate(90deg)}
+.msteps{display:flex;align-items:center;gap:0;margin-top:20px}
+.mstep{display:flex;align-items:center;gap:6px;font-size:.65rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,.4);flex:1}
+.mstep.active{color:#fff}.mstep.done{color:rgba(255,255,255,.7)}
+.mstep-n{width:22px;height:22px;border-radius:50%;background:rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;font-size:.65rem;font-weight:700;flex-shrink:0;transition:all .3s}
+.mstep.active .mstep-n{background:#fff;color:var(--b)}.mstep.done .mstep-n{background:rgba(37,211,102,.4);color:#fff}
+.mstep-line{flex:1;height:1.5px;background:rgba(255,255,255,.15);margin:0 8px}
+.mbody{padding:28px 36px 36px}
+.mpanel{display:none}.mpanel.active{display:block;animation:pIn .3s ease}
+@keyframes pIn{from{opacity:0;transform:translateX(12px)}to{opacity:1;transform:none}}
+.pcards{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:24px}
+.psel{border:2px solid rgba(0,0,0,.08);border-radius:16px;padding:20px;cursor:pointer;transition:all .3s;text-align:center;background:#fff;position:relative;overflow:hidden}
+.psel::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(0,102,179,.06),rgba(0,141,218,.06));opacity:0;transition:opacity .3s}
+.psel:hover::before,.psel.on::before{opacity:1}.psel.on{border-color:var(--b);box-shadow:0 0 0 3px rgba(0,141,218,.12)}
+.psel-ico{font-size:2rem;margin-bottom:10px;display:block}
+.psel-t{font-family:var(--f1);font-size:1rem;font-weight:700;color:var(--dk);margin-bottom:4px}
+.psel-s{font-size:.72rem;color:var(--mu);line-height:1.5}
+.psel-chk{position:absolute;top:10px;right:10px;width:20px;height:20px;border-radius:50%;background:var(--b);display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .2s}
+.psel.on .psel-chk{opacity:1}.psel-chk svg{width:10px;height:10px}
+.dgrid2{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px}
+.dopt{border:1.5px solid rgba(0,0,0,.08);border-radius:12px;padding:12px 8px;cursor:pointer;transition:all .25s;text-align:center;background:#F8FBFF}
+.dopt:hover,.dopt.on{border-color:var(--b);background:rgba(0,141,218,.05)}.dopt.on{box-shadow:0 0 0 2px rgba(0,141,218,.15)}
+.dopt-f{font-size:1.4rem;display:block;margin-bottom:4px}.dopt-n{font-size:.68rem;font-weight:600;color:var(--dk)}
+.urg{background:rgba(245,158,11,.08);border:1.5px solid rgba(245,158,11,.2);border-radius:12px;padding:12px 16px;display:flex;align-items:center;gap:10px;margin-bottom:20px}
+.urg-d{width:8px;height:8px;border-radius:50%;background:#F59E0B;animation:mdp .9s infinite;flex-shrink:0}
+.urg-t{font-size:.78rem;font-weight:600;color:#B45309}
+.mfg{display:flex;flex-direction:column;gap:5px;margin-bottom:14px}
+.mfg label{font-size:.68rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--mu)}
+.mfg input,.mfg select,.mfg textarea{background:#F8FBFF;border:1.5px solid rgba(0,0,0,.08);border-radius:12px;padding:12px 15px;color:var(--dk);font-family:var(--f2);font-size:.88rem;outline:none;transition:border-color .25s,box-shadow .25s;width:100%}
+.mfg input::placeholder,.mfg textarea::placeholder{color:rgba(0,0,0,.22)}
+.mfg input:focus,.mfg select:focus,.mfg textarea:focus{border-color:var(--b);box-shadow:0 0 0 3px rgba(0,141,218,.1);background:#fff}
+.mfg textarea{min-height:90px;resize:vertical}.mfrow{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.mbr{display:flex;gap:10px;margin-top:6px}
+.mback{padding:13px 20px;background:transparent;color:var(--mu);border:1.5px solid rgba(0,0,0,.1);border-radius:99px;font-family:var(--f2);font-size:.88rem;font-weight:600;cursor:pointer;transition:all .3s}
+.mback:hover{border-color:var(--b);color:var(--b)}
+.mnext{flex:1;padding:14px;background:linear-gradient(135deg,var(--b2),var(--b));color:#fff;border:none;border-radius:99px;font-family:var(--f2);font-size:.92rem;font-weight:700;cursor:pointer;transition:all .3s;box-shadow:0 8px 26px rgba(0,141,218,.3);display:flex;align-items:center;justify-content:center;gap:8px;position:relative;overflow:hidden}
+.mnext::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,var(--b),var(--b3));opacity:0;transition:opacity .3s}
+.mnext:hover::before{opacity:1}.mnext:hover{box-shadow:0 12px 36px rgba(0,141,218,.45);transform:translateY(-1px)}
+.mnext span,.mnext svg{position:relative;z-index:1}.mnext svg{width:16px;height:16px;transition:transform .3s}.mnext:hover svg{transform:translateX(4px)}
+.mwa2{padding:13px 22px;background:var(--gr);color:#fff;border:none;border-radius:99px;font-family:var(--f2);font-size:.88rem;font-weight:600;cursor:pointer;transition:all .3s;display:flex;align-items:center;gap:8px;margin:14px auto 0}
+.mwa2:hover{background:#1ebe5d;transform:translateY(-1px)}.mwa2 svg{width:18px;height:18px}
+.msuc{text-align:center;padding:20px 0}
+.msuc-ic{width:80px;height:80px;background:rgba(0,141,218,.1);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 20px;animation:popIn .5s var(--ezs)}
+@keyframes popIn{from{transform:scale(0)}to{transform:scale(1)}}.msuc-ic svg{width:40px;height:40px}
+.msuc h3{font-family:var(--f1);font-size:1.6rem;font-weight:900;color:var(--dk);margin-bottom:8px}
+.msuc p{font-size:.86rem;color:var(--mu);line-height:1.78;margin-bottom:24px;max-width:380px;margin-left:auto;margin-right:auto}
+.msuc-btns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+@media(max-width:1100px){#hero{grid-template-columns:1fr;min-height:auto}.hr{height:440px}.dgrid,.sgrid,.tgrid{grid-template-columns:1fr 1fr}.ftg{grid-template-columns:1fr 1fr;gap:30px}.prg{grid-template-columns:1fr;gap:32px}.pstep{position:static}.dh2,.pg{grid-template-columns:1fr}}
+@media(max-width:768px){.sec,.sf{padding:70px 4%}.dgrid,.sgrid,.tgrid{grid-template-columns:1fr}.ggrid{grid-template-columns:1fr 1fr;grid-auto-rows:auto}.gi:nth-child(1){grid-column:span 2;grid-row:span 1}.gi:nth-child(4){grid-column:span 1}.ftg{grid-template-columns:1fr}.ftbot{flex-direction:column;text-align:center}.rp.on{grid-template-columns:1fr}.hstats{grid-template-columns:1fr 1fr}.mfrow{grid-template-columns:1fr}.mov{align-items:flex-end;padding:0}.mbox{border-radius:20px 20px 0 0;max-height:95vh}.mh{padding:24px 22px 18px;border-radius:20px 20px 0 0}.mbody{padding:22px 22px 30px}.mh-title{font-size:1.4rem}}
+#page-overlay{position:fixed;inset:0;z-index:99999;background:#0A1628;pointer-events:none;opacity:0;transition:opacity .45s cubic-bezier(.4,0,.2,1);}
+#page-overlay.show{opacity:1;pointer-events:all;}
+[data-anim]{opacity:0;transition:opacity .75s cubic-bezier(.4,0,.2,1),transform .75s cubic-bezier(.4,0,.2,1),filter .75s;}
+[data-anim].anim-in{opacity:1!important;transform:none!important;filter:none!important;}
+[data-anim="fade-up"]{transform:translateY(50px);}
+[data-anim="fade-left"]{transform:translateX(60px);}
+[data-anim="fade-right"]{transform:translateX(-60px);}
+[data-anim="zoom-in"]{transform:scale(.88);}
+[data-anim="flip-up"]{transform:perspective(700px) rotateX(18deg) translateY(30px);}
+[data-anim="slide-up"]{transform:translateY(70px);}
+[data-anim="blur-in"]{filter:blur(12px);transform:translateY(20px);}
+</style>
+</head>
+<body>
+    <div id="page-overlay"></div>
+<script>
+(function(){
+  const overlay=document.getElementById('page-overlay');
+  window.addEventListener('load',()=>{
+    overlay.classList.add('show');
+    requestAnimationFrame(()=>requestAnimationFrame(()=>overlay.classList.remove('show')));
+  });
+  document.addEventListener('click',function(e){
+    const link=e.target.closest('a');
+    if(!link)return;
+    const href=link.getAttribute('href');
+    if(!href)return;
+    const isInternal=href.endsWith('.html')||href.startsWith('./')||href.startsWith('../');
+    const skip=href.startsWith('#')||link.target==='_blank'||href.startsWith('http')||href.startsWith('tel')||href.startsWith('mailto')||href.startsWith('whatsapp')||href.startsWith('javascript');
+    if(skip||!isInternal)return;
+    e.preventDefault();
+    overlay.classList.add('show');
+    setTimeout(()=>{window.location.href=href;},420);
+  });
+})();
+(function(){
+  const io=new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+      if(!entry.isIntersecting)return;
+      const el=entry.target;
+      const delay=parseFloat(el.dataset.delay||0);
+      setTimeout(()=>el.classList.add('anim-in'),delay*1000);
+      io.unobserve(el);
+    });
+  },{threshold:0.12,rootMargin:'0px 0px -40px 0px'});
+  document.querySelectorAll('[data-anim]').forEach(el=>io.observe(el));
+  document.querySelectorAll('.rv').forEach(el=>{
+    if(!el.dataset.anim){el.dataset.anim='fade-up';io.observe(el);}
+  });
+})();
+</script>
+
+<nav id="nav">
+  <a href="index.html" class="nav-logo"><img src="images/logo.png" style="height:75px;width:auto;object-fit:contain;margin:0"></a>
+  <ul class="nav-links" style="margin-left:auto">
+    <li><a href="destinos.html">Destinos</a></li>
+    <li><a href="servicios.html">Servicios</a></li>
+    <li><a href="proceso.html">Proceso</a></li>
+    <li><a href="worktravel.html">Work &amp; Travel</a></li>
+    <li><a href="visados.html">Visados</a></li>
+    <li><a href="contacto.html">Contacto</a></li>
+    <li><a href="https://wa.me/593983234334" target="_blank" class="nwa"><svg viewBox="0 0 24 24" fill="white" width="14" height="14"><path d="M3 21l1.65-3.8a9 9 0 113.4 2.9L3 21"/><path d="M9 10c0 5 3.5 7.5 7.5 6" stroke="white" fill="none" stroke-width="1.5" stroke-linecap="round"/></svg>WhatsApp</a></li>
+    <li><button onclick="abrirModal()" class="ncta">Agendar asesoría</button></li>
+  </ul>
+  <div class="ham" id="ham"><span></span><span></span><span></span></div>
+</nav>
+
+<div class="mob" id="mob">
+  <div class="mob-x" id="mobX">✕</div>
+  <a href="#destinos" class="mL">Destinos</a>
+  <a href="#servicios" class="mL">Servicios</a>
+  <a href="#proceso" class="mL">Proceso</a>
+  <a href="#requisitos" class="mL">Requisitos</a>
+  <a href="#testimonios" class="mL">Testimonios</a>
+  <a href="javascript:void(0)" onclick="abrirModal();document.getElementById('mob').classList.remove('open')" class="mL" style="color:var(--b)">Agendar</a>
+  <a href="https://wa.me/593983234334" target="_blank" class="mob-wa"><svg viewBox="0 0 24 24" fill="white" width="20" height="20"><path d="M3 21l1.65-3.8a9 9 0 113.4 2.9L3 21"/><path d="M9 10c0 5 3.5 7.5 7.5 6" stroke="white" fill="none" stroke-width="1.5" stroke-linecap="round"/></svg>Escríbenos</a>
+</div>
+
+<section id="hero">
+  <div class="hgrid"></div><div class="hscan"></div>
+  <div class="orb o1"></div><div class="orb o2"></div><div class="orb o3"></div>
+  <div class="plane"><svg viewBox="0 0 48 48" fill="none"><path d="M44 24L8 8L16 24L8 40L44 24Z" fill="rgba(0,141,218,0.9)" stroke="rgba(59,167,223,0.6)" stroke-width="1"/></svg></div>
+  <div class="hl">
+    <div class="hbadge"><div class="hbdot"></div><span class="hbtxt">Asesoría Internacional Premium · Ecuador</span></div>
+    <h1 class="h1"><span class="l1">Conectamos tu talento</span><span class="l2">con el mundo.</span><span class="l3">Travel · Study · Work</span></h1>
+    <p class="hp">Asesoría especializada para estudiar tu Grado, Posgrado o Especialidad Médica en los destinos más competitivos de Europa y América Latina.</p>
+    <div class="hstats">
+      <div class="hs"><div class="hsn">+<b id="c1">0</b></div><div class="hsl">Estudiantes asesorados</div></div>
+      <div class="hs"><div class="hsn">+<b id="c2">0</b></div><div class="hsl">Países disponibles</div></div>
+      <div class="hs"><div class="hsn"><b id="c3">0</b>%</div><div class="hsl">Satisfacción</div></div>
+      <div class="hs"><div class="hsn"><b id="c4">0</b>+</div><div class="hsl">Años experiencia</div></div>
+    </div>
+    <div class="hbtns">
+      <button onclick="abrirModal()" class="bhp"><span>Agendar asesoría gratuita</span><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 8H13M9 4L13 8L9 12"/></svg></button>
+      <a href="https://wa.me/593983234334?text=Hola%2C%20vengo%20de%20la%20web%20de%20Experience%20Connect." target="_blank" class="bhwa"><svg viewBox="0 0 24 24" fill="white"><path d="M3 21l1.65-3.8a9 9 0 113.4 2.9L3 21"/><path d="M9 10c0 5 3.5 7.5 7.5 6" stroke="white" fill="none" stroke-width="1.5" stroke-linecap="round"/></svg>WhatsApp directo</a>
+      <a href="#destinos" class="bhg">Explorar destinos</a>
+    </div>
+    <div class="scue"><span>Descubrir</span><div class="scue-line"></div></div>
+  </div>
+  <div class="hr">
+    <canvas id="gc"></canvas><canvas id="lc"></canvas>
+    <div class="gov"></div>
+    <div class="pins">
+      <div class="pin" style="left:38%;top:27%;animation-delay:.2s"><div class="pb"><div class="pf">🇪🇸</div><div class="pc2">Madrid</div><div class="pp2">Grado · MIR · Posgrado</div></div><div class="pdot"></div></div>
+      <div class="pin" style="left:54%;top:20%;animation-delay:.5s"><div class="pb"><div class="pf">🇩🇪</div><div class="pc2">Berlín</div><div class="pp2">Ingeniería · Medicina</div></div><div class="pdot"></div></div>
+      <div class="pin" style="left:47%;top:34%;animation-delay:.8s"><div class="pb"><div class="pf">🇮🇹</div><div class="pc2">Roma · Milán</div><div class="pp2">Diseño · Arquitectura</div></div><div class="pdot"></div></div>
+      <div class="pin" style="left:29%;top:60%;animation-delay:1.1s"><div class="pb"><div class="pf">🇦🇷</div><div class="pc2">Buenos Aires</div><div class="pp2">Medicina · Ciencias</div></div><div class="pdot"></div></div>
+      <div class="pin" style="left:64%;top:28%;animation-delay:1.4s"><div class="pb"><div class="pf">🇨🇿</div><div class="pc2">Praga</div><div class="pp2">Medicina · Bajo costo</div></div><div class="pdot"></div></div>
+      <div class="pin" style="left:36%;top:42%;animation-delay:1.7s"><div class="pb"><div class="pf">🇵🇹</div><div class="pc2">Lisboa</div><div class="pp2">Grado · Europa</div></div><div class="pdot"></div></div>
+    </div>
+    <div class="dhi"><div class="dhc"></div><span>Arrastra el globo</span></div>
+    <div class="glbl">// Experience Connect · Red Internacional de Universidades</div>
+  </div>
+</section>
+
+<div class="mq"><div class="mt">
+<div class="mi">España<div class="md"></div></div><div class="mi">Italia<div class="md"></div></div><div class="mi">Alemania<div class="md"></div></div><div class="mi">Argentina<div class="md"></div></div><div class="mi">Portugal<div class="md"></div></div><div class="mi">República Checa<div class="md"></div></div><div class="mi">Travel · Study · Work<div class="md"></div></div><div class="mi">+500 Estudiantes<div class="md"></div></div><div class="mi">Asesoría 360°<div class="md"></div></div><div class="mi">España<div class="md"></div></div><div class="mi">Italia<div class="md"></div></div><div class="mi">Alemania<div class="md"></div></div><div class="mi">Argentina<div class="md"></div></div><div class="mi">Portugal<div class="md"></div></div><div class="mi">República Checa<div class="md"></div></div><div class="mi">Travel · Study · Work<div class="md"></div></div><div class="mi">+500 Estudiantes<div class="md"></div></div><div class="mi">Asesoría 360°<div class="md"></div></div>
+</div></div>
+
+<section id="perfil" class="sec" style="background:var(--cr)">
+  <div class="rv"><div class="slbl">¿Quién eres?</div><h2 class="sh2">Diseñamos tu ruta <em>personalizada</em></h2><p class="sbody">Ya seas bachiller o profesional — si tu meta está en otro país, nosotros gestionamos todo.</p></div>
+  <div class="pg" style="margin-top:52px">
+    <div class="pcard pca rv" style="transition-delay:.1s">
+      <div class="pblob"></div><div class="pblob2"></div>
+      <div class="pnum">01 — Para Jóvenes</div>
+      <div class="pico"><svg viewBox="0 0 28 28" fill="none"><path d="M14 3L23 8.5V13H5V8.5L14 3Z" stroke="white" stroke-width="1.5" stroke-linejoin="round"/><path d="M7 13V22M11 13V22M17 13V22M21 13V22" stroke="white" stroke-width="1.5"/><path d="M3 22H25M2 25H26" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+      <div class="ptag">Bachilleres · 16 a 25 años</div>
+      <div class="ptit">Soy Bachiller</div>
+      <p class="pdesc">¡Tu primera gran aventura internacional empieza aquí! Homologación, selección de carrera, visas y todo lo necesario para iniciar tu carrera en el exterior.</p>
+      <div class="plist"><div class="pli">Carreras universitarias de grado</div><div class="pli">Programas de idiomas y certificación</div><div class="pli">Becas y opciones de financiamiento</div><div class="pli">Guía completa de documentación</div></div>
+      <div class="pbtns">
+        <button onclick="abrirModal('','Bach')" class="paa">Quiero estudiar mi Grado →</button>
+        <a href="https://wa.me/593983234334?text=Hola%2C%20soy%20bachiller%20y%20quiero%20informaci%C3%B3n." target="_blank" class="bwa"><svg viewBox="0 0 24 24" fill="white"><path d="M3 21l1.65-3.8a9 9 0 113.4 2.9L3 21"/><path d="M9 10c0 5 3.5 7.5 7.5 6" stroke="white" fill="none" stroke-width="1.5" stroke-linecap="round"/></svg>WhatsApp</a>
+      </div>
+    </div>
+    <div class="pcard pcb rv" style="transition-delay:.2s">
+      <div class="pnum" style="color:var(--li)">02 — Para Profesionales</div>
+      <div class="pico"><svg viewBox="0 0 28 28" fill="none"><circle cx="14" cy="10" r="5.5" stroke="#008DDA" stroke-width="1.5"/><path d="M4 25C4 19.477 8.477 15 14 15C19.523 15 24 19.477 24 25" stroke="#008DDA" stroke-width="1.5" stroke-linecap="round"/><path d="M19 7H25M22 4V10" stroke="#3BA7DF" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+      <div class="ptag" style="color:var(--b)">Profesionales · 25 a 55 años</div>
+      <div class="ptit">Soy Profesional</div>
+      <p class="pdesc">Especializaciones médicas (MIR) y maestrías de alto nivel con alta empleabilidad en los mercados más competitivos del mundo.</p>
+      <div class="plist"><div class="pli">Maestrías y posgrados internacionales</div><div class="pli">Especialidades médicas — MIR y clínicas</div><div class="pli">MBA y programas corporativos globales</div><div class="pli">Networking internacional</div></div>
+      <div class="pbtns">
+        <button onclick="abrirModal('','Prof')" class="pab">Quiero especializarme →</button>
+        <a href="https://wa.me/593983234334?text=Hola%2C%20soy%20profesional%20y%20quiero%20informaci%C3%B3n." target="_blank" class="bwa"><svg viewBox="0 0 24 24" fill="white"><path d="M3 21l1.65-3.8a9 9 0 113.4 2.9L3 21"/><path d="M9 10c0 5 3.5 7.5 7.5 6" stroke="white" fill="none" stroke-width="1.5" stroke-linecap="round"/></svg>WhatsApp</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="destinos" class="sec" style="background:var(--w)">
+  <div class="dh2">
+    <div class="rv"><div class="slbl">Destinos internacionales</div><h2 class="sh2">Elige tu país,<br><em>nosotros el camino</em></h2></div>
+    <div class="rv" style="transition-delay:.1s"><p class="sbody" style="margin-bottom:16px">Cada destino seleccionado por calidad educativa, seguridad y calidad de vida para el estudiante latinoamericano.</p><div style="display:flex;gap:10px;flex-wrap:wrap"><a href="https://wa.me/593983234334?text=Hola%2C%20quiero%20informaci%C3%B3n%20sobre%20los%20destinos." target="_blank" class="bwa"><svg viewBox="0 0 24 24" fill="white"><path d="M3 21l1.65-3.8a9 9 0 113.4 2.9L3 21"/><path d="M9 10c0 5 3.5 7.5 7.5 6" stroke="white" fill="none" stroke-width="1.5" stroke-linecap="round"/></svg>Consultar por WA</a><button onclick="abrirModal()" class="bbl">Agendar asesoría</button></div></div>
+  </div>
+  <div class="dgrid">
+    <div class="dcard rv"><div class="dim"><div class="dibg" style="background:url('images/espana.jpg') center/cover"></div><div class="dig"></div><div class="dii"><div class="dfn"><span class="dfl">🇪🇸</span><span class="dcn">España</span></div><span class="dcst">€900–€1.4K/mes</span></div></div><div class="dbod"><p class="ddesc">El destino favorito del hispanohablante. Lengua sin barreras, cultura vibrante y universidades de excelencia europea.</p><div class="dtags"><span class="dtag">Grado</span><span class="dtag">Posgrado</span><span class="dtag">MIR</span><span class="dtag">Medicina</span></div><div class="dbtns"><a href="destinos/espana.html" class="dcta">Ver más →</a><button onclick="abrirModal('España')" class="dcta" style="background:var(--b2)">Agendar ✈</button><a href="https://wa.me/593983234334?text=Hola%2C%20quiero%20estudiar%20en%20Espa%C3%B1a." target="_blank" class="dcta-wa"><svg viewBox="0 0 24 24" fill="white"><path d="M3 21l1.65-3.8a9 9 0 113.4 2.9L3 21"/><path d="M9 10c0 5 3.5 7.5 7.5 6" stroke="white" fill="none" stroke-width="1.5" stroke-linecap="round"/></svg>WA</a></div></div></div>
+    <div class="dcard rv" style="transition-delay:.08s"><div class="dim"><div class="dibg" style="background:url('images/italia.jpg') center/cover"></div><div class="dig"></div><div class="dii"><div class="dfn"><span class="dfl">🇮🇹</span><span class="dcn">Italia</span></div><span class="dcst">€950–€1.35K/mes</span></div></div><div class="dbod"><p class="ddesc">Cuna del pensamiento universitario europeo. Líderes en Arquitectura, Diseño, Moda y Medicina.</p><div class="dtags"><span class="dtag">Diseño</span><span class="dtag">Medicina</span><span class="dtag">Arquitectura</span></div><div class="dbtns"><a href="destinos/italia.html" class="dcta">Ver más →</a><button onclick="abrirModal('Italia')" class="dcta" style="background:var(--b2)">Agendar ✈</button><a href="https://wa.me/593983234334?text=Hola%2C%20quiero%20estudiar%20en%20Italia." target="_blank" class="dcta-wa"><svg viewBox="0 0 24 24" fill="white"><path d="M3 21l1.65-3.8a9 9 0 113.4 2.9L3 21"/><path d="M9 10c0 5 3.5 7.5 7.5 6" stroke="white" fill="none" stroke-width="1.5" stroke-linecap="round"/></svg>WA</a></div></div></div>
+    <div class="dcard rv" style="transition-delay:.16s"><div class="dim"><div class="dibg" style="background:url('images/alemania.jpg') center/cover"></div><div class="dig"></div><div class="dii"><div class="dfn"><span class="dfl">🇩🇪</span><span class="dcn">Alemania</span></div><span class="dcst">€1K–€1.4K/mes</span></div></div><div class="dbod"><p class="ddesc">Referente mundial en ingeniería y medicina. Educación pública de excelencia con mercado laboral robusto.</p><div class="dtags"><span class="dtag">Ingeniería</span><span class="dtag">Medicina</span><span class="dtag">Tecnología</span></div><div class="dbtns"><a href="destinos/alemania.html" class="dcta">Ver más →</a><button onclick="abrirModal('Alemania')" class="dcta" style="background:var(--b2)">Agendar ✈</button><a href="https://wa.me/593983234334?text=Hola%2C%20quiero%20estudiar%20en%20Alemania." target="_blank" class="dcta-wa"><svg viewBox="0 0 24 24" fill="white"><path d="M3 21l1.65-3.8a9 9 0 113.4 2.9L3 21"/><path d="M9 10c0 5 3.5 7.5 7.5 6" stroke="white" fill="none" stroke-width="1.5" stroke-linecap="round"/></svg>WA</a></div></div></div>
+    <div class="dcard rv" style="transition-delay:.24s"><div class="dim"><div class="dibg" style="background:url('images/argentina.jpg') center/cover"></div><div class="dig"></div><div class="dii"><div class="dfn"><span class="dfl">🇦🇷</span><span class="dcn">Argentina</span></div><span class="dcst">$500–$750 USD/mes</span></div></div><div class="dbod"><p class="ddesc">La "París de América". Prestigio regional en medicina y ciencias con costos muy accesibles.</p><div class="dtags"><span class="dtag">Medicina</span><span class="dtag">Ciencias</span><span class="dtag">Accesible</span></div><div class="dbtns"><a href="destinos/argentina.html" class="dcta">Ver más →</a><button onclick="abrirModal('Argentina')" class="dcta" style="background:var(--b2)">Agendar ✈</button><a href="https://wa.me/593983234334?text=Hola%2C%20quiero%20estudiar%20en%20Argentina." target="_blank" class="dcta-wa"><svg viewBox="0 0 24 24" fill="white"><path d="M3 21l1.65-3.8a9 9 0 113.4 2.9L3 21"/><path d="M9 10c0 5 3.5 7.5 7.5 6" stroke="white" fill="none" stroke-width="1.5" stroke-linecap="round"/></svg>WA</a></div></div></div>
+    <div class="dcard rv" style="transition-delay:.32s"><div class="dim"><div class="dibg" style="background:url('images/portugal.jpg') center/cover"></div><div class="dig"></div><div class="dii"><div class="dfn"><span class="dfl">🇵🇹</span><span class="dcn">Portugal</span></div><span class="dcst">€800–€1.1K/mes</span></div></div><div class="dbod"><p class="ddesc">Puerta de entrada a Europa. Idioma cercano, costos accesibles y universidades de creciente reconocimiento.</p><div class="dtags"><span class="dtag">Grado</span><span class="dtag">Posgrado</span><span class="dtag">Europa</span></div><div class="dbtns"><a href="destinos/portugal.html" class="dcta">Ver más →</a><button onclick="abrirModal('Portugal')" class="dcta" style="background:var(--b2)">Agendar ✈</button><a href="https://wa.me/593983234334?text=Hola%2C%20quiero%20estudiar%20en%20Portugal." target="_blank" class="dcta-wa"><svg viewBox="0 0 24 24" fill="white"><path d="M3 21l1.65-3.8a9 9 0 113.4 2.9L3 21"/><path d="M9 10c0 5 3.5 7.5 7.5 6" stroke="white" fill="none" stroke-width="1.5" stroke-linecap="round"/></svg>WA</a></div></div></div>
+    <div class="dcard rv" style="transition-delay:.4s"><div class="dim"><div class="dibg" style="background:url('images/republica-checa.jpg') center/cover"></div><div class="dig"></div><div class="dii"><div class="dfn"><span class="dfl">🇨🇿</span><span class="dcn">Rep. Checa</span></div><span class="dcst">€700–€1K/mes</span></div></div><div class="dbod"><p class="ddesc">El destino secreto de Europa Central. Tradición universitaria centenaria, costos bajos y ubicación estratégica.</p><div class="dtags"><span class="dtag">Medicina</span><span class="dtag">Ingeniería</span><span class="dtag">Bajo Costo</span></div><div class="dbtns"><a href="destinos/republica-checa.html" class="dcta">Ver más →</a><button onclick="abrirModal('Rep. Checa')" class="dcta" style="background:var(--b2)">Agendar ✈</button><a href="https://wa.me/593983234334?text=Hola%2C%20quiero%20estudiar%20en%20Rep.%20Checa." target="_blank" class="dcta-wa"><svg viewBox="0 0 24 24" fill="white"><path d="M3 21l1.65-3.8a9 9 0 113.4 2.9L3 21"/><path d="M9 10c0 5 3.5 7.5 7.5 6" stroke="white" fill="none" stroke-width="1.5" stroke-linecap="round"/></svg>WA</a></div></div></div>
+  </div>
+</section>
+
+<section id="servicios" class="sf" style="background:linear-gradient(rgba(10,22,40,.97),rgba(10,22,40,.97)),url('https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=1600&q=80') center/cover no-repeat"><div class="in">
+  <div class="rv"><div class="slbl">Nuestros servicios</div><h2 class="sh2">Gestión integral <em>de tu proceso</em></h2><p class="sbody" style="margin-bottom:16px">No creemos en fórmulas. Evaluamos tu perfil real y gestionamos cada paso del camino.</p><div style="display:flex;gap:10px;flex-wrap:wrap"><button onclick="abrirModal()" class="bbl">Agendar</button><a href="https://wa.me/593983234334?text=Hola%2C%20quiero%20informaci%C3%B3n%20sobre%20los%20servicios." target="_blank" class="bwa"><svg viewBox="0 0 24 24" fill="white"><path d="M3 21l1.65-3.8a9 9 0 113.4 2.9L3 21"/><path d="M9 10c0 5 3.5 7.5 7.5 6" stroke="white" fill="none" stroke-width="1.5" stroke-linecap="round"/></svg>Consultar por WA</a></div></div>
+  <div class="sgrid">
+    <div class="sc rv"><div class="scn">01</div><div class="sci"><svg viewBox="0 0 22 22" fill="none" stroke="#008DDA" stroke-width="1.5"><path d="M11 2L19 6V9H3V6L11 2Z" stroke-linejoin="round"/><path d="M5 9V17M8 9V17M14 9V17M17 9V17"/><path d="M2 17H20M1 20H21" stroke-linecap="round"/></svg></div><div class="sct">Estudios de Grado</div><p class="scd">Asesoría para bachilleres. Selección de carrera, universidad y país según tu perfil y presupuesto real.</p><button onclick="abrirModal()" class="scl">Agendar →</button></div>
+    <div class="sc rv" style="transition-delay:.07s"><div class="scn">02</div><div class="sci"><svg viewBox="0 0 22 22" fill="none" stroke="#008DDA" stroke-width="1.5"><circle cx="11" cy="7" r="4"/><path d="M3 20C3 15.582 6.582 12 11 12C15.418 12 19 15.582 19 20" stroke-linecap="round"/><path d="M15 4H19M17 2V6" stroke="#3BA7DF" stroke-linecap="round"/></svg></div><div class="sct">Posgrados Internacionales</div><p class="scd">Maestrías, doctorados y especializaciones en las mejores universidades de Europa y América Latina.</p><button onclick="abrirModal()" class="scl">Agendar →</button></div>
+    <div class="sc rv" style="transition-delay:.14s"><div class="scn">03</div><div class="sci"><svg viewBox="0 0 22 22" fill="none" stroke="#008DDA" stroke-width="1.5"><path d="M11 2C8 2 6 4.5 6 7C6 11 11 16 11 16C11 16 16 11 16 7C16 4.5 14 2 11 2Z"/><path d="M9 7H13M11 5V9" stroke="#3BA7DF" stroke-linecap="round"/><path d="M4 20C5.5 16.5 8 14 11 14C14 14 16.5 16.5 18 20" stroke-linecap="round"/></svg></div><div class="sct">Especialidades Médicas</div><p class="scd">Programas MIR en España, clínicas en Italia y Argentina. Para médicos que buscan formación de primer nivel.</p><button onclick="abrirModal('','Med')" class="scl">Agendar →</button></div>
+    <div class="sc rv" style="transition-delay:.21s"><div class="scn">04</div><div class="sci"><svg viewBox="0 0 22 22" fill="none" stroke="#008DDA" stroke-width="1.5"><path d="M4 18L8 14L11 17L15 12L18 15"/><rect x="2" y="3" width="18" height="14" rx="1"/><path d="M6 20H16M11 17V20" stroke-linecap="round"/></svg></div><div class="sct">Asesoría Migratoria</div><p class="scd">Tramitación completa de visados, permisos de residencia y toda la documentación migratoria.</p><button onclick="abrirModal()" class="scl">Consultar →</button></div>
+    <div class="sc rv" style="transition-delay:.28s"><div class="scn">05</div><div class="sci"><svg viewBox="0 0 22 22" fill="none" stroke="#008DDA" stroke-width="1.5"><rect x="3" y="3" width="16" height="16" rx="1"/><path d="M7 8H15M7 11H13M7 14H10" stroke-linecap="round"/></svg></div><div class="sct">Procesos Universitarios</div><p class="scd">Homologación, admisiones y matrículas en sistemas universitarios internacionales.</p><button onclick="abrirModal()" class="scl">Agendar →</button></div>
+    <div class="sc rv" style="transition-delay:.35s"><div class="scn">06</div><div class="sci"><svg viewBox="0 0 22 22" fill="none" stroke="#008DDA" stroke-width="1.5"><path d="M11 2L13.5 8.5H20L14.5 12.5L16.5 19L11 15L5.5 19L7.5 12.5L2 8.5H8.5L11 2Z" stroke-linejoin="round"/></svg></div><div class="sct">Validación y Documentación</div><p class="scd">Apostillado, traducción oficial y todo lo necesario para completar tu expediente académico.</p><button onclick="abrirModal()" class="scl">Consultar →</button></div>
+  </div>
+</div></section>
+
+<section id="proceso" class="sec" style="background:var(--cr)">
+  <div class="rv"><div class="slbl">Cómo funciona</div><h2 class="sh2">Tu ruta hacia <em>el exterior</em></h2><p class="sbody">Un proceso claro y acompañado desde la primera consulta hasta tu llegada al destino.</p></div>
+  <div class="prg">
+    <div class="pasos">
+      <div class="paso on" onclick="sP(this,0)"><div class="pason">01</div><div class="pasob"><div class="pasot">Agenda tu asesoría gratuita</div><div class="pasod">Completa el formulario. Un consultor experto te contacta en menos de 24 horas.</div><div class="pasotz"><span class="ptg">24H</span><span class="ptg">Sin costo</span></div></div></div>
+      <div class="paso" onclick="sP(this,1)"><div class="pason">02</div><div class="pasob"><div class="pasot">Evaluamos tu perfil completo</div><div class="pasod">Analizamos historial académico, idioma, presupuesto y metas para encontrar la opción ideal.</div><div class="pasotz"><span class="ptg">Perfil</span><span class="ptg">Presupuesto</span></div></div></div>
+      <div class="paso" onclick="sP(this,2)"><div class="pason">03</div><div class="pasob"><div class="pasot">País, universidad y programa</div><div class="pasod">Presentamos opciones con costos reales, empleabilidad y calidad de vida. Tú decides.</div><div class="pasotz"><span class="ptg">Opciones</span><span class="ptg">Comparativa</span></div></div></div>
+      <div class="paso" onclick="sP(this,3)"><div class="pason">04</div><div class="pasob"><div class="pasot">Gestión documental completa</div><div class="pasod">Apostillados, traducciones, cartas de motivación y formularios de admisión.</div><div class="pasotz"><span class="ptg">Apostillado</span><span class="ptg">Traducción</span></div></div></div>
+      <div class="paso" onclick="sP(this,4)"><div class="pason">05</div><div class="pasob"><div class="pasot">Visa y proceso migratorio</div><div class="pasod">Visa estudiantil, seguro médico y todos los trámites para tu país destino.</div><div class="pasotz"><span class="ptg">Visa</span><span class="ptg">Seguro médico</span></div></div></div>
+      <div class="paso" onclick="sP(this,5)"><div class="pason">06</div><div class="pasob"><div class="pasot">¡Tu experiencia internacional!</div><div class="pasod">Alojamiento, viaje y adaptación. El acompañamiento no termina al abordar el avión.</div><div class="pasotz"><span class="ptg">Alojamiento</span><span class="ptg">Orientación</span></div></div></div>
+    </div>
+    <div class="pstep rv" style="transition-delay:.15s">
+      <div class="psn" id="pN">Paso 01 de 06</div>
+      <div class="pst" id="pT">Agenda tu asesoría gratuita</div>
+      <div class="psd" id="pD">Completa el formulario con tu perfil. Un consultor experto te contacta en menos de 24 horas para una sesión personalizada y sin costo.</div>
+      <div class="pstgs" id="pTg"><span class="pstg">24H respuesta</span><span class="pstg">Sin costo</span><span class="pstg">Personalizada</span></div>
+      <div class="ppr"><div class="ppb" id="pBar" style="width:16.6%"></div></div>
+      <div class="pbox"><p>¿Listo para dar el primer paso?</p><div class="pbx"><button onclick="abrirModal()" class="bbl" style="font-size:.78rem;padding:9px 16px">Agendar</button><a href="https://wa.me/593983234334?text=Hola%2C%20quiero%20iniciar%20mi%20proceso." target="_blank" class="bwa" style="font-size:.78rem;padding:9px 16px"><svg viewBox="0 0 24 24" fill="white"><path d="M3 21l1.65-3.8a9 9 0 113.4 2.9L3 21"/><path d="M9 10c0 5 3.5 7.5 7.5 6" stroke="white" fill="none" stroke-width="1.5" stroke-linecap="round"/></svg>WA</a></div></div>
+    </div>
+  </div>
+</section>
+
+<section id="requisitos" class="sec" style="background:var(--w)">
+  <div class="rv"><div class="slbl">Prepárate para el éxito</div><h2 class="sh2">Documentos <em>que necesitarás</em></h2><p class="sbody">No te preocupes si no los tienes todos — nosotros te guiamos en la obtención de cada uno.</p></div>
+  <div class="rtabs rv" style="transition-delay:.1s"><button class="rtab on" onclick="sR('b',this)">Bachilleres</button><button class="rtab" onclick="sR('p',this)">Profesionales</button><button class="rtab" onclick="sR('m',this)">Médicos</button></div>
+  <div class="rp on" id="rqb"><div class="rcol"><div class="rct">Identidad y base</div><div class="ri"><div class="rck"><svg viewBox="0 0 9 9" fill="none"><path d="M1.5 4.5L3.5 6.5L7.5 2.5" stroke="#008DDA" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="rtxt"><strong>Pasaporte vigente</strong>Documento de identidad universal o en trámite</div></div><div class="ri"><div class="rck"><svg viewBox="0 0 9 9" fill="none"><path d="M1.5 4.5L3.5 6.5L7.5 2.5" stroke="#008DDA" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="rtxt"><strong>Diploma de bachiller</strong>O constancia de que cursa el último año</div></div><div class="ri"><div class="rck"><svg viewBox="0 0 9 9" fill="none"><path d="M1.5 4.5L3.5 6.5L7.5 2.5" stroke="#008DDA" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="rtxt"><strong>Notas últimos 3 años</strong>Calificaciones oficiales de secundaria</div></div></div><div class="rcol"><div class="rct">Académico e idioma</div><div class="ri"><div class="rck"><svg viewBox="0 0 9 9" fill="none"><path d="M1.5 4.5L3.5 6.5L7.5 2.5" stroke="#008DDA" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="rtxt"><strong>Certificado de idioma</strong>TOEFL, IELTS, DELE (te ayudamos a prepararte)</div></div><div class="ri"><div class="rck"><svg viewBox="0 0 9 9" fill="none"><path d="M1.5 4.5L3.5 6.5L7.5 2.5" stroke="#008DDA" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="rtxt"><strong>Carta de solvencia</strong>De padres o acudientes</div></div><div class="ri"><div class="rck"><svg viewBox="0 0 9 9" fill="none"><path d="M1.5 4.5L3.5 6.5L7.5 2.5" stroke="#008DDA" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="rtxt"><strong>Fotos de pasaporte</strong>Formato requerido por el país destino</div></div></div></div>
+  <div class="rp" id="rqp"><div class="rcol"><div class="rct">Académico</div><div class="ri"><div class="rck"><svg viewBox="0 0 9 9" fill="none"><path d="M1.5 4.5L3.5 6.5L7.5 2.5" stroke="#008DDA" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="rtxt"><strong>Título apostillado</strong>Acta de grado o diploma profesional</div></div><div class="ri"><div class="rck"><svg viewBox="0 0 9 9" fill="none"><path d="M1.5 4.5L3.5 6.5L7.5 2.5" stroke="#008DDA" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="rtxt"><strong>Historial académico</strong>Certificado de notas universitarias</div></div><div class="ri"><div class="rck"><svg viewBox="0 0 9 9" fill="none"><path d="M1.5 4.5L3.5 6.5L7.5 2.5" stroke="#008DDA" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="rtxt"><strong>CV actualizado</strong>En el idioma del destino</div></div></div><div class="rcol"><div class="rct">Complementarios</div><div class="ri"><div class="rck"><svg viewBox="0 0 9 9" fill="none"><path d="M1.5 4.5L3.5 6.5L7.5 2.5" stroke="#008DDA" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="rtxt"><strong>Certificación de idioma</strong>Nivel intermedio / avanzado</div></div><div class="ri"><div class="rck"><svg viewBox="0 0 9 9" fill="none"><path d="M1.5 4.5L3.5 6.5L7.5 2.5" stroke="#008DDA" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="rtxt"><strong>Cartas de referencia</strong>Una académica y una laboral</div></div><div class="ri"><div class="rck"><svg viewBox="0 0 9 9" fill="none"><path d="M1.5 4.5L3.5 6.5L7.5 2.5" stroke="#008DDA" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="rtxt"><strong>Carta de intención (SOP)</strong>Por qué deseas ese programa</div></div></div></div>
+  <div class="rp" id="rqm"><div class="rcol"><div class="rct">Credenciales médicas</div><div class="ri"><div class="rck"><svg viewBox="0 0 9 9" fill="none"><path d="M1.5 4.5L3.5 6.5L7.5 2.5" stroke="#008DDA" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="rtxt"><strong>Título de médico apostillado</strong>Con traducción oficial certificada</div></div><div class="ri"><div class="rck"><svg viewBox="0 0 9 9" fill="none"><path d="M1.5 4.5L3.5 6.5L7.5 2.5" stroke="#008DDA" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="rtxt"><strong>Registro médico habilitante</strong>Del país de origen vigente</div></div><div class="ri"><div class="rck"><svg viewBox="0 0 9 9" fill="none"><path d="M1.5 4.5L3.5 6.5L7.5 2.5" stroke="#008DDA" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="rtxt"><strong>Historial académico médico</strong>Notas de carrera completa</div></div></div><div class="rcol"><div class="rct">Para especialización</div><div class="ri"><div class="rck"><svg viewBox="0 0 9 9" fill="none"><path d="M1.5 4.5L3.5 6.5L7.5 2.5" stroke="#008DDA" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="rtxt"><strong>Certificado de rotaciones</strong>Práctica hospitalaria documentada</div></div><div class="ri"><div class="rck"><svg viewBox="0 0 9 9" fill="none"><path d="M1.5 4.5L3.5 6.5L7.5 2.5" stroke="#008DDA" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="rtxt"><strong>Cartas de especialistas</strong>Referencias de jefes de servicio</div></div><div class="ri"><div class="rck"><svg viewBox="0 0 9 9" fill="none"><path d="M1.5 4.5L3.5 6.5L7.5 2.5" stroke="#008DDA" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="rtxt"><strong>Nivel B2-C1 del idioma</strong>Mínimo recomendado para Europa</div></div></div></div>
+  <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:28px" class="rv"><button onclick="abrirModal()" class="bbl">Agendar para revisar mis documentos</button><a href="https://wa.me/593983234334?text=Hola%2C%20tengo%20dudas%20sobre%20los%20documentos." target="_blank" class="bwa"><svg viewBox="0 0 24 24" fill="white"><path d="M3 21l1.65-3.8a9 9 0 113.4 2.9L3 21"/><path d="M9 10c0 5 3.5 7.5 7.5 6" stroke="white" fill="none" stroke-width="1.5" stroke-linecap="round"/></svg>Consultar por WhatsApp</a></div>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+<script>
+// Posts iniciales de ejemplo
+const postsIniciales = [
+  {nombre:'Maria C.',destino:'🇪🇸 España',texto:'Acabo de recibir mi carta de admisión para la Universidad Complutense! Experience Connect me ayudó con toda la documentación. ¡Gracias!',tiempo:'hace 2 horas',likes:24,avatar:'MC'},
+  {nombre:'Carlos R.',destino:'🇩🇪 Alemania',texto:'¿Alguien sabe cuánto tiempo tarda el proceso del Sperrkonto? Estoy en trámites para TU Munich.',tiempo:'hace 5 horas',likes:8,avatar:'CR'},
+  {nombre:'Sofia M.',destino:'🇮🇹 Italia',texto:'Empiezo Diseño Industrial en el Politecnico di Milano en febrero! Si alguien tiene dudas sobre Italia con gusto les cuento mi experiencia.',tiempo:'hace 1 día',likes:31,avatar:'SM'},
+  {nombre:'Diego P.',destino:'✈️ General',texto:'¿Cuál es el destino más económico para medicina? Estoy comparando Argentina vs República Checa.',tiempo:'hace 2 días',likes:15,avatar:'DP'},
+];
+
+let posts = JSON.parse(localStorage.getItem('ecPosts') || 'null') || postsIniciales;
+
+function renderPosts(){
+  const cont = document.getElementById('blogPosts');
+  if(!cont) return;
+  cont.innerHTML = posts.map((p,i) => `
+    <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:18px;padding:22px;transition:all .3s" onmouseover="this.style.background='rgba(0,141,218,.06)';this.style.borderColor='rgba(0,141,218,.2)'" onmouseout="this.style.background='rgba(255,255,255,.04)';this.style.borderColor='rgba(255,255,255,.08)'">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px">
+        <div style="width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#006DB1,#3BA7DF);display:flex;align-items:center;justify-content:center;font-weight:700;color:#fff;font-size:.85rem;flex-shrink:0">${p.avatar}</div>
+        <div>
+          <div style="font-weight:700;color:#fff;font-size:.88rem">${p.nombre}</div>
+          <div style="font-size:.72rem;color:rgba(255,255,255,.35)">${p.destino} · ${p.tiempo}</div>
+        </div>
+      </div>
+      <p style="font-size:.85rem;color:rgba(255,255,255,.75);line-height:1.7;margin-bottom:14px">${p.texto}</p>
+      <div style="display:flex;align-items:center;gap:16px">
+        <button onclick="likePost(${i})" style="background:none;border:none;cursor:pointer;display:flex;align-items:center;gap:5px;color:rgba(255,255,255,.4);font-size:.78rem;font-family:Montserrat,sans-serif;padding:0">
+          <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" width="16" height="16"><path d="M10 17.5C10 17.5 2.5 13 2.5 7.5a4 4 0 017.5-2 4 4 0 017.5 2C17.5 13 10 17.5 10 17.5z"/></svg>
+          ${p.likes}
+        </button>
+        <button onclick="responderPost(${i})" style="background:none;border:none;cursor:pointer;color:rgba(255,255,255,.35);font-size:.78rem;font-family:Montserrat,sans-serif;padding:0">💬 Responder</button>
+        <a href="https://wa.me/593983234334?text=Hola,%20vi%20esta%20pregunta%20en%20la%20web:%20${encodeURIComponent(p.texto)}" target="_blank" style="color:#3BA7DF;font-size:.78rem;text-decoration:none;margin-left:auto">Responde un asesor →</a>
+      </div>
+    </div>
+  `).join('');
+}
+
+function publicarPost(){
+  const nombre = document.getElementById('blogNombre').value.trim();
+  const texto = document.getElementById('blogTexto').value.trim();
+  const destino = document.getElementById('blogDestino').value || '✈️ General';
+  if(!nombre || !texto){alert('Por favor escribe tu nombre y tu pregunta.');return;}
+  const initials = nombre.split(' ').map(n=>n[0]).join('').toUpperCase().slice(0,2);
+  posts.unshift({nombre,destino,texto,tiempo:'ahora mismo',likes:0,avatar:initials});
+  localStorage.setItem('ecPosts', JSON.stringify(posts));
+  document.getElementById('blogNombre').value='';
+  document.getElementById('blogTexto').value='';
+  renderPosts();
+}
+
+function likePost(i){
+  posts[i].likes++;
+  localStorage.setItem('ecPosts', JSON.stringify(posts));
+  renderPosts();
+}
+
+function responderPost(i){
+  const p = posts[i];
+  window.open('https://wa.me/593983234334?text=Hola,%20quiero%20responder%20sobre:%20'+encodeURIComponent(p.texto),'_blank');
+}
+
+renderPosts();
+</script>
+
+<section id="worktravel" style="padding:100px 5%;background:linear-gradient(160deg,#0A1628,#0F1F38);position:relative;overflow:hidden">
+<div style="max-width:1360px;margin:0 auto">
+<div style="display:inline-flex;align-items:center;gap:8px;font-family:DM Mono,monospace;font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:#3BA7DF;margin-bottom:12px"><span style="width:22px;height:1.5px;background:#3BA7DF;border-radius:99px;display:inline-block"></span>Work & Travel</div>
+<div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:16px"><h2 style="font-family:Montserrat,sans-serif;font-size:clamp(2.2rem,4vw,4rem);font-weight:900;color:#fff;line-height:.93;letter-spacing:-.03em;margin-bottom:14px">Viaja, Trabaja y<br><span style="color:#3BA7DF;font-style:italic">Domina un Nuevo Idioma</span></h2><a href="worktravel.html" style="display:inline-flex;align-items:center;gap:8px;background:#3BA7DF;color:#fff;padding:12px 26px;border-radius:99px;font-weight:700;font-size:.88rem;text-decoration:none;font-family:Montserrat,sans-serif;white-space:nowrap;height:fit-content;margin-top:8px">Ver más →</a></div>
+<p style="font-size:.95rem;color:rgba(255,255,255,.55);line-height:1.8;max-width:560px;margin-bottom:52px">Financia tu estancia en el exterior mientras perfeccionas tu inglés o alemán. Programas formativos con permisos de trabajo legales y soporte garantizado.</p>
+
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:22px;margin-bottom:52px">
+  <div style="background:rgba(255,255,255,.04);border:1px solid rgba(0,141,218,.2);border-radius:22px;padding:32px;transition:all .35s" onmouseover="this.style.background='rgba(0,141,218,.08)'" onmouseout="this.style.background='rgba(255,255,255,.04)'">
+    <div style="font-size:2rem;margin-bottom:12px">🇲🇹</div>
+    <h3 style="font-family:Montserrat,sans-serif;font-size:1.2rem;font-weight:700;color:#fff;margin-bottom:8px">Malta</h3>
+    <p style="font-size:.8rem;color:rgba(255,255,255,.5);line-height:1.7;margin-bottom:16px">Estudia inglés rodeado de playas mediterráneas. Trabaja legalmente desde la semana 13. €700–€950/mes.</p>
+    <a href="https://wa.me/593983234334?text=Hola,%20quiero%20informacion%20sobre%20Malta" target="_blank" style="display:inline-flex;align-items:center;gap:6px;background:#008DDA;color:#fff;padding:9px 18px;border-radius:99px;font-size:.78rem;font-weight:600;text-decoration:none">Quiero ir a Malta →</a>
+  </div>
+  <div style="background:rgba(255,255,255,.04);border:1px solid rgba(0,141,218,.2);border-radius:22px;padding:32px;transition:all .35s" onmouseover="this.style.background='rgba(0,141,218,.08)'" onmouseout="this.style.background='rgba(255,255,255,.04)'">
+    <div style="font-size:2rem;margin-bottom:12px">🇮🇪</div>
+    <h3 style="font-family:Montserrat,sans-serif;font-size:1.2rem;font-weight:700;color:#fff;margin-bottom:8px">Irlanda</h3>
+    <p style="font-size:.8rem;color:rgba(255,255,255,.5);line-height:1.7;margin-bottom:16px">25 semanas de inglés con visa de estudio y trabajo automática. Trabaja medio tiempo. €1,100–€1,400/mes.</p>
+    <a href="https://wa.me/593983234334?text=Hola,%20quiero%20informacion%20sobre%20Irlanda" target="_blank" style="display:inline-flex;align-items:center;gap:6px;background:#008DDA;color:#fff;padding:9px 18px;border-radius:99px;font-size:.78rem;font-weight:600;text-decoration:none">Descubrir Irlanda →</a>
+  </div>
+  <div style="background:rgba(255,255,255,.04);border:1px solid rgba(0,141,218,.2);border-radius:22px;padding:32px;transition:all .35s" onmouseover="this.style.background='rgba(0,141,218,.08)'" onmouseout="this.style.background='rgba(255,255,255,.04)'">
+    <div style="font-size:2rem;margin-bottom:12px">🇦🇺</div>
+    <h3 style="font-family:Montserrat,sans-serif;font-size:1.2rem;font-weight:700;color:#fff;margin-bottom:8px">Australia</h3>
+    <p style="font-size:.8rem;color:rgba(255,255,255,.5);line-height:1.7;margin-bottom:16px">Uno de los salarios mínimos más altos del mundo. Visa de estudiante con permiso de trabajo desde el día 1.</p>
+    <a href="https://wa.me/593983234334?text=Hola,%20quiero%20informacion%20sobre%20Australia" target="_blank" style="display:inline-flex;align-items:center;gap:6px;background:#008DDA;color:#fff;padding:9px 18px;border-radius:99px;font-size:.78rem;font-weight:600;text-decoration:none">Planificar Australia →</a>
+  </div>
+  <div style="background:rgba(255,255,255,.04);border:1px solid rgba(0,141,218,.2);border-radius:22px;padding:32px;transition:all .35s" onmouseover="this.style.background='rgba(0,141,218,.08)'" onmouseout="this.style.background='rgba(255,255,255,.04)'">
+    <div style="font-size:2rem;margin-bottom:12px">🇦🇪</div>
+    <h3 style="font-family:Montserrat,sans-serif;font-size:1.2rem;font-weight:700;color:#fff;margin-bottom:8px">Dubái</h3>
+    <p style="font-size:.8rem;color:rgba(255,255,255,.5);line-height:1.7;margin-bottom:16px">Visados con permisos de trabajo sin restricciones. Ciudad futurista 85% internacional. $900–$1,300 USD/mes.</p>
+    <a href="https://wa.me/593983234334?text=Hola,%20quiero%20informacion%20sobre%20Dubai" target="_blank" style="display:inline-flex;align-items:center;gap:6px;background:#008DDA;color:#fff;padding:9px 18px;border-radius:99px;font-size:.78rem;font-weight:600;text-decoration:none">Cotizar Dubái →</a>
+  </div>
+  <div style="background:rgba(255,255,255,.04);border:1px solid rgba(0,141,218,.2);border-radius:22px;padding:32px;transition:all .35s" onmouseover="this.style.background='rgba(0,141,218,.08)'" onmouseout="this.style.background='rgba(255,255,255,.04)'">
+    <div style="font-size:2rem;margin-bottom:12px">🇺🇸🇨🇦</div>
+    <h3 style="font-family:Montserrat,sans-serif;font-size:1.2rem;font-weight:700;color:#fff;margin-bottom:8px">USA & Canadá</h3>
+    <p style="font-size:.8rem;color:rgba(255,255,255,.5);line-height:1.7;margin-bottom:16px">Work & Travel USA para universitarios. Co-Op Canadá: estudia y trabaja en programas técnicos con pasantías remuneradas.</p>
+    <a href="https://wa.me/593983234334?text=Hola,%20quiero%20informacion%20sobre%20Work%20and%20Travel" target="_blank" style="display:inline-flex;align-items:center;gap:6px;background:#008DDA;color:#fff;padding:9px 18px;border-radius:99px;font-size:.78rem;font-weight:600;text-decoration:none">Ver opciones →</a>
+  </div>
+  <div style="background:rgba(255,255,255,.04);border:1px solid rgba(0,141,218,.2);border-radius:22px;padding:32px;transition:all .35s" onmouseover="this.style.background='rgba(0,141,218,.08)'" onmouseout="this.style.background='rgba(255,255,255,.04)'">
+    <div style="font-size:2rem;margin-bottom:12px">🏡</div>
+    <h3 style="font-family:Montserrat,sans-serif;font-size:1.2rem;font-weight:700;color:#fff;margin-bottom:8px">Au Pair USA & Alemania</h3>
+    <p style="font-size:.8rem;color:rgba(255,255,255,.5);line-height:1.7;margin-bottom:16px">Alojamiento y comida cubiertos. Estipendio semanal + bono educativo. El trampolín ideal para quedarte en Europa.</p>
+    <a href="https://wa.me/593983234334?text=Hola,%20quiero%20informacion%20sobre%20Au%20Pair" target="_blank" style="display:inline-flex;align-items:center;gap:6px;background:#008DDA;color:#fff;padding:9px 18px;border-radius:99px;font-size:.78rem;font-weight:600;text-decoration:none">Saber más →</a>
+  </div>
+</div>
+
+<div style="background:linear-gradient(135deg,#006DB1,#3BA7DF);border-radius:22px;padding:42px;text-align:center">
+  <h3 style="font-family:Montserrat,sans-serif;font-size:1.8rem;font-weight:900;color:#fff;margin-bottom:12px">¿Quieres viajar, trabajar y financiar tu aventura?</h3>
+  <p style="font-size:.9rem;color:rgba(255,255,255,.8);margin-bottom:24px;max-width:500px;margin-left:auto;margin-right:auto">En Experience Connect estructuramos tu perfil, gestionamos tu carta de aceptación y preparamos tu carpeta de visado.</p>
+  <a href="https://wa.me/593983234334?text=Hola,%20quiero%20asesoría%20de%20Work%20and%20Travel" target="_blank" style="display:inline-flex;align-items:center;gap:9px;background:#fff;color:#006DB1;padding:15px 32px;border-radius:99px;font-weight:700;font-size:.95rem;text-decoration:none">Agenda tu Asesoría de Viaje y Trabajo →</a>
+</div>
+</div>
+
+    </section>
+    <section id="visados" style="padding:100px 5%;background:#F8FBFF;position:relative">
+<div style="max-width:1360px;margin:0 auto">
+<div style="display:inline-flex;align-items:center;gap:8px;font-family:DM Mono,monospace;font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:#008DDA;margin-bottom:12px"><span style="width:22px;height:1.5px;background:#008DDA;border-radius:99px;display:inline-block"></span>Servicios Migratorios</div>
+<div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:16px"><h2 style="font-family:Montserrat,sans-serif;font-size:clamp(2.2rem,4vw,4rem);font-weight:900;color:#0A1628;line-height:.93;letter-spacing:-.03em;margin-bottom:14px">Tu puente legal<br><span style="color:#008DDA;font-style:italic">hacia el mundo</span></h2><a href="visados.html" style="display:inline-flex;align-items:center;gap:8px;background:#008DDA;color:#fff;padding:12px 26px;border-radius:99px;font-weight:700;font-size:.88rem;text-decoration:none;font-family:Montserrat,sans-serif;white-space:nowrap;height:fit-content;margin-top:8px">Ver más →</a></div>
+<p style="font-size:.95rem;color:#4A6080;line-height:1.8;max-width:560px;margin-bottom:52px">Simplificamos los procesos migratorios más complejos. Te acompañamos en la obtención de visados de estudio y residencia.</p>
+
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:22px;margin-bottom:52px">
+  <div style="background:#fff;border:1.5px solid rgba(0,141,218,.1);border-radius:22px;padding:36px;box-shadow:0 8px 32px rgba(0,141,218,.06)">
+    <div style="font-size:2rem;margin-bottom:16px">🇺🇸</div>
+    <h3 style="font-family:Montserrat,sans-serif;font-size:1.15rem;font-weight:700;color:#0A1628;margin-bottom:10px">Visados USA</h3>
+    <ul style="list-style:none;padding:0;margin:0 0 20px">
+      <li style="font-size:.82rem;color:#4A6080;padding:6px 0;border-bottom:1px solid rgba(0,0,0,.05);display:flex;align-items:center;gap:8px"><span style="color:#008DDA">✓</span> Visa F-1 Estudiante</li>
+      <li style="font-size:.82rem;color:#4A6080;padding:6px 0;border-bottom:1px solid rgba(0,0,0,.05);display:flex;align-items:center;gap:8px"><span style="color:#008DDA">✓</span> Visa J-1 Intercambio</li>
+      <li style="font-size:.82rem;color:#4A6080;padding:6px 0;border-bottom:1px solid rgba(0,0,0,.05);display:flex;align-items:center;gap:8px"><span style="color:#008DDA">✓</span> Preparación entrevista consular DS-160</li>
+      <li style="font-size:.82rem;color:#4A6080;padding:6px 0;display:flex;align-items:center;gap:8px"><span style="color:#008DDA">✓</span> Minimizamos riesgo de rechazo</li>
+    </ul>
+    <a href="https://wa.me/593983234334?text=Hola,%20quiero%20tramitar%20visa%20para%20USA" target="_blank" style="display:inline-flex;align-items:center;gap:6px;background:#008DDA;color:#fff;padding:10px 20px;border-radius:99px;font-size:.8rem;font-weight:600;text-decoration:none">Iniciar trámite →</a>
+  </div>
+  <div style="background:#fff;border:1.5px solid rgba(0,141,218,.1);border-radius:22px;padding:36px;box-shadow:0 8px 32px rgba(0,141,218,.06)">
+    <div style="font-size:2rem;margin-bottom:16px">🇪🇺</div>
+    <h3 style="font-family:Montserrat,sans-serif;font-size:1.15rem;font-weight:700;color:#0A1628;margin-bottom:10px">Visados Schengen Europa</h3>
+    <ul style="list-style:none;padding:0;margin:0 0 20px">
+      <li style="font-size:.82rem;color:#4A6080;padding:6px 0;border-bottom:1px solid rgba(0,0,0,.05);display:flex;align-items:center;gap:8px"><span style="color:#008DDA">✓</span> España, Alemania, Italia, Portugal, Rep. Checa</li>
+      <li style="font-size:.82rem;color:#4A6080;padding:6px 0;border-bottom:1px solid rgba(0,0,0,.05);display:flex;align-items:center;gap:8px"><span style="color:#008DDA">✓</span> Visados Larga Duración Tipo D</li>
+      <li style="font-size:.82rem;color:#4A6080;padding:6px 0;border-bottom:1px solid rgba(0,0,0,.05);display:flex;align-items:center;gap:8px"><span style="color:#008DDA">✓</span> Cuenta bloqueada Alemania (Sperrkonto)</li>
+      <li style="font-size:.82rem;color:#4A6080;padding:6px 0;display:flex;align-items:center;gap:8px"><span style="color:#008DDA">✓</span> Seguro médico €30,000 cobertura Schengen</li>
+    </ul>
+    <a href="https://wa.me/593983234334?text=Hola,%20quiero%20tramitar%20visa%20para%20Europa" target="_blank" style="display:inline-flex;align-items:center;gap:6px;background:#008DDA;color:#fff;padding:10px 20px;border-radius:99px;font-size:.8rem;font-weight:600;text-decoration:none">Iniciar trámite →</a>
+  </div>
+  <div style="background:#fff;border:1.5px solid rgba(0,141,218,.1);border-radius:22px;padding:36px;box-shadow:0 8px 32px rgba(0,141,218,.06)">
+    <div style="font-size:2rem;margin-bottom:16px">🎓</div>
+    <h3 style="font-family:Montserrat,sans-serif;font-size:1.15rem;font-weight:700;color:#0A1628;margin-bottom:10px">Visados de Estudio</h3>
+    <ul style="list-style:none;padding:0;margin:0 0 20px">
+      <li style="font-size:.82rem;color:#4A6080;padding:6px 0;border-bottom:1px solid rgba(0,0,0,.05);display:flex;align-items:center;gap:8px"><span style="color:#008DDA">✓</span> Bachilleres: carta aceptación + fondos</li>
+      <li style="font-size:.82rem;color:#4A6080;padding:6px 0;border-bottom:1px solid rgba(0,0,0,.05);display:flex;align-items:center;gap:8px"><span style="color:#008DDA">✓</span> Profesionales y médicos: posgrados</li>
+      <li style="font-size:.82rem;color:#4A6080;padding:6px 0;border-bottom:1px solid rgba(0,0,0,.05);display:flex;align-items:center;gap:8px"><span style="color:#008DDA">✓</span> Extensiones de residencia post-estudios</li>
+      <li style="font-size:.82rem;color:#4A6080;padding:6px 0;display:flex;align-items:center;gap:8px"><span style="color:#008DDA">✓</span> Coordinamos admisión con citas consulares</li>
+    </ul>
+    <a href="https://wa.me/593983234334?text=Hola,%20quiero%20tramitar%20visa%20de%20estudio" target="_blank" style="display:inline-flex;align-items:center;gap:6px;background:#008DDA;color:#fff;padding:10px 20px;border-radius:99px;font-size:.8rem;font-weight:600;text-decoration:none">Iniciar trámite →</a>
+  </div>
+</div>
+
+<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-bottom:40px">
+  <div style="text-align:center;padding:28px;background:#fff;border-radius:18px;border:1px solid rgba(0,141,218,.1)">
+    <div style="font-size:2rem;margin-bottom:10px">⚖️</div>
+    <h4 style="font-family:Montserrat,sans-serif;font-weight:700;color:#0A1628;margin-bottom:8px;font-size:.95rem">Estilo de Vida</h4>
+    <p style="font-size:.78rem;color:#4A6080;line-height:1.6">Te asesoramos sobre horas de trabajo permitidas mientras estudias en España, Alemania y más.</p>
+  </div>
+  <div style="text-align:center;padding:28px;background:#fff;border-radius:18px;border:1px solid rgba(0,141,218,.1)">
+    <div style="font-size:2rem;margin-bottom:10px">💰</div>
+    <h4 style="font-family:Montserrat,sans-serif;font-weight:700;color:#0A1628;margin-bottom:8px;font-size:.95rem">Transparencia</h4>
+    <p style="font-size:.78rem;color:#4A6080;line-height:1.6">Analizamos requisitos de solvencia por embajada. €750–€1,100/mes según destino europeo.</p>
+  </div>
+  <div style="text-align:center;padding:28px;background:#fff;border-radius:18px;border:1px solid rgba(0,141,218,.1)">
+    <div style="font-size:2rem;margin-bottom:10px">🔒</div>
+    <h4 style="font-family:Montserrat,sans-serif;font-weight:700;color:#0A1628;margin-bottom:8px;font-size:.95rem">Garantía</h4>
+    <p style="font-size:.78rem;color:#4A6080;line-height:1.6">Trabajamos bajo estrictos controles de confidencialidad. Cada documento 100% legítimo.</p>
+  </div>
+</div>
+
+<div style="background:linear-gradient(135deg,#006DB1,#0A1628);border-radius:22px;padding:42px;text-align:center">
+  <h3 style="font-family:Montserrat,sans-serif;font-size:1.8rem;font-weight:900;color:#fff;margin-bottom:12px">Un error en tu trámite puede costar meses de espera</h3>
+  <p style="font-size:.9rem;color:rgba(255,255,255,.7);margin-bottom:24px;max-width:500px;margin-left:auto;margin-right:auto">No dejes tu visado al azar. Nuestro equipo legal evalúa la viabilidad de tu caso de forma personalizada.</p>
+  <button onclick="abrirVIS()" style="display:inline-flex;align-items:center;gap:9px;background:#fff;color:#006DB1;padding:15px 32px;border-radius:99px;font-weight:700;font-size:.95rem;border:none;cursor:pointer;font-family:Montserrat">Iniciar Trámite de Visado Seguro →</button>
+</div>
+</div>
+
+    </section>
+    <section id="comunidad" style="padding:100px 5%;background:linear-gradient(160deg,#050D1A,#0A1628);position:relative;overflow:hidden">
+<div style="max-width:1360px;margin:0 auto">
+
+<div style="display:inline-flex;align-items:center;gap:8px;font-family:DM Mono,monospace;font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:#3BA7DF;margin-bottom:12px"><span style="width:22px;height:1.5px;background:#3BA7DF;border-radius:99px;display:inline-block"></span>Comunidad</div>
+<h2 style="font-family:Montserrat,sans-serif;font-size:clamp(2.2rem,4vw,4rem);font-weight:900;color:#fff;line-height:.93;letter-spacing:-.03em;margin-bottom:14px">Pregunta, comparte<br><span style="color:#3BA7DF;font-style:italic">y conecta</span></h2>
+<p style="font-size:.95rem;color:rgba(255,255,255,.5);line-height:1.8;max-width:520px;margin-bottom:48px">¿Tienes dudas sobre estudiar en el exterior? La comunidad Experience Connect te responde. Comparte tu experiencia o haz tu pregunta.</p>
+
+<!-- Formulario nueva pregunta -->
+<div style="background:rgba(255,255,255,.04);border:1.5px solid rgba(0,141,218,.2);border-radius:22px;padding:28px;margin-bottom:36px">
+  <div style="display:flex;align-items:center;gap:14px;margin-bottom:16px">
+    <div style="width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,#006DB1,#3BA7DF);display:flex;align-items:center;justify-content:center;font-weight:700;color:#fff;font-size:1.1rem;flex-shrink:0">?</div>
+    <input id="blogNombre" type="text" placeholder="Tu nombre" style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:10px 14px;color:#fff;font-family:Montserrat,sans-serif;font-size:.85rem;outline:none;width:200px">
+    <select id="blogDestino" style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:10px 14px;color:#fff;font-family:Montserrat,sans-serif;font-size:.85rem;outline:none">
+      <option value="">🌍 Destino...</option>
+      <option>🇪🇸 España</option>
+      <option>🇩🇪 Alemania</option>
+      <option>🇮🇹 Italia</option>
+      <option>🇦🇷 Argentina</option>
+      <option>🇵🇹 Portugal</option>
+      <option>🇨🇿 Rep. Checa</option>
+      <option>✈️ General</option>
+    </select>
+  </div>
+  <textarea id="blogTexto" placeholder="¿Cuál es tu pregunta o experiencia? Escribe aquí..." style="width:100%;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:14px;padding:14px;color:#fff;font-family:Montserrat,sans-serif;font-size:.88rem;outline:none;resize:none;min-height:90px;margin-bottom:14px;box-sizing:border-box"></textarea>
+  <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px">
+    <span style="font-size:.75rem;color:rgba(255,255,255,.3);font-family:DM Mono,monospace">Experience Connect Community</span>
+    <button onclick="publicarPost()" style="background:linear-gradient(135deg,#006DB1,#3BA7DF);color:#fff;border:none;border-radius:99px;padding:11px 24px;font-family:Montserrat,sans-serif;font-weight:700;font-size:.85rem;cursor:pointer">Publicar ✦</button>
+  </div>
+</div>
+
+<!-- Posts -->
+<div id="blogPosts" style="display:flex;flex-direction:column;gap:16px"></div>
+
+<div style="text-align:center;margin-top:32px">
+  <a href="https://wa.me/593983234334?text=Hola,%20tengo%20una%20pregunta%20sobre%20estudiar%20en%20el%20exterior" target="_blank" style="display:inline-flex;align-items:center;gap:8px;background:var(--gr);color:#fff;padding:13px 28px;border-radius:99px;font-weight:600;font-size:.88rem;text-decoration:none">
+    <svg viewBox="0 0 24 24" fill="white" width="18" height="18"><path d="M3 21l1.65-3.8a9 9 0 113.4 2.9L3 21"/><path d="M9 10c0 5 3.5 7.5 7.5 6" stroke="white" fill="none" stroke-width="1.5" stroke-linecap="round"/></svg>
+    Pregunta directamente por WhatsApp
+  </a>
+</div>
+
+</div>
+</section>
+<section id="testimonios" class="sf" style="background:linear-gradient(rgba(0,102,179,.96),rgba(15,31,56,.97)),url('https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=1600&q=80') center/cover no-repeat"><div class="in">
+  <div class="rv"><div class="slbl">Historias reales</div><h2 class="sh2">Lo que dicen <em>nuestros estudiantes</em></h2><p class="sbody">Más de 500 estudiantes ya transformaron su vida académica con nuestra asesoría personalizada.</p></div>
+    <div class="tgrid">
+    <div class="tcard rv"><div class="tstars"><svg viewBox="0 0 14 14" fill="#F59E0B"><polygon points="7,1 9,5 13,5.5 10,8.5 10.8,13 7,10.8 3.2,13 4,8.5 1,5.5 5,5"/></svg><svg viewBox="0 0 14 14" fill="#F59E0B"><polygon points="7,1 9,5 13,5.5 10,8.5 10.8,13 7,10.8 3.2,13 4,8.5 1,5.5 5,5"/></svg><svg viewBox="0 0 14 14" fill="#F59E0B"><polygon points="7,1 9,5 13,5.5 10,8.5 10.8,13 7,10.8 3.2,13 4,8.5 1,5.5 5,5"/></svg><svg viewBox="0 0 14 14" fill="#F59E0B"><polygon points="7,1 9,5 13,5.5 10,8.5 10.8,13 7,10.8 3.2,13 4,8.5 1,5.5 5,5"/></svg><svg viewBox="0 0 14 14" fill="#F59E0B"><polygon points="7,1 9,5 13,5.5 10,8.5 10.8,13 7,10.8 3.2,13 4,8.5 1,5.5 5,5"/></svg></div><p class="tq">"Gracias a Experience Connect pude iniciar mi proyecto de estudiar en Argentina con seguridad y confianza. Acompañamiento constante en cada etapa del proceso. Recomiendo totalmente su trabajo y compromiso."</p><div class="tp"><div class="tav">JT</div><div><div class="tname">Jhair Torres</div><div class="tinfo">🇦🇷 Ingeniería Civil · Univ. Nacional de La Plata</div></div></div></div>
+    <div class="tcard rv" style="transition-delay:.1s"><div class="tstars"><svg viewBox="0 0 14 14" fill="#F59E0B"><polygon points="7,1 9,5 13,5.5 10,8.5 10.8,13 7,10.8 3.2,13 4,8.5 1,5.5 5,5"/></svg><svg viewBox="0 0 14 14" fill="#F59E0B"><polygon points="7,1 9,5 13,5.5 10,8.5 10.8,13 7,10.8 3.2,13 4,8.5 1,5.5 5,5"/></svg><svg viewBox="0 0 14 14" fill="#F59E0B"><polygon points="7,1 9,5 13,5.5 10,8.5 10.8,13 7,10.8 3.2,13 4,8.5 1,5.5 5,5"/></svg><svg viewBox="0 0 14 14" fill="#F59E0B"><polygon points="7,1 9,5 13,5.5 10,8.5 10.8,13 7,10.8 3.2,13 4,8.5 1,5.5 5,5"/></svg><svg viewBox="0 0 14 14" fill="#F59E0B"><polygon points="7,1 9,5 13,5.5 10,8.5 10.8,13 7,10.8 3.2,13 4,8.5 1,5.5 5,5"/></svg></div><p class="tq">"Todo el proceso fue muy claro y seguro. Lo que más destaco es el acompañamiento antes, durante y después. Hoy estudio Odontología en La Plata y estoy muy agradecido."</p><div class="tp"><div class="tav">LC</div><div><div class="tname">Lennin Carrillo</div><div class="tinfo">🇦🇷 Odontología · Univ. Nacional de La Plata</div></div></div></div>
+    <div class="tcard rv" style="transition-delay:.2s"><div class="tstars"><svg viewBox="0 0 14 14" fill="#F59E0B"><polygon points="7,1 9,5 13,5.5 10,8.5 10.8,13 7,10.8 3.2,13 4,8.5 1,5.5 5,5"/></svg><svg viewBox="0 0 14 14" fill="#F59E0B"><polygon points="7,1 9,5 13,5.5 10,8.5 10.8,13 7,10.8 3.2,13 4,8.5 1,5.5 5,5"/></svg><svg viewBox="0 0 14 14" fill="#F59E0B"><polygon points="7,1 9,5 13,5.5 10,8.5 10.8,13 7,10.8 3.2,13 4,8.5 1,5.5 5,5"/></svg><svg viewBox="0 0 14 14" fill="#F59E0B"><polygon points="7,1 9,5 13,5.5 10,8.5 10.8,13 7,10.8 3.2,13 4,8.5 1,5.5 5,5"/></svg><svg viewBox="0 0 14 14" fill="#F59E0B"><polygon points="7,1 9,5 13,5.5 10,8.5 10.8,13 7,10.8 3.2,13 4,8.5 1,5.5 5,5"/></svg></div><p class="tq">"Experience Connect estuvo presente en todo momento para encontrar la mejor alternativa. Hoy estudio Odontología en la Universidad de Buenos Aires desde marzo de 2026."</p><div class="tp"><div class="tav">LC</div><div><div class="tname">Liz Cueva</div><div class="tinfo">🇦🇷 Odontología · Universidad de Buenos Aires</div></div></div></div>
+    <div class="tcard rv" style="transition-delay:.3s"><div class="tstars"><svg viewBox="0 0 14 14" fill="#F59E0B"><polygon points="7,1 9,5 13,5.5 10,8.5 10.8,13 7,10.8 3.2,13 4,8.5 1,5.5 5,5"/></svg><svg viewBox="0 0 14 14" fill="#F59E0B"><polygon points="7,1 9,5 13,5.5 10,8.5 10.8,13 7,10.8 3.2,13 4,8.5 1,5.5 5,5"/></svg><svg viewBox="0 0 14 14" fill="#F59E0B"><polygon points="7,1 9,5 13,5.5 10,8.5 10.8,13 7,10.8 3.2,13 4,8.5 1,5.5 5,5"/></svg><svg viewBox="0 0 14 14" fill="#F59E0B"><polygon points="7,1 9,5 13,5.5 10,8.5 10.8,13 7,10.8 3.2,13 4,8.5 1,5.5 5,5"/></svg><svg viewBox="0 0 14 14" fill="#F59E0B"><polygon points="7,1 9,5 13,5.5 10,8.5 10.8,13 7,10.8 3.2,13 4,8.5 1,5.5 5,5"/></svg></div><p class="tq">"En Experience Connect encontramos un equipo profesional pendiente de cada detalle. La atención personalizada y el acompañamiento nos brindaron tranquilidad desde el inicio hasta la llegada."</p><div class="tp"><div class="tav">BO</div><div><div class="tname">Byron Obando</div><div class="tinfo">🇦🇷 Padre de familia · Psicología UNLP 2025</div></div></div></div>
+    <div class="tcard rv" style="transition-delay:.4s"><div class="tstars"><svg viewBox="0 0 14 14" fill="#F59E0B"><polygon points="7,1 9,5 13,5.5 10,8.5 10.8,13 7,10.8 3.2,13 4,8.5 1,5.5 5,5"/></svg><svg viewBox="0 0 14 14" fill="#F59E0B"><polygon points="7,1 9,5 13,5.5 10,8.5 10.8,13 7,10.8 3.2,13 4,8.5 1,5.5 5,5"/></svg><svg viewBox="0 0 14 14" fill="#F59E0B"><polygon points="7,1 9,5 13,5.5 10,8.5 10.8,13 7,10.8 3.2,13 4,8.5 1,5.5 5,5"/></svg><svg viewBox="0 0 14 14" fill="#F59E0B"><polygon points="7,1 9,5 13,5.5 10,8.5 10.8,13 7,10.8 3.2,13 4,8.5 1,5.5 5,5"/></svg><svg viewBox="0 0 14 14" fill="#F59E0B"><polygon points="7,1 9,5 13,5.5 10,8.5 10.8,13 7,10.8 3.2,13 4,8.5 1,5.5 5,5"/></svg></div><p class="tq">"Experience Connect fue clave para mi homologación y gestionar mis pruebas PCE ante la UNED. Saber que todo avanza con paso firme me da tranquilidad para enfocarme en mis estudios."</p><div class="tp"><div class="tav">GE</div><div><div class="tname">Génesis Estrella</div><div class="tinfo">🇪🇸 Medicina · Universidad Complutense de Madrid</div></div></div></div>
+  </div>
+  <div class="trow"><button onclick="abrirModal()" class="bbl">Quiero mi historia de éxito</button><a href="https://wa.me/593983234334?text=Hola%2C%20quiero%20conocer%20m%C3%A1s%20testimonios." target="_blank" class="bwa"><svg viewBox="0 0 24 24" fill="white"><path d="M3 21l1.65-3.8a9 9 0 113.4 2.9L3 21"/><path d="M9 10c0 5 3.5 7.5 7.5 6" stroke="white" fill="none" stroke-width="1.5" stroke-linecap="round"/></svg>Ver más en Instagram</a></div>
+  <p class="tnote" style="margin-top:14px">+50 testimonios reales en <a href="https://www.instagram.com/experience.connect" target="_blank">@experience.connect</a></p>
+</div></section>
+<section id="galeria" class="sec" style="background:var(--cr)">
+  <div class="rv"><div class="slbl">Galería</div><h2 class="sh2">Momentos que <em>cambian vidas</em></h2><p class="sbody">Estudiantes, universidades y el día a día de vivir tu sueño en el exterior.</p></div>
+  <div class="ggrid rv" style="transition-delay:.1s">
+    <div class="gi"><div class="gin" style="background:url('images/galeria-1.jpg') center/cover"></div><div class="giov"></div><div class="gilbl">Experiencias Internacionales</div></div>
+    <div class="gi"><div class="gin" style="background:url('images/galeria-2.jpg') center/cover"></div><div class="giov"></div><div class="gilbl">Graduaciones</div></div>
+    <div class="gi"><div class="gin" style="background:url('images/galeria-3.jpg') center/cover"></div><div class="giov"></div><div class="gilbl">Universidades</div></div>
+    <div class="gi"><div class="gin" style="background:url('images/galeria-4.jpg') center/cover"></div><div class="giov"></div><div class="gilbl">Viajes</div></div>
+    <div class="gi"><div class="gin" style="background:url('images/galeria-5.jpg') center/cover"></div><div class="giov"></div><div class="gilbl">Estudiantes</div></div>
+    <div class="gi"><div class="gin" style="background:url('images/galeria-6.jpg') center/cover"></div><div class="giov"></div><div class="gilbl">Procesos</div></div>
+    <div class="gi"><div class="gin" style="background:url('images/galeria-7.jpg') center/cover"></div><div class="giov"></div><div class="gilbl">Comunidad</div></div>
+    <div class="gi"><div class="gin" style="background:url('images/galeria-8.jpg') center/cover"></div><div class="giov"></div><div class="gilbl">Aventuras</div></div>
+  </div>
+  <p class="gnote rv" style="transition-delay:.15s">Para poner tus fotos: reemplaza el fondo de color por background:url('../images/foto.jpg') center/cover</p>
+</section>
+<section id="cierre"><div class="cb1"></div><div class="cb2"></div><div class="cb3"></div>
+  <div class="ci rv">
+    <div class="cilbl">Experience Connect · Ecuador</div>
+    <h2 class="cih2">Tu futuro<br>comienza <em>hoy mismo</em></h2>
+    <p class="cip">No esperes el momento perfecto. Más de 500 estudiantes ya dieron ese paso con nosotros.</p>
+    <div class="cibtns">
+      <button onclick="abrirModal()" class="cibw">Agendar asesoría gratuita</button>
+      <a href="https://wa.me/593983234334?text=Hola%2C%20vengo%20de%20la%20web%20de%20Experience%20Connect." target="_blank" class="cibwa"><svg viewBox="0 0 24 24" fill="white"><path d="M3 21l1.65-3.8a9 9 0 113.4 2.9L3 21"/><path d="M9 10c0 5 3.5 7.5 7.5 6" stroke="white" fill="none" stroke-width="1.5" stroke-linecap="round"/></svg>Escribir al WhatsApp</a>
+    </div>
+    <div class="cimeta"><div class="cim">Respuesta en 24 horas</div><div class="cim">Sin costo inicial</div><div class="cim">+500 estudiantes exitosos</div><div class="cim">10+ países disponibles</div></div>
+  </div>
+</section>
+
+<footer>
+  <div class="ftg">
+    <div>
+      <div class="ftbr"><div class="ftlm"><svg viewBox="0 0 17 17" fill="none"><circle cx="8.5" cy="8.5" r="6.5" stroke="white" stroke-width="1.3"/><path d="M2.5 8.5H14.5M8.5 2.5C6.5 5 6.5 12 8.5 14.5M8.5 2.5C10.5 5 10.5 12 8.5 14.5" stroke="white" stroke-width="1.1"/></svg></div><div class="ftnm">Experience Connect</div></div>
+      <div class="ftsb">Travel · Study · Work</div>
+      <p class="fttg">Conectamos tu talento con las mejores universidades del mundo.</p>
+      <div class="ftsc">
+        <a class="fts" href="https://www.instagram.com/experience.connect" target="_blank"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.2" fill="white" stroke="none"/></svg></a>
+        <a class="fts" href="https://www.facebook.com/share/18eC2YorDv/" target="_blank"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg></a>
+        <a class="fts" href="https://www.tiktok.com/@experienceconnect" target="_blank"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><path d="M9 12a4 4 0 104 4V4a5 5 0 005 5"/></svg></a>
+        <a class="fts" href="https://wa.me/593983234334" target="_blank"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><path d="M3 21l1.65-3.8a9 9 0 113.4 2.9L3 21"/><path d="M9 10c0 5 3.5 7.5 7.5 6" stroke-linecap="round"/></svg></a>
+      </div>
+      <a href="https://wa.me/593983234334" target="_blank" class="ftwb"><svg viewBox="0 0 24 24" fill="#25D366"><path d="M3 21l1.65-3.8a9 9 0 113.4 2.9L3 21"/><path d="M9 10c0 5 3.5 7.5 7.5 6" stroke="#25D366" fill="none" stroke-width="1.5" stroke-linecap="round"/></svg><div><strong>+593 98 323 4334</strong><span>Escríbenos en WhatsApp</span></div></a>
+    </div>
+    <div class="ftcol"><h5>Destinos</h5><ul><li><a href="destinos/espana.html">🇪🇸 España</a></li><li><a href="destinos/italia.html">🇮🇹 Italia</a></li><li><a href="destinos/alemania.html">🇩🇪 Alemania</a></li><li><a href="destinos/argentina.html">🇦🇷 Argentina</a></li><li><a href="destinos/portugal.html">🇵🇹 Portugal</a></li><li><a href="destinos/republica-checa.html">🇨🇿 Rep. Checa</a></li></ul></div>
+    <div class="ftcol"><h5>Servicios</h5><ul><li><a href="servicios.html">Grado Internacional</a></li><li><a href="servicios.html">Posgrados</a></li><li><a href="servicios.html">Especialidades Médicas</a></li><li><a href="servicios.html">Asesoría Migratoria</a></li><li><a href="proceso.html">Cómo funciona</a></li><li><a href="javascript:void(0)" onclick="abrirModal()">Agendar asesoría</a></li></ul></div>
+    <div class="ftcol"><h5>Contacto</h5><ul class="ftct"><li><a href="mailto:asesoria@experienceconnectec.com">asesoria@experienceconnectec.com</a></li><li><a href="mailto:experienceconnectec@gmail.com">experienceconnectec@gmail.com</a></li><li><a href="https://wa.me/593983234334" target="_blank">+593 98 323 4334</a></li><li><a href="https://wa.me/593993528177" target="_blank">+593 99 352 8177</a></li></ul></div>
+  </div>
+  <div class="ftbot"><span class="ftcp">© 2025 Experience Connect. Todos los derechos reservados.</span><span class="ftrf">experienceconnectec.com · <span>Travel · Study · Work</span></span></div>
+</footer>
+
+<div class="waf"><div class="wt">¡Escríbenos y reserva tu programa! 🎓</div><a class="wb" href="https://wa.me/593983234334?text=Hola%2C%20vengo%20de%20la%20web%20de%20Experience%20Connect." target="_blank"><svg viewBox="0 0 24 24" fill="white"><path d="M3 21l1.65-3.8a9 9 0 113.4 2.9L3 21"/><path d="M9 10c0 5 3.5 7.5 7.5 6" stroke="white" fill="none" stroke-width="1.5" stroke-linecap="round"/></svg></a></div>
+
+<!-- MODAL FLOTANTE -->
+<div class="mov" id="mov" onclick="cerrarOut(event)">
+  <div class="mbox" id="mbox">
+    <div class="mh">
+      <div class="mh-top">
+        <div><div class="mh-badge">Asesoría gratuita · Experience Connect</div><div class="mh-title">Agenda tu asesoría</div><div class="mh-sub">Respondemos en menos de 24 horas · Sin costo</div></div>
+        <button class="mclose" onclick="cerrarModal()">✕</button>
+      </div>
+      <div class="msteps">
+        <div class="mstep active" id="ms1"><div class="mstep-n">1</div><span>Perfil</span></div>
+        <div class="mstep-line"></div>
+        <div class="mstep" id="ms2"><div class="mstep-n">2</div><span>Destino</span></div>
+        <div class="mstep-line"></div>
+        <div class="mstep" id="ms3"><div class="mstep-n">3</div><span>Datos</span></div>
+        <div class="mstep-line"></div>
+        <div class="mstep" id="ms4"><div class="mstep-n">✓</div><span>Listo</span></div>
+      </div>
+    </div>
+    <div class="mbody">
+      <div class="mpanel active" id="mp1">
+        <div style="margin-bottom:18px"><div style="font-family:var(--f1);font-size:1.15rem;font-weight:700;color:var(--dk);margin-bottom:4px">¿Cuál es tu perfil?</div><div style="font-size:.8rem;color:var(--mu)">Personalizamos tu asesoría según tu etapa</div></div>
+        <div class="pcards">
+          <div class="psel" onclick="selP(this,'Bachiller / Estudiante')"><div class="psel-chk"><svg viewBox="0 0 10 10" fill="none"><path d="M1.5 5L4 7.5L8.5 2.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="psel-ico">🎓</span><div class="psel-t">Soy Bachiller</div><div class="psel-s">Quiero estudiar mi carrera en el exterior</div></div>
+          <div class="psel" onclick="selP(this,'Profesional / Posgrado')"><div class="psel-chk"><svg viewBox="0 0 10 10" fill="none"><path d="M1.5 5L4 7.5L8.5 2.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="psel-ico">💼</span><div class="psel-t">Soy Profesional</div><div class="psel-s">Busco maestría o especialización</div></div>
+          <div class="psel" onclick="selP(this,'Médico / MIR')"><div class="psel-chk"><svg viewBox="0 0 10 10" fill="none"><path d="M1.5 5L4 7.5L8.5 2.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="psel-ico">🏥</span><div class="psel-t">Soy Médico</div><div class="psel-s">Busco especialidad médica o MIR</div></div>
+          <div class="psel" onclick="selP(this,'Otro')"><div class="psel-chk"><svg viewBox="0 0 10 10" fill="none"><path d="M1.5 5L4 7.5L8.5 2.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="psel-ico">✈️</span><div class="psel-t">Otro</div><div class="psel-s">Tengo otra consulta</div></div>
+        </div>
+        <div class="mbr"><button class="mnext" onclick="irS(2)"><span>Continuar</span><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 8H13M9 4L13 8L9 12"/></svg></button></div>
+      </div>
+      <div class="mpanel" id="mp2">
+        <div style="margin-bottom:18px"><div style="font-family:var(--f1);font-size:1.15rem;font-weight:700;color:var(--dk);margin-bottom:4px">¿A qué país quieres ir?</div><div style="font-size:.8rem;color:var(--mu)">Puedes seleccionar más de uno</div></div>
+        <div class="dgrid2">
+          <div class="dopt" onclick="selD(this,'España')"><span class="dopt-f">🇪🇸</span><div class="dopt-n">España</div></div>
+          <div class="dopt" onclick="selD(this,'Italia')"><span class="dopt-f">🇮🇹</span><div class="dopt-n">Italia</div></div>
+          <div class="dopt" onclick="selD(this,'Alemania')"><span class="dopt-f">🇩🇪</span><div class="dopt-n">Alemania</div></div>
+          <div class="dopt" onclick="selD(this,'Argentina')"><span class="dopt-f">🇦🇷</span><div class="dopt-n">Argentina</div></div>
+          <div class="dopt" onclick="selD(this,'Portugal')"><span class="dopt-f">🇵🇹</span><div class="dopt-n">Portugal</div></div>
+          <div class="dopt" onclick="selD(this,'Rep. Checa')"><span class="dopt-f">🇨🇿</span><div class="dopt-n">Rep. Checa</div></div>
+        </div>
+        <div class="mfg"><label>¿Cuándo planeas viajar?</label><select id="mFecha"><option value="">Selecciona...</option><option>Próximos 3 meses</option><option>En 6 meses</option><option>En 1 año</option><option>Más de 1 año</option></select></div>
+        <div class="mbr"><button class="mback" onclick="irS(1)">← Atrás</button><button class="mnext" onclick="irS(3)"><span>Continuar</span><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 8H13M9 4L13 8L9 12"/></svg></button></div>
+      </div>
+      <div class="mpanel" id="mp3">
+        <div class="urg"><div class="urg-d"></div><div class="urg-t">Quedan 3 espacios disponibles para asesoría esta semana</div></div>
+        <div class="mfrow"><div class="mfg"><label>Nombre completo *</label><input type="text" id="mNom" placeholder="Tu nombre completo"></div><div class="mfg"><label>Edad</label><input type="number" id="mEd" placeholder="25" min="15" max="70"></div></div>
+        <div class="mfrow"><div class="mfg"><label>WhatsApp *</label><input type="tel" id="mWA" placeholder="+593 98 323 4334"></div><div class="mfg"><label>Email</label><input type="email" id="mEM" placeholder="tu@correo.com"></div></div>
+        <div class="mfg"><label>Carrera o programa de interés</label><input type="text" id="mCar" placeholder="Medicina, Ingeniería, MBA..."></div>
+        <div class="mfg"><label>Cuéntanos tus metas (opcional)</label><textarea id="mMsg" placeholder="¿Qué quieres lograr con tu experiencia internacional?"></textarea></div>
+        <div class="mbr"><button class="mback" onclick="irS(2)">← Atrás</button><button class="mnext" onclick="envM()"><span>Enviar y agendar</span><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 8H13M9 4L13 8L9 12"/></svg></button></div>
+        <button class="mwa2" onclick="envWA()"><svg viewBox="0 0 24 24" fill="white"><path d="M3 21l1.65-3.8a9 9 0 113.4 2.9L3 21"/><path d="M9 10c0 5 3.5 7.5 7.5 6" stroke="white" fill="none" stroke-width="1.5" stroke-linecap="round"/></svg>O escríbenos directo por WhatsApp</button>
+      </div>
+      <div class="mpanel" id="mp4">
+        <div class="msuc">
+          <div class="msuc-ic"><svg viewBox="0 0 40 40" fill="none" stroke="#008DDA" stroke-width="2.5"><path d="M6 20L16 30L34 10" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <h3>¡Solicitud enviada! ✈</h3>
+          <p>Un asesor de Experience Connect te contactará en menos de 24 horas. ¡Tu aventura internacional está por comenzar!</p>
+          <div class="msuc-btns">
+            <a href="https://wa.me/593983234334?text=Hola%2C%20acabo%20de%20agendar%20desde%20la%20web%20de%20Experience%20Connect." target="_blank" style="display:inline-flex;align-items:center;gap:8px;background:#25D366;color:#fff;padding:13px 22px;border-radius:99px;font-weight:600;font-size:.88rem;text-decoration:none"><svg viewBox="0 0 24 24" fill="white" width="18" height="18"><path d="M3 21l1.65-3.8a9 9 0 113.4 2.9L3 21"/><path d="M9 10c0 5 3.5 7.5 7.5 6" stroke="white" fill="none" stroke-width="1.5" stroke-linecap="round"/></svg>Confirmar por WhatsApp</a>
+            <button onclick="cerrarModal()" style="padding:13px 22px;border-radius:99px;border:1.5px solid rgba(0,0,0,.1);background:transparent;cursor:pointer;font-size:.88rem;font-weight:600;color:var(--mu);font-family:var(--f2)">Cerrar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+window.addEventListener('scroll',()=>document.getElementById('nav').classList.toggle('scrolled',scrollY>50));
+document.getElementById('ham').addEventListener('click',()=>document.getElementById('mob').classList.add('open'));
+document.getElementById('mobX').addEventListener('click',()=>document.getElementById('mob').classList.remove('open'));
+document.querySelectorAll('.mL').forEach(a=>a.addEventListener('click',()=>document.getElementById('mob').classList.remove('open')));
+const ro=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('in');ro.unobserve(x.target)}});},{threshold:.1});
+document.querySelectorAll('.rv').forEach(el=>ro.observe(el));
+function cnt(id,end,dur){const el=document.getElementById(id);if(!el)return;let v=0;const s=end/60;const iv=setInterval(()=>{v=Math.min(v+s,end);el.textContent=Math.round(v);if(v>=end)clearInterval(iv);},dur/60);}
+const co=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting){cnt('c1',500,1400);cnt('c2',10,1000);cnt('c3',95,1200);cnt("c4",15,900);co.disconnect();}});},{threshold:.6});
+const hl=document.querySelector('.hl');if(hl)co.observe(hl);
+(function(){
+  const hr=document.querySelector('.hr');
+  if(!hr)return;
+  hr.querySelectorAll('canvas').forEach(e=>e.remove());
+  const cv=document.createElement('canvas');
+  cv.style.cssText='position:absolute;inset:0;width:100%;height:100%;cursor:grab;z-index:4';
+  hr.appendChild(cv);
+  const ctx=cv.getContext('2d');
+  let W,H,CX,CY,R,rotY=0.3,rotX=0.1,tRY=0.3,tRX=0.1,drag=false,lx=0,ly=0,mx=-999,my=-999,T=0;
+  function sz(){W=cv.width=hr.offsetWidth;H=cv.height=hr.offsetHeight;CX=W/2;CY=H/2;R=Math.min(W,H)*.36;}
+  sz();window.addEventListener('resize',sz);
+
+  const D=[
+    {la:40.4,lo:-3.7,n:'Madrid',p:'Grado · MIR · Posgrado',c:'#FF6B6B',url:'destinos/espana.html',emoji:'🇪🇸'},
+    {la:52.5,lo:13.4,n:'Berlin',p:'Ingenieria · Medicina',c:'#FFC300',url:'destinos/alemania.html',emoji:'🇩🇪'},
+    {la:41.9,lo:12.5,n:'Roma',p:'Diseno · Arquitectura',c:'#56CFE1',url:'destinos/italia.html',emoji:'🇮🇹'},
+    {la:-34.6,lo:-58.4,n:'Buenos Aires',p:'Medicina · Ciencias',c:'#64DFDF',url:'destinos/argentina.html',emoji:'🇦🇷'},
+    {la:50.1,lo:14.4,n:'Praga',p:'Medicina en Ingles',c:'#C77DFF',url:'destinos/republica-checa.html',emoji:'🇨🇿'},
+    {la:38.7,lo:-9.1,n:'Lisboa',p:'Grado · Europa',c:'#80FFDB',url:'destinos/portugal.html',emoji:'🇵🇹'},
+    {la:-0.2,lo:-78.5,n:'Quito',p:'Ecuador',c:'#FFD700',url:'',emoji:'🇪🇨'},
+  ];
+
+  const stars=Array.from({length:150},()=>({x:Math.random(),y:Math.random(),s:Math.random()*1.2+.2,o:Math.random()*.5+.2,sp:Math.random()*.5+.2}));
+
+  // Cargar imagen de la Tierra
+  const earthImg=new Image();
+  earthImg.src='images/earth.jpg';
+  let earthLoaded=false;
+  earthImg.onload=()=>{earthLoaded=true;};
+
+  function ll3(la,lo,r){
+    const ph=(90-la)*Math.PI/180,th=(lo+180)*Math.PI/180;
+    return{x:-r*Math.sin(ph)*Math.cos(th),y:r*Math.cos(ph),z:r*Math.sin(ph)*Math.sin(th)};
+  }
+  function rot3(p){
+    let x=p.x*Math.cos(rotY)+p.z*Math.sin(rotY),z=-p.x*Math.sin(rotY)+p.z*Math.cos(rotY);
+    let y2=p.y*Math.cos(rotX)-z*Math.sin(rotX),z2=p.y*Math.sin(rotX)+z*Math.cos(rotX);
+    return{x,y:y2,z:z2};
+  }
+  function prj(p){const f=740/(740+p.z);return{x:CX+p.x*f,y:CY+p.y*f,s:f,v:p.z>-R*.1};}
+  function h2r(h){return[parseInt(h.slice(1,3),16),parseInt(h.slice(3,5),16),parseInt(h.slice(5,7),16)];}
+
+  cv.addEventListener('mousedown',e=>{drag=true;lx=e.clientX;ly=e.clientY;cv.style.cursor='grabbing';});
+  window.addEventListener('mouseup',()=>{drag=false;cv.style.cursor='grab';});
+  window.addEventListener('mousemove',e=>{
+    if(drag){tRY+=(e.clientX-lx)*.009;tRX+=(e.clientY-ly)*.009;tRX=Math.max(-.7,Math.min(.7,tRX));lx=e.clientX;ly=e.clientY;}
+    const r=cv.getBoundingClientRect();mx=e.clientX-r.left;my=e.clientY-r.top;
+  });
+  cv.addEventListener('click',e=>{
+    const r=cv.getBoundingClientRect(),ex=e.clientX-r.left,ey=e.clientY-r.top;
+    D.forEach(d=>{if(d._p&&d._p.v&&Math.hypot(ex-d._p.x,ey-d._p.y)<22&&d.url)window.location.href=d.url;});
+  });
+  cv.addEventListener('mouseleave',()=>{mx=-999;my=-999;});
+  cv.addEventListener('touchstart',e=>{drag=true;lx=e.touches[0].clientX;ly=e.touches[0].clientY;},{passive:true});
+  cv.addEventListener('touchend',()=>drag=false);
+  cv.addEventListener('touchmove',e=>{if(!drag)return;tRY+=(e.touches[0].clientX-lx)*.009;tRX+=(e.touches[0].clientY-ly)*.009;tRX=Math.max(-.7,Math.min(.7,tRX));lx=e.touches[0].clientX;ly=e.touches[0].clientY;},{passive:true});
+
+  function frame(){
+    ctx.clearRect(0,0,W,H);T+=.014;
+    if(!drag)tRY+=.003;
+    rotY+=(tRY-rotY)*.09;rotX+=(tRX-rotX)*.09;
+
+    // Estrellas
+    stars.forEach(s=>{
+      ctx.beginPath();ctx.arc(s.x*W,s.y*H,s.s,0,Math.PI*2);
+      ctx.fillStyle=`rgba(200,220,255,${s.o*(.4+Math.sin(T*s.sp+s.x*50)*.6)})`;ctx.fill();
+    });
+
+    // Atmosfera exterior
+    [1.22,1.12,1.05].forEach((m,i)=>{
+      const g=ctx.createRadialGradient(CX,CY,R*.65,CX,CY,R*m);
+      const a=[.18,.1,.05][i];
+      g.addColorStop(0,'rgba(0,80,180,0)');
+      g.addColorStop(.75,`rgba(0,141,218,${a*.5})`);
+      g.addColorStop(1,`rgba(100,200,255,${a})`);
+      ctx.beginPath();ctx.arc(CX,CY,R*m,0,Math.PI*2);ctx.fillStyle=g;ctx.fill();
+    });
+
+    // Globo con imagen real
+    ctx.save();
+    ctx.beginPath();ctx.arc(CX,CY,R,0,Math.PI*2);ctx.clip();
+
+    if(earthLoaded){
+      // Calcular offset de rotacion
+      const rotOffset=(rotY%(Math.PI*2))/(Math.PI*2);
+      const imgW=R*2;
+      const imgH=R*2;
+      const offsetX=rotOffset*imgW*2;
+
+      // Dibujar imagen 3 veces para cubrir la rotacion
+      for(let i=-1;i<=1;i++){
+        ctx.drawImage(earthImg, CX-R+(i*imgW*2)+offsetX, CY-R, imgW*2, imgH);
+      }
+
+      // Overlay para dar profundidad esferica
+      const sphGrad=ctx.createRadialGradient(CX-R*.2,CY-R*.2,0,CX,CY,R);
+      sphGrad.addColorStop(0,'rgba(255,255,255,.08)');
+      sphGrad.addColorStop(.5,'rgba(0,0,0,0)');
+      sphGrad.addColorStop(.8,'rgba(0,0,20,.4)');
+      sphGrad.addColorStop(1,'rgba(0,0,10,.8)');
+      ctx.fillStyle=sphGrad;
+      ctx.beginPath();ctx.arc(CX,CY,R,0,Math.PI*2);ctx.fill();
+
+    } else {
+      // Fallback oceano
+      const ocean=ctx.createRadialGradient(CX-R*.3,CY-R*.2,0,CX,CY,R);
+      ocean.addColorStop(0,'#1B6CA8');ocean.addColorStop(.5,'#0D4070');ocean.addColorStop(1,'#040F20');
+      ctx.fillStyle=ocean;ctx.fillRect(CX-R,CY-R,R*2,R*2);
+    }
+    ctx.restore();
+
+    // Luz especular
+    const lt=ctx.createRadialGradient(CX-R*.35,CY-R*.3,0,CX,CY,R);
+    lt.addColorStop(0,'rgba(160,210,255,.2)');lt.addColorStop(.4,'rgba(60,120,220,.06)');lt.addColorStop(1,'rgba(0,0,0,0)');
+    ctx.beginPath();ctx.arc(CX,CY,R,0,Math.PI*2);ctx.fillStyle=lt;ctx.fill();
+
+    // Borde glow
+    ctx.beginPath();ctx.arc(CX,CY,R,0,Math.PI*2);
+    ctx.strokeStyle=`rgba(0,160,255,${.4+Math.sin(T*.5)*.1})`;ctx.lineWidth=2.5;ctx.stroke();
+
+    // Arcos desde Quito
+    const Q=ll3(-.2,-78.5,R);
+    D.slice(0,-1).forEach((d,i)=>{
+      const dp=ll3(d.la,d.lo,R);
+      const qr=rot3(Q),dr=rot3(dp);
+      const qp=prj(qr),dp2=prj(dr);
+      if(!qp.v&&!dp2.v)return;
+      const mid={x:(qr.x+dr.x)*.5,y:(qr.y+dr.y)*.5+R*.5,z:(qr.z+dr.z)*.5};
+      const mp=prj(mid);
+      const t=((T*.38+i*.72)%1);
+      const[r2,g2,b2]=h2r(d.c);
+      ctx.beginPath();ctx.moveTo(qp.x,qp.y);ctx.quadraticCurveTo(mp.x,mp.y,dp2.x,dp2.y);
+      ctx.strokeStyle=`rgba(${r2},${g2},${b2},.15)`;ctx.lineWidth=1.2;ctx.setLineDash([5,4]);ctx.stroke();ctx.setLineDash([]);
+      for(let j=5;j>=0;j--){
+        const tt=Math.max(0,t-j*.03);
+        const tx=(1-tt)**2*qp.x+2*(1-tt)*tt*mp.x+tt**2*dp2.x;
+        const ty=(1-tt)**2*qp.y+2*(1-tt)*tt*mp.y+tt**2*dp2.y;
+        ctx.beginPath();ctx.arc(tx,ty,j===0?5:Math.max(.5,3-j*.4),0,Math.PI*2);
+        ctx.fillStyle=`rgba(${r2},${g2},${b2},${j===0?1:.6-j*.08})`;ctx.fill();
+      }
+    });
+
+    // Destinos
+    let hov=false;
+    D.forEach(d=>{
+      const p=prj(rot3(ll3(d.la,d.lo,R)));
+      d._p=p;if(!p.v)return;
+      const isH=Math.hypot(mx-p.x,my-p.y)<28;
+      if(isH){hov=true;cv.style.cursor='pointer';}
+      const pulse=.65+Math.sin(T*2.5+d.la)*.35;
+      const sz=isH?16:10;
+      const[r2,g2,b2]=h2r(d.c);
+
+      [[3,.1,2],[2,.3,1.5],[1.3,.65,1]].forEach(([m,a,lw])=>{
+        ctx.beginPath();ctx.arc(p.x,p.y,sz*m*pulse*p.s,0,Math.PI*2);
+        ctx.strokeStyle=`rgba(${r2},${g2},${b2},${a})`;ctx.lineWidth=lw;ctx.stroke();
+      });
+
+      const dg=ctx.createRadialGradient(p.x,p.y,0,p.x,p.y,sz*2*p.s);
+      dg.addColorStop(0,'#fff');dg.addColorStop(.3,d.c);dg.addColorStop(1,`rgba(${r2},${g2},${b2},0)`);
+      ctx.beginPath();ctx.arc(p.x,p.y,sz*2*p.s,0,Math.PI*2);ctx.fillStyle=dg;ctx.fill();
+
+      ctx.save();ctx.shadowColor=d.c;ctx.shadowBlur=10;
+      ctx.font=`bold ${Math.round(11*p.s)}px Montserrat,sans-serif`;
+      ctx.fillStyle='#fff';ctx.textAlign='center';
+      ctx.fillText(d.emoji+' '+d.n,p.x,p.y-(sz+12)*p.s);
+      ctx.restore();
+
+      if(isH){
+        const cx2=p.x>CX?p.x-195:p.x+18;
+        const cy2=Math.min(p.y-20,H-80);
+        ctx.save();ctx.shadowColor=d.c;ctx.shadowBlur=20;
+        ctx.beginPath();
+        if(ctx.roundRect)ctx.roundRect(cx2,cy2,185,62,10);else ctx.rect(cx2,cy2,185,62);
+        ctx.fillStyle='rgba(3,8,22,.94)';ctx.fill();
+        ctx.strokeStyle=d.c;ctx.lineWidth=1.5;ctx.stroke();
+        ctx.restore();
+        ctx.beginPath();
+        if(ctx.roundRect)ctx.roundRect(cx2,cy2,4,62,[10,0,0,10]);else ctx.rect(cx2,cy2,4,62);
+        ctx.fillStyle=d.c;ctx.fill();
+        ctx.font='bold 13px Montserrat,sans-serif';ctx.fillStyle='#fff';ctx.textAlign='left';
+        ctx.fillText(d.n,cx2+14,cy2+24);
+        ctx.font='10px DM Mono,monospace';ctx.fillStyle=d.c;
+        ctx.fillText(d.p,cx2+14,cy2+44);
+        if(d.url){
+          ctx.font='bold 9px Montserrat,sans-serif';ctx.fillStyle=d.c;ctx.textAlign='center';
+          ctx.fillText('Ver destino →',cx2+140,cy2+56);
+        }
+      }
+    });
+    if(!hov&&!drag)cv.style.cursor='grab';
+
+    // Clip suave
+    ctx.save();ctx.globalCompositeOperation='destination-in';
+    const cl=ctx.createRadialGradient(CX,CY,R*.86,CX,CY,R*1.18);
+    cl.addColorStop(0,'rgba(0,0,0,1)');cl.addColorStop(.88,'rgba(0,0,0,1)');cl.addColorStop(1,'rgba(0,0,0,0)');
+    ctx.beginPath();ctx.arc(CX,CY,R*1.18,0,Math.PI*2);ctx.fillStyle=cl;ctx.fill();
+    ctx.restore();
+
+    requestAnimationFrame(frame);
+  }
+  frame();
+})();;;;;;;
+(function(){
+  const cv=document.getElementById('lc'),ct=cv.parentElement;
+  function sz(){cv.width=ct.offsetWidth;cv.height=ct.offsetHeight;}sz();
+  window.addEventListener('resize',sz);
+  const ctx=cv.getContext('2d');
+  const pins=[{x:.38,y:.27},{x:.54,y:.20},{x:.47,y:.34},{x:.29,y:.60},{x:.64,y:.28},{x:.36,y:.42}];
+  let t=0;
+  (function draw(){
+    requestAnimationFrame(draw);ctx.clearRect(0,0,cv.width,cv.height);t+=.011;
+    const W=cv.width,H=cv.height;
+    pins.forEach((a,i)=>{pins.forEach((b,j)=>{
+      if(j<=i)return;
+      const ax=a.x*W,ay=a.y*H,bx=b.x*W,by=b.y*H;
+      const mcx=(ax+bx)/2+Math.sin(t*.4+i)*22,mcy=(ay+by)/2-Math.abs(ax-bx)*.22;
+      ctx.beginPath();ctx.moveTo(ax,ay);ctx.quadraticCurveTo(mcx,mcy,bx,by);
+      const grd=ctx.createLinearGradient(ax,ay,bx,by);
+      grd.addColorStop(0,'rgba(0,141,218,0)');grd.addColorStop(.5,'rgba(0,141,218,0.28)');grd.addColorStop(1,'rgba(59,167,223,0)');
+      ctx.strokeStyle=grd;ctx.lineWidth=.9;ctx.stroke();
+      const tv=(t*.38+i*.5)%1;
+      const px=ax+(bx-ax)*tv+(mcx-ax)*(1-tv)*tv*2,py=ay+(by-ay)*tv+(mcy-ay)*(1-tv)*tv*2;
+      ctx.beginPath();ctx.arc(px,py,3,0,Math.PI*2);
+      ctx.fillStyle=`rgba(0,212,255,${.75*Math.sin(tv*Math.PI)})`;ctx.fill();
+    });});
+  })();
+})();
+const PD=[
+  {t:'Agenda tu asesoría gratuita',d:'Completa el formulario con tu perfil. Un consultor experto te contacta en menos de 24 horas para una sesión personalizada y sin costo.',tg:['24H','Sin costo','Personalizada']},
+  {t:'Evaluamos tu perfil completo',d:'Analizamos historial académico, idioma, presupuesto y metas para encontrar la opción ideal para ti.',tg:['Perfil','Presupuesto','Metas']},
+  {t:'País, universidad y programa',d:'Presentamos opciones con costos reales, empleabilidad y calidad de vida. Tú decides con información honesta.',tg:['Opciones','Comparativa','Costos reales']},
+  {t:'Gestión documental completa',d:'Preparamos apostillados, traducciones, cartas de motivación y formularios de admisión.',tg:['Apostillado','Traducción','Admisión']},
+  {t:'Visa y proceso migratorio',d:'Gestionamos visa estudiantil, seguro médico y todos los trámites migratorios para tu país destino.',tg:['Visa','Seguro médico','Trámites']},
+  {t:'¡Tu experiencia internacional!',d:'Orientación en alojamiento, viaje y adaptación. El acompañamiento no termina al abordar el avión.',tg:['Alojamiento','Orientación','Acompañamiento']}
+];
+function sP(el,idx){document.querySelectorAll('.paso').forEach(p=>p.classList.remove('on'));el.classList.add('on');const d=PD[idx];document.getElementById('pN').textContent=`Paso 0${idx+1} de 06`;document.getElementById('pT').textContent=d.t;document.getElementById('pD').textContent=d.d;document.getElementById('pTg').innerHTML=d.tg.map(t=>`<span class="pstg">${t}</span>`).join('');document.getElementById('pBar').style.width=((idx+1)/6*100)+'%';}
+function sR(id,btn){document.querySelectorAll('.rtab').forEach(t=>t.classList.remove('on'));document.querySelectorAll('.rp').forEach(p=>p.classList.remove('on'));btn.classList.add('on');document.getElementById('rq'+id).classList.add('on');}
+let mD={perfil:'',destinos:[]};
+function abrirModal(dest,perfil){
+  document.getElementById('mov').classList.add('open');document.body.style.overflow='hidden';irS(1);
+  if(perfil){setTimeout(()=>{document.querySelectorAll('.psel').forEach(el=>{const t=el.querySelector('.psel-t').textContent;if((perfil==='Bach'&&t.includes('Bachiller'))||(perfil==='Prof'&&t.includes('Profesional'))||(perfil==='Med'&&t.includes('Médico'))){selP(el,t);}});},50);}
+  if(dest){setTimeout(()=>{document.querySelectorAll('.dopt').forEach(o=>{if(o.querySelector('.dopt-n').textContent===dest)selD(o,dest);});},100);}
+}
+function cerrarModal(){document.getElementById('mov').classList.remove('open');document.body.style.overflow='';}
+function cerrarOut(e){if(e.target===document.getElementById('mov'))cerrarModal();}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')cerrarModal();});
+function irS(n){
+  document.querySelectorAll('.mpanel').forEach((p,i)=>p.classList.toggle('active',i+1===n));
+  ['ms1','ms2','ms3','ms4'].forEach((id,i)=>{const el=document.getElementById(id);el.classList.remove('active','done');if(i+1===n)el.classList.add('active');if(i+1<n)el.classList.add('done');});
+  document.getElementById('mbox').scrollTop=0;
+}
+function selP(el,val){document.querySelectorAll('.psel').forEach(p=>p.classList.remove('on'));el.classList.add('on');mD.perfil=val;}
+function selD(el,val){el.classList.toggle('on');mD.destinos=Array.from(document.querySelectorAll('.dopt.on')).map(o=>o.querySelector('.dopt-n').textContent);}
+function buildMsg(){return`🎓 Nueva solicitud — Experience Connect\n\nPerfil: ${mD.perfil||'No indicado'}\nDestinos: ${mD.destinos.join(', ')||'No indicado'}\nViaje: ${document.getElementById('mFecha').value||'No indicado'}\n\nNombre: ${document.getElementById('mNom').value}\nEdad: ${document.getElementById('mEd').value}\nWhatsApp: ${document.getElementById('mWA').value}\nEmail: ${document.getElementById('mEM').value}\nCarrera: ${document.getElementById('mCar').value}\nMensaje: ${document.getElementById('mMsg').value}`;}
+function envM(){
+  const n=document.getElementById('mNom').value.trim(),w=document.getElementById('mWA').value.trim();
+  if(!n||!w){alert('Por favor ingresa tu nombre y WhatsApp.');return;}
+  const msg=buildMsg();
+  // Enviar al correo
+  const subject=encodeURIComponent('Nueva solicitud de asesoria - Experience Connect');
+  const body=encodeURIComponent(msg);
+  fetch('https://formsubmit.co/ajax/asesoria@experienceconnectec.com',{
+    method:'POST',
+    headers:{'Content-Type':'application/json','Accept':'application/json'},
+    body:JSON.stringify({
+      nombre:document.getElementById('mNom').value,
+      whatsapp:document.getElementById('mWA').value,
+      email:document.getElementById('mEM')?document.getElementById('mEM').value:'',
+      carrera:document.getElementById('mCar').value,
+      mensaje:document.getElementById('mMsg').value,
+      perfil:mD.perfil||'',
+      destinos:mD.destinos?mD.destinos.join(', '):'',
+      _subject:'Nueva solicitud - Experience Connect',
+      _captcha:'false'
+    })
+  }).then(r=>r.json()).then(d=>console.log('Email enviado',d)).catch(e=>console.log('Error email',e));
+  irS(4);
+}
+function envWA(){window.open('https://wa.me/593983234334?text='+encodeURIComponent(buildMsg()||'Hola, quiero información sobre Experience Connect.'),'_blank');}
+</script>
+
+<div id="mov-wt" onclick="if(event.target===this)cerrarWT()" style="position:fixed;inset:0;z-index:9000;background:rgba(5,13,26,.9);backdrop-filter:blur(8px);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .35s;padding:20px">
+  <div style="background:#0A1628;border:1.5px solid rgba(0,141,218,.25);border-radius:24px;width:100%;max-width:580px;max-height:90vh;overflow-y:auto;position:relative;transform:translateY(30px) scale(.97);transition:transform .35s cubic-bezier(.34,1.56,.64,1)" id="mbox-wt">
+    <div style="background:linear-gradient(135deg,#006DB1,#3BA7DF);padding:28px 32px;border-radius:24px 24px 0 0;position:relative">
+      <div style="font-size:1.4rem;font-weight:900;color:#fff;margin-bottom:4px">✈️ Asesoría Work & Travel</div>
+      <div style="font-size:.82rem;color:rgba(255,255,255,.65)">Te contactamos en menos de 24 horas · Sin costo</div>
+      <button onclick="cerrarWT()" style="position:absolute;top:18px;right:18px;width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.12);border:none;cursor:pointer;color:#fff;font-size:1rem">✕</button>
+    </div>
+    <div style="padding:28px 32px">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px">
+        <div style="display:flex;flex-direction:column;gap:5px"><label style="font-size:.65rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.35)">Nombre *</label><input type="text" id="wt-nom" placeholder="Tu nombre completo" style="background:rgba(255,255,255,.06);border:1.5px solid rgba(255,255,255,.1);border-radius:12px;padding:12px 15px;color:#fff;font-family:Montserrat;font-size:.88rem;outline:none;width:100%"></div>
+        <div style="display:flex;flex-direction:column;gap:5px"><label style="font-size:.65rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.35)">Edad</label><input type="number" id="wt-edad" placeholder="25" min="16" max="40" style="background:rgba(255,255,255,.06);border:1.5px solid rgba(255,255,255,.1);border-radius:12px;padding:12px 15px;color:#fff;font-family:Montserrat;font-size:.88rem;outline:none;width:100%"></div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px">
+        <div style="display:flex;flex-direction:column;gap:5px"><label style="font-size:.65rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.35)">WhatsApp *</label><input type="tel" id="wt-wa" placeholder="+593 98..." style="background:rgba(255,255,255,.06);border:1.5px solid rgba(255,255,255,.1);border-radius:12px;padding:12px 15px;color:#fff;font-family:Montserrat;font-size:.88rem;outline:none;width:100%"></div>
+        <div style="display:flex;flex-direction:column;gap:5px"><label style="font-size:.65rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.35)">Email *</label><input type="email" id="wt-email" placeholder="tu@correo.com" style="background:rgba(255,255,255,.06);border:1.5px solid rgba(255,255,255,.1);border-radius:12px;padding:12px 15px;color:#fff;font-family:Montserrat;font-size:.88rem;outline:none;width:100%"></div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:5px;margin-bottom:14px">
+        <label style="font-size:.65rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.35)">¿Qué programa te interesa? *</label>
+        <select id="wt-prog" style="background:#0A1628;border:1.5px solid rgba(255,255,255,.1);border-radius:12px;padding:12px 15px;color:#fff;font-family:Montserrat;font-size:.88rem;outline:none;width:100%">
+          <option value="">Selecciona...</option>
+          <option>🇲🇹 Malta — Inglés y trabajo legal</option>
+          <option>🇮🇪 Irlanda — Inglés y trabajo medio tiempo</option>
+          <option>🇦🇺 Australia — Inglés y trabajo desde día 1</option>
+          <option>🇦🇪 Dubái — Inglés sin restricciones de horario</option>
+          <option>🇺🇸 Work & Travel USA</option>
+          <option>🇨🇦 Co-Op Canadá</option>
+          <option>🏡 Au Pair USA</option>
+          <option>🇩🇪 Au Pair Alemania</option>
+          <option>No sé aún, necesito orientación</option>
+        </select>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:5px;margin-bottom:14px">
+        <label style="font-size:.65rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.35)">¿Cuándo quieres viajar?</label>
+        <select id="wt-fecha" style="background:#0A1628;border:1.5px solid rgba(255,255,255,.1);border-radius:12px;padding:12px 15px;color:#fff;font-family:Montserrat;font-size:.88rem;outline:none;width:100%">
+          <option value="">Selecciona...</option>
+          <option>En los próximos 3 meses</option>
+          <option>En 6 meses</option>
+          <option>En 1 año</option>
+          <option>Más de 1 año</option>
+        </select>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:5px;margin-bottom:14px">
+        <label style="font-size:.65rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.35)">¿Eres estudiante universitario activo?</label>
+        <select id="wt-estud" style="background:#0A1628;border:1.5px solid rgba(255,255,255,.1);border-radius:12px;padding:12px 15px;color:#fff;font-family:Montserrat;font-size:.88rem;outline:none;width:100%">
+          <option value="">Selecciona...</option>
+          <option>Sí, estoy cursando la universidad</option>
+          <option>No, ya me gradué</option>
+          <option>Soy bachiller</option>
+        </select>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:5px;margin-bottom:20px">
+        <label style="font-size:.65rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.35)">¿Tienes alguna duda o meta específica?</label>
+        <textarea id="wt-msg" placeholder="Cuéntanos qué quieres lograr con tu experiencia internacional..." style="background:rgba(255,255,255,.06);border:1.5px solid rgba(255,255,255,.1);border-radius:12px;padding:12px 15px;color:#fff;font-family:Montserrat;font-size:.88rem;outline:none;width:100%;min-height:80px;resize:vertical"></textarea>
+      </div>
+      <button onclick="enviarWT()" style="width:100%;padding:14px;background:linear-gradient(135deg,#006DB1,#3BA7DF);color:#fff;border:none;border-radius:99px;font-family:Montserrat;font-size:.92rem;font-weight:700;cursor:pointer">Enviar solicitud →</button>
+      <a href="https://wa.me/593983234334?text=Hola,%20quiero%20informacion%20sobre%20Work%20and%20Travel" target="_blank" style="width:100%;margin-top:10px;padding:13px;background:#25D366;color:#fff;border-radius:99px;font-family:Montserrat;font-size:.88rem;font-weight:600;display:flex;align-items:center;justify-content:center;gap:8px;text-decoration:none"><svg viewBox="0 0 24 24" fill="white" width="18" height="18"><path d="M3 21l1.65-3.8a9 9 0 113.4 2.9L3 21"/><path d="M9 10c0 5 3.5 7.5 7.5 6" stroke="white" fill="none" stroke-width="1.5" stroke-linecap="round"/></svg>WhatsApp</a>
+    </div>
+  </div>
+</div>
+
+<div id="mov-vis" onclick="if(event.target===this)cerrarVIS()" style="position:fixed;inset:0;z-index:9000;background:rgba(5,13,26,.9);backdrop-filter:blur(8px);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .35s;padding:20px">
+  <div style="background:#0A1628;border:1.5px solid rgba(0,141,218,.25);border-radius:24px;width:100%;max-width:580px;max-height:90vh;overflow-y:auto;position:relative;transform:translateY(30px) scale(.97);transition:transform .35s cubic-bezier(.34,1.56,.64,1)" id="mbox-vis">
+    <div style="background:linear-gradient(135deg,#006DB1,#0A1628);padding:28px 32px;border-radius:24px 24px 0 0;position:relative">
+      <div style="font-size:1.4rem;font-weight:900;color:#fff;margin-bottom:4px">🌐 Trámite de Visado</div>
+      <div style="font-size:.82rem;color:rgba(255,255,255,.65)">Evaluamos tu caso · Sin costo inicial · 24h respuesta</div>
+      <button onclick="cerrarVIS()" style="position:absolute;top:18px;right:18px;width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.12);border:none;cursor:pointer;color:#fff;font-size:1rem">✕</button>
+    </div>
+    <div style="padding:28px 32px">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px">
+        <div style="display:flex;flex-direction:column;gap:5px"><label style="font-size:.65rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.35)">Nombre *</label><input type="text" id="vis-nom" placeholder="Tu nombre completo" style="background:rgba(255,255,255,.06);border:1.5px solid rgba(255,255,255,.1);border-radius:12px;padding:12px 15px;color:#fff;font-family:Montserrat;font-size:.88rem;outline:none;width:100%"></div>
+        <div style="display:flex;flex-direction:column;gap:5px"><label style="font-size:.65rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.35)">Edad</label><input type="number" id="vis-edad" placeholder="25" style="background:rgba(255,255,255,.06);border:1.5px solid rgba(255,255,255,.1);border-radius:12px;padding:12px 15px;color:#fff;font-family:Montserrat;font-size:.88rem;outline:none;width:100%"></div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px">
+        <div style="display:flex;flex-direction:column;gap:5px"><label style="font-size:.65rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.35)">WhatsApp *</label><input type="tel" id="vis-wa" placeholder="+593 98..." style="background:rgba(255,255,255,.06);border:1.5px solid rgba(255,255,255,.1);border-radius:12px;padding:12px 15px;color:#fff;font-family:Montserrat;font-size:.88rem;outline:none;width:100%"></div>
+        <div style="display:flex;flex-direction:column;gap:5px"><label style="font-size:.65rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.35)">Email *</label><input type="email" id="vis-email" placeholder="tu@correo.com" style="background:rgba(255,255,255,.06);border:1.5px solid rgba(255,255,255,.1);border-radius:12px;padding:12px 15px;color:#fff;font-family:Montserrat;font-size:.88rem;outline:none;width:100%"></div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:5px;margin-bottom:14px">
+        <label style="font-size:.65rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.35)">¿Para qué país necesitas el visado? *</label>
+        <select id="vis-dest" style="background:#0A1628;border:1.5px solid rgba(255,255,255,.1);border-radius:12px;padding:12px 15px;color:#fff;font-family:Montserrat;font-size:.88rem;outline:none;width:100%">
+          <option value="">Selecciona...</option>
+          <option>🇺🇸 Estados Unidos — Visa F-1 Estudiante</option>
+          <option>🇺🇸 Estados Unidos — Visa J-1 Intercambio</option>
+          <option>🇪🇸 España — Visa Larga Duración</option>
+          <option>🇩🇪 Alemania — Visa Estudiantil + Sperrkonto</option>
+          <option>🇮🇹 Italia — Visa de Estudio</option>
+          <option>🇵🇹 Portugal — Visa D4 Estudiante</option>
+          <option>🇨🇿 República Checa — Visa de Estudio</option>
+          <option>🇦�� Australia — Visa Estudiante</option>
+          <option>🇨🇦 Canadá — Co-Op / Estudio</option>
+          <option>Otro destino</option>
+        </select>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:5px;margin-bottom:14px">
+        <label style="font-size:.65rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.35)">¿Cuál es tu perfil?</label>
+        <select id="vis-perfil" style="background:#0A1628;border:1.5px solid rgba(255,255,255,.1);border-radius:12px;padding:12px 15px;color:#fff;font-family:Montserrat;font-size:.88rem;outline:none;width:100%">
+          <option value="">Selecciona...</option>
+          <option>Bachiller / Estudiante universitario</option>
+          <option>Profesional graduado</option>
+          <option>Médico — busco especialidad o posgrado</option>
+          <option>Otro</option>
+        </select>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:5px;margin-bottom:14px">
+        <label style="font-size:.65rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.35)">¿Cuándo planeas viajar?</label>
+        <select id="vis-fecha" style="background:#0A1628;border:1.5px solid rgba(255,255,255,.1);border-radius:12px;padding:12px 15px;color:#fff;font-family:Montserrat;font-size:.88rem;outline:none;width:100%">
+          <option value="">Selecciona...</option>
+          <option>En los próximos 3 meses</option>
+          <option>En 6 meses</option>
+          <option>En 1 año</option>
+          <option>Más de 1 año</option>
+        </select>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:5px;margin-bottom:14px">
+        <label style="font-size:.65rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.35)">¿Ya tienes carta de aceptación universitaria?</label>
+        <select id="vis-carta" style="background:#0A1628;border:1.5px solid rgba(255,255,255,.1);border-radius:12px;padding:12px 15px;color:#fff;font-family:Montserrat;font-size:.88rem;outline:none;width:100%">
+          <option value="">Selecciona...</option>
+          <option>Sí, ya tengo carta de aceptación</option>
+          <option>No, aún no tengo carta</option>
+          <option>Estoy en proceso de aplicación</option>
+        </select>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:5px;margin-bottom:14px">
+        <label style="font-size:.65rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.35)">¿Tuviste algún rechazo de visado anterior?</label>
+        <select id="vis-rechazo" style="background:#0A1628;border:1.5px solid rgba(255,255,255,.1);border-radius:12px;padding:12px 15px;color:#fff;font-family:Montserrat;font-size:.88rem;outline:none;width:100%">
+          <option value="">Selecciona...</option>
+          <option>No, es mi primera vez</option>
+          <option>Sí, tuve un rechazo anterior</option>
+        </select>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:5px;margin-bottom:20px">
+        <label style="font-size:.65rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.35)">Cuéntanos tu situación (opcional)</label>
+        <textarea id="vis-msg" placeholder="¿Tienes alguna duda específica sobre tu trámite? ¿Ya tuviste algún rechazo? Cuéntanos..." style="background:rgba(255,255,255,.06);border:1.5px solid rgba(255,255,255,.1);border-radius:12px;padding:12px 15px;color:#fff;font-family:Montserrat;font-size:.88rem;outline:none;width:100%;min-height:80px;resize:vertical"></textarea>
+      </div>
+      <button onclick="enviarVIS()" style="width:100%;padding:14px;background:linear-gradient(135deg,#006DB1,#0A1628);color:#fff;border:none;border-radius:99px;font-family:Montserrat;font-size:.92rem;font-weight:700;cursor:pointer">Enviar solicitud de visado →</button>
+      <a href="https://wa.me/593983234334?text=Hola,%20quiero%20informacion%20sobre%20visados" target="_blank" style="width:100%;margin-top:10px;padding:13px;background:#25D366;color:#fff;border-radius:99px;font-family:Montserrat;font-size:.88rem;font-weight:600;display:flex;align-items:center;justify-content:center;gap:8px;text-decoration:none"><svg viewBox="0 0 24 24" fill="white" width="18" height="18"><path d="M3 21l1.65-3.8a9 9 0 113.4 2.9L3 21"/><path d="M9 10c0 5 3.5 7.5 7.5 6" stroke="white" fill="none" stroke-width="1.5" stroke-linecap="round"/></svg>WhatsApp</a>
+    </div>
+  </div>
+</div>
+
+<script>
+function abrirWT(){const m=document.getElementById('mov-wt');m.style.opacity='1';m.style.pointerEvents='all';document.getElementById('mbox-wt').style.transform='none';document.body.style.overflow='hidden';}
+function cerrarWT(){const m=document.getElementById('mov-wt');m.style.opacity='0';m.style.pointerEvents='none';document.getElementById('mbox-wt').style.transform='translateY(30px) scale(.97)';document.body.style.overflow='';}
+function abrirVIS(){const m=document.getElementById('mov-vis');m.style.opacity='1';m.style.pointerEvents='all';document.getElementById('mbox-vis').style.transform='none';document.body.style.overflow='hidden';}
+function cerrarVIS(){const m=document.getElementById('mov-vis');m.style.opacity='0';m.style.pointerEvents='none';document.getElementById('mbox-vis').style.transform='translateY(30px) scale(.97)';document.body.style.overflow='';}
+
+function enviarWT(){
+  const n=document.getElementById('wt-nom').value.trim();
+  const w=document.getElementById('wt-wa').value.trim();
+  const e=document.getElementById('wt-email').value.trim();
+  const p=document.getElementById('wt-prog').value;
+  if(!n||!w||!e||!p){alert('Por favor completa nombre, WhatsApp, email y programa.');return;}
+  fetch('https://formsubmit.co/ajax/asesoria@experienceconnectec.com',{
+    method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},
+    body:JSON.stringify({
+      _subject:'✈️ Work & Travel — Experience Connect',
+      _captcha:'false',
+      nombre:n,whatsapp:w,email:e,
+      programa:p,
+      fecha_viaje:document.getElementById('wt-fecha').value,
+      estudiante_activo:document.getElementById('wt-estud').value,
+      mensaje:document.getElementById('wt-msg').value
+    })
+  }).then(()=>{cerrarWT();alert('✅ Solicitud enviada. Te contactaremos en menos de 24 horas.');})
+  .catch(()=>{alert('✅ Recibido. Te contactaremos pronto.');cerrarWT();});
+}
+
+function enviarVIS(){
+  const n=document.getElementById('vis-nom').value.trim();
+  const w=document.getElementById('vis-wa').value.trim();
+  const e=document.getElementById('vis-email').value.trim();
+  const d=document.getElementById('vis-dest').value;
+  if(!n||!w||!e||!d){alert('Por favor completa nombre, WhatsApp, email y destino.');return;}
+  fetch('https://formsubmit.co/ajax/asesoria@experienceconnectec.com',{
+    method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},
+    body:JSON.stringify({
+      _subject:'🌐 Visado — Experience Connect',
+      _captcha:'false',
+      nombre:n,whatsapp:w,email:e,
+      destino_visado:d,
+      perfil:document.getElementById('vis-perfil').value,
+      fecha_viaje:document.getElementById('vis-fecha').value,
+      carta_aceptacion:document.getElementById('vis-carta').value,
+      rechazo_anterior:document.getElementById('vis-rechazo').value,
+      mensaje:document.getElementById('vis-msg').value
+    })
+  }).then(()=>{cerrarVIS();alert('✅ Solicitud enviada. Te contactaremos en menos de 24 horas.');})
+  .catch(()=>{alert('✅ Recibido. Te contactaremos pronto.');cerrarVIS();});
+}
+</script>
+</body>
+</html>

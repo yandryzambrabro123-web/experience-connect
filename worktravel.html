@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Work & Travel — Experience Connect</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#050D1A;color:#fff;font-family:Montserrat,sans-serif;overflow-x:hidden}
+nav{position:fixed;top:0;left:0;right:0;z-index:500;height:90px;display:flex;align-items:center;justify-content:space-between;padding:0 5%;background:rgba(5,13,26,.98);backdrop-filter:blur(20px);border-bottom:1px solid rgba(0,141,218,.15)}
+.nav-logo img{height:75px;width:auto;object-fit:contain;overflow:hidden;margin:-20px 0}
+.nav-links{display:flex;align-items:center;gap:24px;list-style:none;margin-left:auto}
+.nav-links a{font-size:.8rem;font-weight:500;color:rgba(255,255,255,.75);text-decoration:none;transition:color .25s}
+.nav-links a:hover{color:#3BA7DF}
+.ncta{background:#008DDA;color:#fff;padding:9px 20px;border-radius:99px;font-weight:600;border:none;cursor:pointer;font-family:Montserrat;font-size:.8rem}
+.nwa{display:flex;align-items:center;gap:6px;background:#25D366;color:#fff;padding:8px 16px;border-radius:99px;font-size:.75rem;font-weight:600;text-decoration:none}
+.hero{min-height:100vh;background:linear-gradient(rgba(5,13,26,.75),rgba(10,22,40,.85)),url('../images/worktravel.jpg') center/cover;display:flex;align-items:center;padding:120px 5% 80px;position:relative;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=1600&q=80') center/cover;opacity:.08}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(0,141,218,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(0,141,218,.05) 1px,transparent 1px);background-size:64px 64px}
+.hero-in{position:relative;z-index:2;max-width:700px}
+.badge{display:inline-flex;align-items:center;gap:8px;font-family:DM Mono,monospace;font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;color:#3BA7DF;border:1px solid rgba(59,167,223,.25);padding:5px 14px;border-radius:99px;margin-bottom:24px}
+h1{font-size:clamp(3rem,6vw,5.5rem);font-weight:900;line-height:.9;letter-spacing:-.03em;margin-bottom:20px}
+h1 span{color:#3BA7DF;font-style:italic}
+.sub{font-size:1rem;color:rgba(255,255,255,.6);line-height:1.8;max-width:520px;margin-bottom:36px}
+.btns{display:flex;gap:14px;flex-wrap:wrap}
+.btn-p{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,#006DB1,#3BA7DF);color:#fff;padding:15px 30px;border-radius:99px;font-weight:700;font-size:.9rem;text-decoration:none;border:none;cursor:pointer;font-family:Montserrat}
+.btn-wa{display:inline-flex;align-items:center;gap:8px;background:#25D366;color:#fff;padding:15px 26px;border-radius:99px;font-weight:600;font-size:.9rem;text-decoration:none}
+.btn-wa svg{width:18px;height:18px}
+.sec{padding:100px 5%;max-width:1360px;margin:0 auto}
+.sf{padding:100px 5%}
+.sf .in{max-width:1360px;margin:0 auto}
+.slbl{display:inline-flex;align-items:center;gap:8px;font-family:DM Mono,monospace;font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:#3BA7DF;margin-bottom:12px}
+.slbl::before{content:'';width:22px;height:1.5px;background:#3BA7DF;border-radius:99px;display:inline-block}
+h2{font-size:clamp(2.2rem,4vw,3.8rem);font-weight:900;line-height:.93;letter-spacing:-.03em;color:#fff;margin-bottom:14px}
+h2 em{font-style:italic;color:#3BA7DF}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:22px;margin-top:48px}
+.card{background:rgba(255,255,255,.04);border:1.5px solid rgba(0,141,218,.15);border-radius:22px;padding:36px;transition:all .35s;position:relative;overflow:hidden}
+.card:hover{background:rgba(0,141,218,.08);border-color:rgba(0,141,218,.35);transform:translateY(-5px)}
+.card-flag{font-size:2.5rem;margin-bottom:16px}
+.card-title{font-size:1.2rem;font-weight:700;color:#fff;margin-bottom:8px}
+.card-sub{font-size:.78rem;color:#3BA7DF;font-family:DM Mono,monospace;letter-spacing:.08em;text-transform:uppercase;margin-bottom:12px}
+.card-desc{font-size:.82rem;color:rgba(255,255,255,.55);line-height:1.78;margin-bottom:20px}
+.card-price{display:inline-flex;align-items:center;gap:6px;background:rgba(0,141,218,.12);border:1px solid rgba(0,141,218,.25);border-radius:99px;padding:5px 14px;font-family:DM Mono,monospace;font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:#3BA7DF;margin-bottom:20px}
+.card-btn{display:inline-flex;align-items:center;gap:6px;background:#008DDA;color:#fff;padding:10px 20px;border-radius:99px;font-size:.8rem;font-weight:600;text-decoration:none;transition:all .3s}
+.card-btn:hover{background:#0066B3}
+.cta-box{background:linear-gradient(135deg,#006DB1,#3BA7DF);border-radius:24px;padding:52px;text-align:center;margin-top:52px}
+.cta-box h3{font-size:2rem;font-weight:900;color:#fff;margin-bottom:12px}
+.cta-box p{font-size:.92rem;color:rgba(255,255,255,.75);max-width:480px;margin:0 auto 28px;line-height:1.8}
+footer{background:#020810;border-top:1px solid rgba(255,255,255,.05);padding:40px 5%;text-align:center}
+footer p{font-size:.78rem;color:rgba(255,255,255,.25)}
+footer a{color:#3BA7DF;text-decoration:none}
+@media(max-width:768px){.nav-links{display:none}.grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<nav id="nav">
+  <a href="index.html" class="nav-logo"><img src="images/logo.png" style="height:75px;width:auto;object-fit:contain;margin:-20px 0"></a>
+  <ul class="nav-links" style="margin-left:auto">
+    <li><a href="destinos.html">Destinos</a></li>
+    <li><a href="servicios.html">Servicios</a></li>
+    <li><a href="proceso.html">Proceso</a></li>
+    <li><a href="worktravel.html">Work &amp; Travel</a></li>
+    <li><a href="visados.html">Visados</a></li>
+    <li><a href="contacto.html">Contacto</a></li>
+    <li><a href="https://wa.me/593983234334" target="_blank" class="nwa"><svg viewBox="0 0 24 24" fill="white" width="14" height="14"><path d="M3 21l1.65-3.8a9 9 0 113.4 2.9L3 21"/><path d="M9 10c0 5 3.5 7.5 7.5 6" stroke="white" fill="none" stroke-width="1.5" stroke-linecap="round"/></svg>WhatsApp</a></li>
+    <li><button onclick="abrirModal()" class="ncta">Agendar asesoría</button></li>
+  </ul>
+  <div class="ham" id="ham"><span></span><span></span><span></span></div>
+</nav>
+
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-in">
+    <div class="badge">✈️ Work & Travel · Au Pair · Idiomas</div>
+    <h1>Viaja, Trabaja y<br><span>Domina un Idioma</span></h1>
+    <p class="sub">Financia tu estancia en el exterior mientras perfeccionas tu inglés o alemán. Programas con permisos de trabajo legales y soporte garantizado en el destino.</p>
+    <div class="btns">
+    <button onclick="abrirModal()" class="btn-p">Agendar asesoría gratuita</button>
+      <a href="https://wa.me/593983234334?text=Hola,%20quiero%20Work%20and%20Travel" target="_blank" class="btn-wa"><svg viewBox="0 0 24 24" fill="white"><path d="M3 21l1.65-3.8a9 9 0 113.4 2.9L3 21"/><path d="M9 10c0 5 3.5 7.5 7.5 6" stroke="white" fill="none" stroke-width="1.5" stroke-linecap="round"/></svg>WhatsApp directo</a>
+    </div>
+  </div>
+</section>
+
+<section class="sf" style="background:#0A1628">
+<div class="in">
+  <div class="slbl">Destinos de idiomas y trabajo</div>
+  <h2>Elige tu destino,<br><em>nosotros el camino</em></h2>
+  <div class="grid">
+    <div class="card">
+      <div class="card-flag">🇲🇹</div>
+      <div class="card-title">Malta</div>
+      <div class="card-sub">Inglés · Mediterráneo</div>
+      <p class="card-desc">Estudia inglés rodeado de playas paradisíacas. Trabaja legalmente desde la semana 13. Ambiente multicultural único en la UE.</p>
+      <div class="card-price">€700 – €950 / mes</div><br>
+      <button onclick="abrirModal()" class="card-btn">Quiero ir a Malta →</button>
+    </div>
+    <div class="card">
+      <div class="card-flag">🇮🇪</div>
+      <div class="card-title">Irlanda</div>
+      <div class="card-sub">Inglés · Europa</div>
+      <p class="card-desc">25 semanas de inglés con visa de trabajo automática. Trabaja medio tiempo en Dublín — sede de Google, Facebook y Apple.</p>
+      <div class="card-price">€1,100 – €1,400 / mes</div><br>
+      <button onclick="abrirModal()" class="card-btn">Descubrir Irlanda →</button>
+    </div>
+    <div class="card">
+      <div class="card-flag">🇦🇺</div>
+      <div class="card-title">Australia</div>
+      <div class="card-sub">Inglés · Pacífico</div>
+      <p class="card-desc">Uno de los salarios mínimos más altos del mundo. Visa de estudiante con permiso de trabajo desde el primer día.</p>
+      <div class="card-price">$1,400 – $1,800 AUD / mes</div><br>
+      <button onclick="abrirModal()" class="card-btn">Planificar Australia →</button>
+    </div>
+    <div class="card">
+      <div class="card-flag">🇦🇪</div>
+      <div class="card-title">Dubái</div>
+      <div class="card-sub">Inglés · Futuro</div>
+      <p class="card-desc">Ciudad 85% internacional. Visados con permisos de trabajo sin restricciones. El futuro del cosmopolitismo.</p>
+      <div class="card-price">$900 – $1,300 USD / mes</div><br>
+      <button onclick="abrirModal()" class="card-btn">Cotizar Dubái →</button>
+    </div>
+    <div class="card">
+      <div class="card-flag">🇺🇸🇨🇦</div>
+      <div class="card-title">USA & Canadá</div>
+      <div class="card-sub">Work & Travel · Co-Op</div>
+      <p class="card-desc">Work & Travel USA para universitarios. Co-Op Canadá: estudia y trabaja con pasantías remuneradas obligatorias.</p>
+      <div class="card-price">Consultar precio</div><br>
+      <button onclick="abrirModal()" class="card-btn">Ver opciones →</button>
+    </div>
+    <div class="card">
+      <div class="card-flag">🏡</div>
+      <div class="card-title">Au Pair USA & Alemania</div>
+      <div class="card-sub">Au Pair · 18–30 años</div>
+      <p class="card-desc">Alojamiento y comida cubiertos. Estipendio semanal + bono educativo. El trampolín perfecto para quedarte en Europa.</p>
+      <div class="card-price">Alojamiento incluido</div><br>
+      <button onclick="abrirModal()" class="card-btn">Saber más →</button>
+    </div>
+  </div>
+  <div class="cta-box">
+    <h3>¿Listo para tu aventura internacional?</h3>
+    <p>En Experience Connect estructuramos tu perfil, gestionamos tu carta de aceptación y preparamos tu carpeta de visado. 15 años de experiencia.</p>
+      <button onclick="abrirModal()" class="btn-p">Agenda tu Asesoría Gratuita →</button>
+  </div>
+</div>
+</section>
+
+<footer>
+  <p>© 2025 Experience Connect · <a href="index.html">Inicio</a> · <a href="visados.html">Visados</a> · <a href="https://wa.me/593983234334" target="_blank">WhatsApp</a></p>
+</footer>
+
+<div id="mov" onclick="if(event.target===this)cerrarModal()" style="position:fixed;inset:0;z-index:9000;background:rgba(5,13,26,.9);backdrop-filter:blur(8px);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .35s;padding:20px">
+  <div id="mbox" style="background:#0A1628;border:1.5px solid rgba(0,141,218,.25);border-radius:24px;width:100%;max-width:600px;max-height:90vh;overflow-y:auto;position:relative;transform:translateY(30px) scale(.97);transition:transform .35s cubic-bezier(.34,1.56,.64,1)">
+    <div style="background:linear-gradient(135deg,#006DB1,#3BA7DF);padding:28px 32px;border-radius:24px 24px 0 0;position:relative">
+      <div style="font-family:DM Mono,monospace;font-size:.55rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.6);margin-bottom:6px">Asesoría gratuita · Work & Travel</div>
+      <div style="font-size:1.5rem;font-weight:900;color:#fff;margin-bottom:4px">✈️ Agenda tu asesoría</div>
+      <div style="font-size:.82rem;color:rgba(255,255,255,.65)">Respondemos en menos de 24 horas · Sin costo</div>
+      <button onclick="cerrarModal()" style="position:absolute;top:18px;right:18px;width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.12);border:none;cursor:pointer;color:#fff;font-size:1rem">✕</button>
+    </div>
+    <div style="padding:28px 32px">
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px">
+        <div style="display:flex;flex-direction:column;gap:5px">
+          <label style="font-size:.65rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.45)">Nombre completo *</label>
+          <input type="text" id="wNom" placeholder="Tu nombre completo" style="background:rgba(255,255,255,.06);border:1.5px solid rgba(255,255,255,.1);border-radius:12px;padding:12px 15px;color:#fff;font-family:Montserrat;font-size:.88rem;outline:none;width:100%">
+        </div>
+        <div style="display:flex;flex-direction:column;gap:5px">
+          <label style="font-size:.65rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.45)">Edad</label>
+          <input type="number" id="wEdad" placeholder="25" min="16" max="45" style="background:rgba(255,255,255,.06);border:1.5px solid rgba(255,255,255,.1);border-radius:12px;padding:12px 15px;color:#fff;font-family:Montserrat;font-size:.88rem;outline:none;width:100%">
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px">
+        <div style="display:flex;flex-direction:column;gap:5px">
+          <label style="font-size:.65rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.45)">WhatsApp *</label>
+          <input type="tel" id="wWA" placeholder="+593 98 323 4334" style="background:rgba(255,255,255,.06);border:1.5px solid rgba(255,255,255,.1);border-radius:12px;padding:12px 15px;color:#fff;font-family:Montserrat;font-size:.88rem;outline:none;width:100%">
+        </div>
+        <div style="display:flex;flex-direction:column;gap:5px">
+          <label style="font-size:.65rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.45)">Email *</label>
+          <input type="email" id="wEmail" placeholder="tu@correo.com" style="background:rgba(255,255,255,.06);border:1.5px solid rgba(255,255,255,.1);border-radius:12px;padding:12px 15px;color:#fff;font-family:Montserrat;font-size:.88rem;outline:none;width:100%">
+        </div>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:5px;margin-bottom:14px">
+        <label style="font-size:.65rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.45)">¿Qué tipo de programa te interesa? *</label>
+        <select id="wTipo" style="background:#0A1628;border:1.5px solid rgba(255,255,255,.1);border-radius:12px;padding:12px 15px;color:#fff;font-family:Montserrat;font-size:.88rem;outline:none;width:100%">
+          <option value="">Selecciona...</option>
+          <option>🌍 Idiomas + Trabajo legal en el exterior</option>
+          <option>🇺🇸 Work & Travel USA — vacaciones trabajando</option>
+          <option>🇨🇦 Co-Op Canadá — estudio y trabajo combinado</option>
+          <option>🏡 Au Pair USA — con familia anfitriona</option>
+          <option>🇩🇪 Au Pair Alemania — aprender alemán viviendo con familia</option>
+          <option>No sé aún, necesito orientación</option>
+        </select>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:5px;margin-bottom:14px">
+        <label style="font-size:.65rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.45)">¿A qué destino quieres ir?</label>
+        <select id="wDestino" style="background:#0A1628;border:1.5px solid rgba(255,255,255,.1);border-radius:12px;padding:12px 15px;color:#fff;font-family:Montserrat;font-size:.88rem;outline:none;width:100%">
+          <option value="">Selecciona...</option>
+          <option>🇲🇹 Malta — Inglés mediterráneo €700-€950/mes</option>
+          <option>🇮🇪 Irlanda — Inglés + trabajo medio tiempo €1,100-€1,400/mes</option>
+          <option>🇦🇺 Australia — Inglés + trabajo desde día 1</option>
+          <option>🇦🇪 Dubái — Inglés sin restricciones de horario</option>
+          <option>🇺🇸 Estados Unidos</option>
+          <option>🇨🇦 Canadá</option>
+          <option>🇩🇪 Alemania</option>
+          <option>Aún no lo tengo claro</option>
+        </select>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:5px;margin-bottom:14px">
+        <label style="font-size:.65rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.45)">¿Cuál es tu situación académica actual?</label>
+        <select id="wAcad" style="background:#0A1628;border:1.5px solid rgba(255,255,255,.1);border-radius:12px;padding:12px 15px;color:#fff;font-family:Montserrat;font-size:.88rem;outline:none;width:100%">
+          <option value="">Selecciona...</option>
+          <option>Estudiante universitario activo (requisito Work & Travel USA)</option>
+          <option>Profesional graduado</option>
+          <option>Bachiller recién graduado</option>
+          <option>Entre 18 y 30 años buscando Au Pair</option>
+        </select>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:5px;margin-bottom:14px">
+        <label style="font-size:.65rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.45)">¿Cuál es tu nivel de inglés o alemán?</label>
+        <select id="wIdioma" style="background:#0A1628;border:1.5px solid rgba(255,255,255,.1);border-radius:12px;padding:12px 15px;color:#fff;font-family:Montserrat;font-size:.88rem;outline:none;width:100%">
+          <option value="">Selecciona...</option>
+          <option>Básico — quiero aprenderlo en el destino</option>
+          <option>Intermedio — me defiendo pero quiero mejorar</option>
+          <option>Avanzado — lo hablo con fluidez</option>
+          <option>No tengo ningún nivel aún</option>
+        </select>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:5px;margin-bottom:14px">
+        <label style="font-size:.65rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.45)">¿Cuándo quieres viajar?</label>
+        <select id="wFecha" style="background:#0A1628;border:1.5px solid rgba(255,255,255,.1);border-radius:12px;padding:12px 15px;color:#fff;font-family:Montserrat;font-size:.88rem;outline:none;width:100%">
+          <option value="">Selecciona...</option>
+          <option>En los próximos 3 meses</option>
+          <option>En 6 meses</option>
+          <option>En 1 año</option>
+          <option>Más de 1 año</option>
+        </select>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:5px;margin-bottom:14px">
+        <label style="font-size:.65rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.45)">¿Tu principal objetivo es...?</label>
+        <select id="wObjetivo" style="background:#0A1628;border:1.5px solid rgba(255,255,255,.1);border-radius:12px;padding:12px 15px;color:#fff;font-family:Montserrat;font-size:.88rem;outline:none;width:100%">
+          <option value="">Selecciona...</option>
+          <option>Aprender o perfeccionar el idioma</option>
+          <option>Financiar mi estancia trabajando</option>
+          <option>Experiencia internacional en mi CV</option>
+          <option>Quedarme en Europa a largo plazo</option>
+          <option>Todo lo anterior</option>
+        </select>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:5px;margin-bottom:20px">
+        <label style="font-size:.65rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.45)">¿Tienes alguna duda o situación especial?</label>
+        <textarea id="wMsg" placeholder="Cuéntanos qué quieres lograr, si tienes alguna restricción o cualquier pregunta sobre los programas..." style="background:rgba(255,255,255,.06);border:1.5px solid rgba(255,255,255,.1);border-radius:12px;padding:12px 15px;color:#fff;font-family:Montserrat;font-size:.88rem;outline:none;width:100%;min-height:80px;resize:vertical"></textarea>
+      </div>
+
+      <button onclick="enviarWT()" style="width:100%;padding:14px;background:linear-gradient(135deg,#006DB1,#3BA7DF);color:#fff;border:none;border-radius:99px;font-family:Montserrat;font-size:.92rem;font-weight:700;cursor:pointer;margin-bottom:10px">Enviar solicitud →</button>
+      <a href="https://wa.me/593983234334?text=Hola,%20quiero%20informacion%20sobre%20Work%20and%20Travel" target="_blank" style="width:100%;padding:13px;background:#25D366;color:#fff;border-radius:99px;font-family:Montserrat;font-size:.88rem;font-weight:600;display:flex;align-items:center;justify-content:center;gap:8px;text-decoration:none"><svg viewBox="0 0 24 24" fill="white" width="18" height="18"><path d="M3 21l1.65-3.8a9 9 0 113.4 2.9L3 21"/><path d="M9 10c0 5 3.5 7.5 7.5 6" stroke="white" fill="none" stroke-width="1.5" stroke-linecap="round"/></svg>WhatsApp</a>
+    </div>
+  </div>
+</div>
+
+<script>
+function abrirModal(){
+  document.getElementById('mov').style.opacity='1';
+  document.getElementById('mov').style.pointerEvents='all';
+  document.getElementById('mbox').style.transform='none';
+  document.body.style.overflow='hidden';
+}
+function cerrarModal(){
+  document.getElementById('mov').style.opacity='0';
+  document.getElementById('mov').style.pointerEvents='none';
+  document.getElementById('mbox').style.transform='translateY(30px) scale(.97)';
+  document.body.style.overflow='';
+}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')cerrarModal();});
+
+function enviarWT(){
+  const n=document.getElementById('wNom').value.trim();
+  const w=document.getElementById('wWA').value.trim();
+  const e=document.getElementById('wEmail').value.trim();
+  const t=document.getElementById('wTipo').value;
+  if(!n||!w||!e||!t){alert('Por favor completa nombre, WhatsApp, email y tipo de programa.');return;}
+  fetch('https://formsubmit.co/ajax/asesoria@experienceconnectec.com',{
+    method:'POST',
+    headers:{'Content-Type':'application/json','Accept':'application/json'},
+    body:JSON.stringify({
+      _subject:'✈️ Work & Travel — Experience Connect',
+      _captcha:'false',
+      nombre:n,
+      edad:document.getElementById('wEdad').value,
+      whatsapp:w,
+      email:e,
+      tipo_programa:t,
+      destino:document.getElementById('wDestino').value,
+      situacion_academica:document.getElementById('wAcad').value,
+      nivel_idioma:document.getElementById('wIdioma').value,
+      fecha_viaje:document.getElementById('wFecha').value,
+      objetivo:document.getElementById('wObjetivo').value,
+      mensaje:document.getElementById('wMsg').value
+    })
+  }).then(()=>{
+    cerrarModal();
+    alert('✅ Solicitud enviada. Te contactaremos en menos de 24 horas.');
+  }).catch(()=>{
+    cerrarModal();
+    alert('✅ Recibido. Te contactaremos pronto.');
+  });
+}
+</script>
+</body>
+</html>
