@@ -8,379 +8,307 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-:root{
---b:#0057B7;--b2:#003D8F;--b3:#2B8AFF;--b4:#E8F2FF;
---w:#fff;--off:#F8FAFF;--text:#080F1A;--muted:#556070;
---g:#25D366;--border:rgba(0,87,183,.1);
-}
-html{scroll-behavior:smooth;cursor:none}
-body{font-family:'Inter',sans-serif;background:#fff;color:var(--text);overflow-x:hidden;-webkit-font-smoothing:antialiased}
-
-/* CURSOR */
-#cursor{position:fixed;width:12px;height:12px;background:var(--b);border-radius:50%;pointer-events:none;z-index:99999;transform:translate(-50%,-50%);transition:transform .1s,width .3s,height .3s,background .3s;mix-blend-mode:multiply}
-#cursor-ring{position:fixed;width:40px;height:40px;border:1.5px solid rgba(0,87,183,.4);border-radius:50%;pointer-events:none;z-index:99998;transform:translate(-50%,-50%);transition:transform .12s ease-out,width .3s,height .3s,opacity .3s}
-body:hover #cursor{opacity:1}
-
-/* SCROLL PROGRESS */
-#progress{position:fixed;top:0;left:0;height:2px;background:linear-gradient(90deg,var(--b),var(--b3),#00D4FF);z-index:9999;transition:width .1s;box-shadow:0 0 10px rgba(0,87,183,.5)}
+html{scroll-behavior:smooth}
+:root{--b:#0057B7;--b2:#003D8F;--b3:#2B8AFF;--w:#fff;--dark:#08142A;--g:#25D366}
+body{font-family:'Inter',sans-serif;overflow-x:hidden;background:#fff;-webkit-font-smoothing:antialiased}
 
 /* NAV */
-nav{position:fixed;top:20px;left:50%;transform:translateX(-50%);z-index:900;display:flex;align-items:center;justify-content:space-between;padding:12px 20px;background:rgba(255,255,255,.7);backdrop-filter:blur(32px);-webkit-backdrop-filter:blur(32px);border:1px solid rgba(0,87,183,.1);border-radius:20px;width:calc(100% - 40px);max-width:1200px;box-shadow:0 4px 32px rgba(0,87,183,.08),inset 0 1px 0 rgba(255,255,255,.8)}
-.nl img{height:48px;width:auto;object-fit:contain}
-.nm{display:flex;align-items:center;gap:6px;list-style:none}
-.nm a{font-size:.78rem;font-weight:500;color:var(--muted);text-decoration:none;padding:7px 14px;border-radius:10px;transition:all .25s;letter-spacing:.01em}
-.nm a:hover{color:var(--b);background:rgba(0,87,183,.06)}
-.nav-btns{display:flex;gap:8px;align-items:center}
-.nav-wa{display:flex;align-items:center;gap:6px;background:var(--g);color:#fff;padding:8px 16px;border-radius:50px;font-size:.74rem;font-weight:700;text-decoration:none;transition:all .3s;box-shadow:0 4px 14px rgba(37,211,102,.3)}
-.nav-wa:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(37,211,102,.4)}
-.nav-wa svg{width:13px;height:13px}
-.nav-cta{background:var(--b);color:#fff;padding:8px 20px;border-radius:50px;font-size:.76rem;font-weight:700;border:none;cursor:none;font-family:'Inter',sans-serif;transition:all .3s;box-shadow:0 4px 16px rgba(0,87,183,.3)}
-.nav-cta:hover{background:var(--b2);transform:translateY(-2px);box-shadow:0 8px 28px rgba(0,87,183,.45)}
-.ham{display:none;flex-direction:column;gap:5px;cursor:none;padding:6px}
-.ham span{width:22px;height:2px;background:var(--text);border-radius:99px}
+nav{position:fixed;top:0;left:0;right:0;z-index:999;height:68px;background:rgba(255,255,255,.96);backdrop-filter:blur(20px);border-bottom:1px solid rgba(0,87,183,.07);display:flex;align-items:center;justify-content:space-between;padding:0 5%}
+.nl img{height:50px;object-fit:contain}
+.nm{display:flex;gap:4px;list-style:none}
+.nm a{padding:7px 14px;font-size:.78rem;font-weight:500;color:#556;text-decoration:none;border-radius:8px;transition:.2s}
+.nm a:hover{color:var(--b);background:rgba(0,87,183,.05)}
+.nbtns{display:flex;gap:8px}
+.nwa{display:flex;align-items:center;gap:6px;background:var(--g);color:#fff;padding:9px 18px;border-radius:50px;font-size:.75rem;font-weight:700;text-decoration:none;transition:.25s;box-shadow:0 4px 14px rgba(37,211,102,.3)}
+.nwa:hover{background:#1ebe5d;transform:translateY(-2px)}
+.nwa svg{width:14px;height:14px}
+.ncta{background:var(--b);color:#fff;padding:9px 20px;border-radius:50px;font-size:.75rem;font-weight:700;border:none;cursor:pointer;font-family:'Inter',sans-serif;transition:.25s;box-shadow:0 4px 14px rgba(0,87,183,.3)}
+.ncta:hover{background:var(--b2);transform:translateY(-2px)}
+.ham{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:6px}
+.ham span{width:22px;height:2px;background:#333;border-radius:9px}
 @media(max-width:1024px){.nm{display:none}.ham{display:flex}}
-
-/* MOBILE MENU */
-.mob{position:fixed;inset:0;z-index:890;background:rgba(255,255,255,.97);backdrop-filter:blur(20px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;transform:translateX(100%);transition:transform .4s cubic-bezier(.4,0,.2,1)}
+.mob{position:fixed;inset:0;z-index:990;background:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;transform:translateX(100%);transition:.4s}
 .mob.open{transform:none}
-.mob a{font-size:1.6rem;font-weight:800;color:var(--text);text-decoration:none;transition:color .2s}
+.mob a{font-size:1.6rem;font-weight:800;color:#111;text-decoration:none}
 .mob a:hover{color:var(--b)}
-.mob-x{position:absolute;top:24px;right:24px;width:42px;height:42px;border:1.5px solid var(--border);border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:none;font-size:1.1rem;color:var(--muted)}
+.mob-x{position:absolute;top:22px;right:22px;width:40px;height:40px;border:1px solid #e5e5e5;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:1rem;color:#888}
 
-/* HERO */
-#hero{min-height:100vh;position:relative;display:flex;align-items:center;overflow:hidden;background:#fff}
-.hero-bg-glow{position:absolute;inset:0;pointer-events:none;overflow:hidden}
-.glow1{position:absolute;width:800px;height:800px;border-radius:50%;background:radial-gradient(circle,rgba(0,87,183,.07) 0%,transparent 70%);top:-200px;right:-200px;animation:glow-move 8s ease-in-out infinite}
-.glow2{position:absolute;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(43,138,255,.05) 0%,transparent 70%);bottom:-100px;left:-100px;animation:glow-move 10s ease-in-out infinite reverse}
-.glow3{position:absolute;width:400px;height:400px;border-radius:50%;background:radial-gradient(circle,rgba(0,212,255,.04) 0%,transparent 70%);top:40%;left:40%;animation:glow-pulse 6s ease-in-out infinite}
-@keyframes glow-move{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(30px,-30px) scale(1.1)}}
-@keyframes glow-pulse{0%,100%{opacity:.5;transform:scale(1)}50%{opacity:1;transform:scale(1.2)}}
-.hero-grid-bg{position:absolute;inset:0;background-image:linear-gradient(rgba(0,87,183,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(0,87,183,.03) 1px,transparent 1px);background-size:60px 60px;mask-image:radial-gradient(ellipse 80% 80% at 50% 50%,#000 40%,transparent 100%)}
-.hero-in{position:relative;z-index:2;padding:110px 5% 80px;max-width:1280px;margin:0 auto;width:100%;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
-.hero-label{display:inline-flex;align-items:center;gap:8px;background:rgba(0,87,183,.06);border:1px solid rgba(0,87,183,.12);border-radius:50px;padding:6px 16px;margin-bottom:28px}
-.hero-label-dot{width:6px;height:6px;border-radius:50%;background:var(--b);box-shadow:0 0 8px var(--b);animation:pulse-dot 2s infinite}
-@keyframes pulse-dot{0%,100%{box-shadow:0 0 6px var(--b)}50%{box-shadow:0 0 16px var(--b),0 0 32px rgba(0,87,183,.3)}}
-.hero-label span{font-size:.65rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--b)}
-.hero-h1{font-size:clamp(3.2rem,5.5vw,5.8rem);font-weight:900;color:var(--text);line-height:.96;letter-spacing:-.04em;margin-bottom:24px}
-.hero-h1 .line1{display:block;overflow:hidden}
-.hero-h1 .line2{display:block;color:var(--b);overflow:hidden}
-.hero-h1 .line3{display:block;font-style:italic;font-weight:300;font-size:.65em;color:var(--muted);overflow:hidden}
-.hero-p{font-size:1rem;color:var(--muted);line-height:1.85;margin-bottom:36px;font-weight:400;max-width:480px}
-.hero-btns{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:48px}
-.btn-hero-main{display:inline-flex;align-items:center;gap:9px;background:var(--b);color:#fff;padding:16px 32px;border-radius:50px;font-weight:700;font-size:.86rem;border:none;cursor:none;font-family:'Inter',sans-serif;transition:all .3s;box-shadow:0 6px 28px rgba(0,87,183,.4),inset 0 1px 0 rgba(255,255,255,.2);position:relative;overflow:hidden}
-.btn-hero-main::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,.15),transparent);border-radius:50px}
-.btn-hero-main:hover{transform:translateY(-3px);box-shadow:0 12px 40px rgba(0,87,183,.55)}
-.btn-hero-main svg{width:17px;height:17px}
-.btn-hero-wa{display:inline-flex;align-items:center;gap:9px;background:var(--g);color:#fff;padding:16px 28px;border-radius:50px;font-weight:700;font-size:.86rem;text-decoration:none;transition:all .3s;box-shadow:0 6px 22px rgba(37,211,102,.4)}
-.btn-hero-wa:hover{transform:translateY(-3px);box-shadow:0 12px 36px rgba(37,211,102,.5)}
-.btn-hero-wa svg{width:17px;height:17px}
-.hero-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
-.hst{background:#fff;border:1px solid rgba(0,87,183,.08);border-radius:20px;padding:16px 12px;text-align:center;box-shadow:0 4px 20px rgba(0,87,183,.06);transition:all .4s;position:relative;overflow:hidden}
-.hst::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(0,87,183,.03),transparent);opacity:0;transition:opacity .3s}
-.hst:hover{transform:translateY(-4px);box-shadow:0 12px 40px rgba(0,87,183,.12);border-color:rgba(0,87,183,.2)}
-.hst:hover::before{opacity:1}
-.hst-n{font-size:1.6rem;font-weight:900;color:var(--b);line-height:1;letter-spacing:-.04em}
-.hst-l{font-size:.58rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-top:3px}
-.hero-right{position:relative}
-.hero-img-frame{border-radius:32px;overflow:hidden;box-shadow:0 32px 80px rgba(0,87,183,.2),0 0 0 1px rgba(0,87,183,.06);aspect-ratio:3/4;background:linear-gradient(135deg,#EBF3FF,#C8E0FF);position:relative}
-.hero-img-frame img{width:100%;height:100%;object-fit:cover}
-.hero-img-frame::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(0,87,183,.15),transparent 50%);pointer-events:none}
-.hfc{position:absolute;background:rgba(255,255,255,.92);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-radius:20px;padding:14px 18px;display:flex;align-items:center;gap:11px;box-shadow:0 8px 32px rgba(0,87,183,.15),inset 0 1px 0 rgba(255,255,255,.9);border:1px solid rgba(255,255,255,.8);animation:float 4s ease-in-out infinite}
-@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
-.hfc1{bottom:48px;left:-36px;animation-delay:0s}
-.hfc2{top:48px;right:-28px;animation-delay:1.5s}
-.hfc3{bottom:160px;right:-32px;animation-delay:.8s}
-.hfc-ico{width:38px;height:38px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0}
-.hfc-t{font-size:.8rem;font-weight:800;color:var(--text)}
-.hfc-s{font-size:.63rem;color:var(--muted)}
-@media(max-width:960px){.hero-in{grid-template-columns:1fr;padding-top:110px}.hero-img-frame{aspect-ratio:16/9}.hfc{display:none}}
+/* HERO - PANTALLA COMPLETA */
+#hero{height:100vh;min-height:700px;position:relative;overflow:hidden;display:flex;align-items:flex-end}
+.hero-bg{position:absolute;inset:0;background:url('images/hero-estudiante.jpg') center/cover no-repeat}
+.hero-ov{position:absolute;inset:0;background:linear-gradient(to top,rgba(5,20,50,.95) 0%,rgba(5,20,50,.6) 40%,rgba(5,20,50,.2) 70%,transparent 100%)}
+.hero-content{position:relative;z-index:2;padding:0 5% 60px;max-width:1280px;margin:0 auto;width:100%}
+.hero-tag{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.1);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.2);border-radius:50px;padding:6px 16px;margin-bottom:20px}
+.hero-tag-dot{width:7px;height:7px;border-radius:50%;background:#3BA7FF;animation:pd 2s infinite}
+@keyframes pd{0%,100%{box-shadow:0 0 0 0 rgba(59,167,255,.4)}50%{box-shadow:0 0 0 8px rgba(59,167,255,0)}}
+.hero-tag span{font-size:.65rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.8)}
+.hero-h1{font-size:clamp(3.5rem,7vw,7rem);font-weight:900;color:#fff;line-height:.94;letter-spacing:-.04em;margin-bottom:20px}
+.hero-h1 span{display:block}
+.hero-h1 .accent{color:#3BA7FF}
+.hero-sub{font-size:1.1rem;color:rgba(255,255,255,.65);margin-bottom:36px;font-weight:300;max-width:500px;line-height:1.7}
+.hero-btns{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:56px}
+.hero-btn1{display:inline-flex;align-items:center;gap:9px;background:var(--b3);color:#fff;padding:16px 34px;border-radius:50px;font-weight:700;font-size:.88rem;border:none;cursor:pointer;font-family:'Inter',sans-serif;transition:.3s;box-shadow:0 8px 28px rgba(43,138,255,.5)}
+.hero-btn1:hover{transform:translateY(-3px);box-shadow:0 14px 40px rgba(43,138,255,.6)}
+.hero-btn1 svg{width:17px;height:17px}
+.hero-btn2{display:inline-flex;align-items:center;gap:9px;background:rgba(255,255,255,.12);backdrop-filter:blur(10px);color:#fff;padding:16px 30px;border-radius:50px;font-weight:600;font-size:.88rem;text-decoration:none;border:1px solid rgba(255,255,255,.25);transition:.3s}
+.hero-btn2:hover{background:rgba(255,255,255,.2);transform:translateY(-3px)}
+.hero-btn2 svg{width:17px;height:17px}
+.hero-stats{display:flex;gap:0}
+.hst{padding:20px 40px 20px 0;border-right:1px solid rgba(255,255,255,.12)}
+.hst:last-child{border:none;padding-right:0;padding-left:40px}
+.hst:not(:first-child){padding-left:40px}
+.hst-n{font-size:2.2rem;font-weight:900;color:#fff;line-height:1;letter-spacing:-.04em}
+.hst-n em{color:#3BA7FF;font-style:normal}
+.hst-l{font-size:.62rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-top:4px}
+.hero-scroll{position:absolute;bottom:24px;right:5%;z-index:2;display:flex;align-items:center;gap:10px;color:rgba(255,255,255,.4);font-size:.7rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase}
+.scroll-line{width:40px;height:1px;background:rgba(255,255,255,.2)}
+@media(max-width:768px){.hero-stats{flex-wrap:wrap;gap:16px}.hst{border:none;padding:0 20px 0 0}.hero-h1{font-size:3rem}}
 
 /* MARQUEE */
-.mq{background:linear-gradient(90deg,var(--b2),var(--b),var(--b3));padding:12px 0;overflow:hidden;position:relative}
-.mq::before,.mq::after{content:'';position:absolute;top:0;bottom:0;width:80px;z-index:2;pointer-events:none}
-.mq::before{left:0;background:linear-gradient(90deg,var(--b2),transparent)}
-.mq::after{right:0;background:linear-gradient(-90deg,var(--b3),transparent)}
-.mq-t{display:flex;animation:mqs 28s linear infinite;white-space:nowrap}
-.mq-i{font-size:.62rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.82);padding:0 28px;display:flex;align-items:center;gap:12px;flex-shrink:0}
-.mq-d{width:4px;height:4px;border-radius:50%;background:rgba(255,255,255,.4)}
+.mq{background:var(--b);padding:13px 0;overflow:hidden}
+.mq-t{display:flex;animation:mqs 25s linear infinite;white-space:nowrap}
+.mq-i{font-size:.63rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.8);padding:0 32px;display:flex;align-items:center;gap:14px;flex-shrink:0}
+.mq-d{width:4px;height:4px;border-radius:50%;background:rgba(255,255,255,.35)}
 @keyframes mqs{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 
-/* SECTIONS */
-.sec{padding:100px 5%}
+/* SECCION PERFIL - NUEVO DISEÑO */
+#perfil{background:#fff;padding:0}
+.perfil-grid{display:grid;grid-template-columns:1fr 1fr;min-height:600px}
+.perfil-card{position:relative;overflow:hidden;display:flex;align-items:flex-end;padding:60px;min-height:600px;cursor:pointer;transition:.4s}
+.perfil-card:hover .pc-bg{transform:scale(1.05)}
+.pc-bg{position:absolute;inset:0;transition:.5s;background-size:cover;background-position:center}
+.pc-bg-bach{background-image:url('images/grupo1.jpg')}
+.pc-bg-pro{background-image:url('images/profesional1.jpg')}
+.pc-ov-bach{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,61,143,.95) 0%,rgba(0,61,143,.7) 40%,rgba(0,87,183,.3) 100%)}
+.pc-ov-pro{position:absolute;inset:0;background:linear-gradient(to top,rgba(5,20,50,.95) 0%,rgba(5,20,50,.7) 40%,rgba(43,138,255,.25) 100%)}
+.pc-content{position:relative;z-index:2}
+.pc-num{font-size:.6rem;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.45);margin-bottom:16px;display:flex;align-items:center;gap:10px}
+.pc-num::before{content:'';width:24px;height:1px;background:rgba(255,255,255,.3)}
+.pc-title{font-size:3rem;font-weight:900;color:#fff;line-height:.95;letter-spacing:-.04em;margin-bottom:14px}
+.pc-desc{font-size:.9rem;color:rgba(255,255,255,.65);line-height:1.7;margin-bottom:28px;max-width:360px;font-weight:300}
+.pc-tags{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:28px}
+.pc-tag{font-size:.62rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#fff;background:rgba(255,255,255,.12);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.18);padding:5px 14px;border-radius:50px}
+.pc-btn{display:inline-flex;align-items:center;gap:8px;background:#fff;color:var(--b);padding:13px 26px;border-radius:50px;font-weight:800;font-size:.8rem;border:none;cursor:pointer;font-family:'Inter',sans-serif;transition:.3s}
+.pc-btn:hover{background:var(--b3);color:#fff;transform:translateY(-2px)}
+@media(max-width:768px){.perfil-grid{grid-template-columns:1fr}.perfil-card{min-height:480px}}
+
+/* DESTINOS - GRID VISUAL */
+#destinos{background:#F0F5FF;padding:96px 5%}
 .sec-in{max-width:1280px;margin:0 auto}
-.chip{display:inline-flex;align-items:center;gap:7px;background:rgba(0,87,183,.06);border:1px solid rgba(0,87,183,.1);border-radius:50px;padding:5px 14px;margin-bottom:18px}
-.chip-d{width:5px;height:5px;border-radius:50%;background:var(--b)}
-.chip span{font-size:.62rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--b)}
-.sec-h2{font-size:clamp(2rem,3.8vw,3.4rem);font-weight:900;color:var(--text);line-height:1.05;letter-spacing:-.03em;margin-bottom:16px}
+.sec-label{display:inline-flex;align-items:center;gap:8px;background:rgba(0,87,183,.07);border:1px solid rgba(0,87,183,.12);border-radius:50px;padding:5px 16px;margin-bottom:16px}
+.sec-label span{font-size:.62rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--b)}
+.sec-label-d{width:5px;height:5px;border-radius:50%;background:var(--b)}
+.sec-h2{font-size:clamp(2.2rem,4vw,3.6rem);font-weight:900;color:#0A1628;line-height:1.02;letter-spacing:-.03em;margin-bottom:14px}
 .sec-h2 em{font-style:italic;color:var(--b);font-weight:300}
-.sec-sub{font-size:.94rem;color:var(--muted);line-height:1.85;max-width:500px;font-weight:400}
-[data-r]{opacity:0;transform:translateY(40px);transition:opacity .8s cubic-bezier(.4,0,.2,1),transform .8s cubic-bezier(.4,0,.2,1)}
-[data-r].on{opacity:1;transform:none}
-[data-r][data-d="1"]{transition-delay:.12s}
-[data-r][data-d="2"]{transition-delay:.24s}
-[data-r][data-d="3"]{transition-delay:.36s}
-
-/* ABOUT */
-#about{background:#fff}
-.about-g{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;margin-top:60px}
-.about-img{border-radius:32px;overflow:hidden;box-shadow:0 24px 80px rgba(0,87,183,.15);aspect-ratio:4/5;background:linear-gradient(135deg,#EBF3FF,#C8E0FF);position:relative}
-.about-img img{width:100%;height:100%;object-fit:cover}
-.about-badge{position:absolute;bottom:24px;left:24px;background:rgba(255,255,255,.95);backdrop-filter:blur(16px);border-radius:20px;padding:16px 20px;box-shadow:0 8px 32px rgba(0,87,183,.15);display:flex;align-items:center;gap:12px;border:1px solid rgba(255,255,255,.8)}
-.ab-ico{width:44px;height:44px;border-radius:14px;background:linear-gradient(135deg,var(--b),var(--b3));display:flex;align-items:center;justify-content:center;font-size:1.3rem}
-.ab-n{font-size:1.5rem;font-weight:900;color:var(--b);line-height:1;letter-spacing:-.04em}
-.ab-l{font-size:.62rem;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-top:2px}
-.about-feats{display:flex;flex-direction:column;gap:12px;margin:28px 0 32px}
-.af{display:flex;gap:14px;align-items:flex-start;padding:16px;border-radius:18px;border:1px solid rgba(0,87,183,.08);background:var(--off);transition:all .3s}
-.af:hover{border-color:rgba(0,87,183,.2);box-shadow:0 4px 20px rgba(0,87,183,.08);transform:translateX(4px)}
-.af-ico{width:40px;height:40px;border-radius:12px;background:rgba(0,87,183,.08);display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.af-ico svg{width:20px;height:20px;stroke:var(--b);fill:none;stroke-width:2}
-.af-t{font-size:.86rem;font-weight:700;color:var(--text);margin-bottom:2px}
-.af-d{font-size:.78rem;color:var(--muted);line-height:1.65}
-@media(max-width:960px){.about-g{grid-template-columns:1fr}.about-img{aspect-ratio:16/9}}
-
-/* PERFIL */
-#perfil{background:var(--off)}
-.p-intro{text-align:center;max-width:600px;margin:0 auto 56px}
-.p-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
-.pcard{border-radius:32px;padding:52px 44px;position:relative;overflow:hidden;transition:all .4s;cursor:none}
-.pcard:hover{transform:translateY(-8px)}
-.pca{background:linear-gradient(145deg,#003580,#0057B7,#2B8AFF);color:#fff;box-shadow:0 20px 60px rgba(0,87,183,.4)}
-.pca:hover{box-shadow:0 32px 80px rgba(0,87,183,.55)}
-.pcb{background:#fff;border:1px solid rgba(0,87,183,.1);box-shadow:0 8px 40px rgba(0,87,183,.08)}
-.pcb:hover{box-shadow:0 24px 80px rgba(0,87,183,.15);border-color:rgba(0,87,183,.2)}
-.pcard-shine{position:absolute;width:300px;height:300px;border-radius:50%;background:rgba(255,255,255,.06);top:-80px;right:-60px;pointer-events:none}
-.pc-num{font-size:.6rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;opacity:.4;margin-bottom:24px}
-.pc-ico{width:56px;height:56px;border-radius:18px;display:flex;align-items:center;justify-content:center;margin-bottom:20px}
-.pca .pc-ico{background:rgba(255,255,255,.15)}.pcb .pc-ico{background:rgba(0,87,183,.08)}
-.pc-ico svg{width:27px;height:27px;stroke-width:1.8;fill:none}
-.pc-title{font-size:2rem;font-weight:900;margin-bottom:12px;letter-spacing:-.04em;line-height:1}
-.pc-desc{font-size:.87rem;line-height:1.78;opacity:.65;margin-bottom:24px;max-width:360px}
-.pc-list{display:flex;flex-direction:column;gap:8px;margin-bottom:28px}
-.pc-li{font-size:.82rem;font-weight:500;display:flex;align-items:center;gap:10px}
-.pca .pc-li::before{content:'';width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.5);flex-shrink:0}
-.pcb .pc-li::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--b);flex-shrink:0}
-.pc-btns{display:flex;gap:10px;flex-wrap:wrap}
-.bpa{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.16);color:#fff;padding:12px 22px;border-radius:50px;font-weight:700;font-size:.78rem;border:1px solid rgba(255,255,255,.22);cursor:none;font-family:'Inter',sans-serif;transition:all .3s}
-.bpa:hover{background:rgba(255,255,255,.26)}
-.bpb{display:inline-flex;align-items:center;gap:8px;background:var(--b);color:#fff;padding:12px 22px;border-radius:50px;font-weight:700;font-size:.78rem;border:none;cursor:none;font-family:'Inter',sans-serif;transition:all .3s;box-shadow:0 4px 16px rgba(0,87,183,.3)}
-.bpb:hover{background:var(--b2)}
-@media(max-width:900px){.p-grid{grid-template-columns:1fr}}
-
-/* DESTINOS - BENTO GRID */
-#destinos{background:#fff}
 .dest-hdr{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:end;margin-bottom:48px}
-.dg{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-.dc{border-radius:24px;overflow:hidden;background:#fff;border:1px solid rgba(0,87,183,.08);box-shadow:0 4px 20px rgba(0,87,183,.06);transition:all .4s;cursor:none;position:relative}
-.dc:hover{transform:translateY(-10px);box-shadow:0 24px 60px rgba(0,87,183,.18);border-color:rgba(0,87,183,.2)}
-.dc-img{height:200px;position:relative;overflow:hidden;background:linear-gradient(135deg,#0D47A1,#1976D2)}
-.dc-img img{width:100%;height:100%;object-fit:cover;transition:transform .6s}
+.dest-sub{font-size:.94rem;color:#667;line-height:1.85;margin-bottom:20px}
+.dg{display:grid;grid-template-columns:repeat(3,1fr);gap:3px;background:#e0e8f5}
+.dc{background:#fff;overflow:hidden;position:relative;cursor:pointer;transition:.4s}
+.dc:hover{z-index:2;box-shadow:0 20px 60px rgba(0,87,183,.2)}
 .dc:hover .dc-img img{transform:scale(1.08)}
-.dc-ov{position:absolute;inset:0;background:linear-gradient(to top,rgba(2,13,31,.92),transparent 55%)}
-.dc-inf{position:absolute;bottom:0;left:0;right:0;padding:14px 18px;display:flex;align-items:flex-end;justify-content:space-between}
-.dc-name{font-size:1.15rem;font-weight:800;color:#fff;letter-spacing:-.02em}
-.dc-pr{font-size:.58rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#fff;background:rgba(0,87,183,.85);padding:4px 10px;border-radius:50px}
-.dc-body{padding:16px 18px 14px}
-.dc-desc{font-size:.78rem;color:var(--muted);line-height:1.7;margin-bottom:10px}
-.dc-tags{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:12px}
-.dtag{font-size:.6rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--b);background:rgba(0,87,183,.06);border-radius:50px;padding:3px 10px;border:1px solid rgba(0,87,183,.1)}
-.dc-btns{display:flex;gap:5px;flex-wrap:wrap}
-.bs{display:inline-flex;align-items:center;gap:4px;padding:7px 13px;border-radius:50px;font-size:.72rem;font-weight:700;text-decoration:none;transition:all .25s;border:none;cursor:none;font-family:'Inter',sans-serif}
+.dc-img{height:240px;overflow:hidden;position:relative;background:linear-gradient(135deg,#0D47A1,#1976D2)}
+.dc-img img{width:100%;height:100%;object-fit:cover;transition:.6s}
+.dc-ov{position:absolute;inset:0;background:linear-gradient(to top,rgba(5,15,40,.9),transparent 55%)}
+.dc-inf{position:absolute;bottom:0;left:0;right:0;padding:18px 20px;display:flex;align-items:flex-end;justify-content:space-between}
+.dc-nm{font-size:1.3rem;font-weight:900;color:#fff;letter-spacing:-.02em}
+.dc-pr{font-size:.58rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#fff;background:rgba(0,87,183,.85);padding:4px 12px;border-radius:50px}
+.dc-body{padding:20px}
+.dc-tags{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:14px}
+.dtag{font-size:.6rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--b);background:rgba(0,87,183,.07);border-radius:50px;padding:3px 10px;border:1px solid rgba(0,87,183,.1)}
+.dc-btns{display:flex;gap:6px}
+.bs{display:inline-flex;align-items:center;gap:4px;padding:8px 14px;border-radius:50px;font-size:.72rem;font-weight:700;text-decoration:none;transition:.25s;border:none;cursor:pointer;font-family:'Inter',sans-serif}
 .bs-b{background:var(--b);color:#fff}.bs-b:hover{background:var(--b2)}
-.bs-d{background:var(--off);color:var(--text);border:1px solid rgba(0,87,183,.1)}.bs-d:hover{border-color:var(--b);color:var(--b)}
+.bs-d{background:#F0F5FF;color:#333;border:1px solid #d5e2f5}.bs-d:hover{border-color:var(--b);color:var(--b)}
 .bs-g{background:var(--g);color:#fff}.bs-g:hover{background:#1ebe5d}
 @media(max-width:960px){.dest-hdr{grid-template-columns:1fr}.dg{grid-template-columns:1fr 1fr}}
 @media(max-width:600px){.dg{grid-template-columns:1fr}}
 
-/* CREDIBILIDAD */
-#cred{background:linear-gradient(135deg,#020D1F 0%,#021852 50%,#020D1F 100%);padding:96px 5%;position:relative;overflow:hidden}
-#cred::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 0%,rgba(0,87,183,.3),transparent 70%);pointer-events:none}
-.cred-in{max-width:1280px;margin:0 auto;position:relative;z-index:2}
-.cred-top{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;margin-bottom:64px}
-.cred-stats{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-.cs{background:rgba(255,255,255,.05);backdrop-filter:blur(12px);border-radius:24px;padding:30px 26px;border:1px solid rgba(255,255,255,.08);transition:all .3s;position:relative;overflow:hidden}
-.cs::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(0,87,183,.1),transparent);opacity:0;transition:opacity .3s}
-.cs:hover{background:rgba(0,87,183,.12);transform:translateY(-4px);box-shadow:0 16px 48px rgba(0,0,0,.3)}
-.cs:hover::before{opacity:1}
-.cs-n{font-size:2.8rem;font-weight:900;color:#fff;line-height:1;letter-spacing:-.05em;margin-bottom:6px}
-.cs-n span{color:#3BA7FF}
-.cs-l{font-size:.62rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.4)}
-.unis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
-.uni{background:rgba(255,255,255,.04);backdrop-filter:blur(8px);border-radius:18px;padding:18px 12px;text-align:center;border:1px solid rgba(255,255,255,.06);transition:all .3s}
-.uni:hover{background:rgba(0,87,183,.12);transform:translateY(-3px)}
-.uni-f{font-size:1.4rem;display:block;margin-bottom:5px}
-.uni-n{font-size:.74rem;font-weight:700;color:#fff}
-.uni-c{font-size:.6rem;color:rgba(255,255,255,.35);letter-spacing:.06em;text-transform:uppercase;margin-top:2px}
-@media(max-width:900px){.cred-top{grid-template-columns:1fr}.unis{grid-template-columns:repeat(2,1fr)}}
+/* STATS BANDA */
+#stats{background:var(--b);padding:60px 5%}
+.stats-in{max-width:1280px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:2px;background:rgba(255,255,255,.1)}
+.stat{background:var(--b);padding:44px 32px;text-align:center;transition:.3s}
+.stat:hover{background:var(--b2)}
+.stat-n{font-size:3.2rem;font-weight:900;color:#fff;line-height:1;letter-spacing:-.05em;margin-bottom:8px}
+.stat-n em{color:#7EC8FF;font-style:normal}
+.stat-l{font-size:.65rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.5)}
+@media(max-width:768px){.stats-in{grid-template-columns:1fr 1fr}}
+
+/* GALERIA FOTOS GRANDES */
+#galeria{background:#fff;padding:96px 5%}
+.galeria-hdr{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:end;margin-bottom:48px}
+.gg{display:grid;grid-template-columns:repeat(12,1fr);grid-auto-rows:200px;gap:3px;background:#e0e8f5}
+.gi{overflow:hidden;position:relative;cursor:pointer;transition:.4s;background:linear-gradient(135deg,#0D47A1,#1976D2)}
+.gi:hover{z-index:2;box-shadow:0 16px 48px rgba(0,87,183,.25)}
+.gi:hover img{transform:scale(1.08)}
+.gi:nth-child(1){grid-column:span 7;grid-row:span 2}
+.gi:nth-child(2){grid-column:span 5}
+.gi:nth-child(3){grid-column:span 5}
+.gi:nth-child(4){grid-column:span 4}
+.gi:nth-child(5){grid-column:span 4}
+.gi:nth-child(6){grid-column:span 4}
+.gi img{width:100%;height:100%;object-fit:cover;transition:.5s}
+.gi-ov{position:absolute;inset:0;background:rgba(5,20,50,0);transition:.3s}
+.gi:hover .gi-ov{background:rgba(0,87,183,.3)}
+.gi-l{position:absolute;bottom:14px;left:16px;font-size:.62rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#fff;opacity:0;transition:.3s;transform:translateY(6px)}
+.gi:hover .gi-l{opacity:1;transform:none}
+@media(max-width:768px){.gg{grid-template-columns:1fr 1fr;grid-auto-rows:180px}.gi:nth-child(n){grid-column:span 1;grid-row:span 1}}
 
 /* SERVICIOS */
-#servicios{background:var(--off)}
-.sg{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:48px}
-.sc{background:#fff;border-radius:24px;padding:36px 28px;border:1px solid rgba(0,87,183,.08);box-shadow:0 4px 20px rgba(0,87,183,.06);transition:all .35s;position:relative;overflow:hidden}
-.sc::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--b),var(--b3));transform:scaleX(0);transform-origin:left;transition:transform .4s}
-.sc:hover{transform:translateY(-6px);box-shadow:0 16px 48px rgba(0,87,183,.12);border-color:rgba(0,87,183,.15)}
+#servicios{background:#F0F5FF;padding:96px 5%}
+.sg{display:grid;grid-template-columns:repeat(3,1fr);gap:3px;background:#d5e2f5;margin-top:48px}
+.sc{background:#fff;padding:40px 32px;transition:.35s;position:relative;overflow:hidden;cursor:default}
+.sc::before{content:'';position:absolute;bottom:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--b),var(--b3));transform:scaleX(0);transform-origin:left;transition:.4s}
+.sc:hover{box-shadow:0 12px 40px rgba(0,87,183,.1);transform:translateY(-4px)}
 .sc:hover::before{transform:scaleX(1)}
-.sc-n{font-size:.56rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(0,87,183,.3);margin-bottom:16px}
-.sc-ico{width:48px;height:48px;border-radius:16px;background:rgba(0,87,183,.07);display:flex;align-items:center;justify-content:center;margin-bottom:16px;transition:all .3s}
+.sc-n{font-size:.56rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:rgba(0,87,183,.3);margin-bottom:18px}
+.sc-ico{width:52px;height:52px;border-radius:16px;background:rgba(0,87,183,.07);display:flex;align-items:center;justify-content:center;margin-bottom:18px;transition:.3s}
 .sc:hover .sc-ico{background:var(--b)}
 .sc:hover .sc-ico svg{stroke:#fff}
-.sc-ico svg{width:24px;height:24px;stroke:var(--b);fill:none;stroke-width:2;transition:stroke .3s}
-.sc-t{font-size:.96rem;font-weight:800;color:var(--text);margin-bottom:8px;letter-spacing:-.02em}
-.sc-d{font-size:.78rem;color:var(--muted);line-height:1.8}
+.sc-ico svg{width:26px;height:26px;stroke:var(--b);fill:none;stroke-width:2;transition:.3s}
+.sc-t{font-size:1rem;font-weight:800;color:#0A1628;margin-bottom:10px;letter-spacing:-.02em}
+.sc-d{font-size:.8rem;color:#667;line-height:1.8}
 @media(max-width:900px){.sg{grid-template-columns:1fr 1fr}}
 @media(max-width:600px){.sg{grid-template-columns:1fr}}
 
 /* PROCESO */
-#proceso{background:#fff}
+#proceso{background:#fff;padding:96px 5%}
 .prg{display:grid;grid-template-columns:1fr 1fr;gap:80px;margin-top:56px;align-items:start}
 .pasos{display:flex;flex-direction:column;gap:4px}
-.paso{display:flex;gap:16px;padding:18px 20px;border-radius:18px;cursor:none;transition:all .3s;border:1px solid transparent}
-.paso:hover{background:var(--off);border-color:rgba(0,87,183,.08)}
-.paso.on{background:rgba(0,87,183,.05);border-color:rgba(0,87,183,.15);box-shadow:0 4px 20px rgba(0,87,183,.08)}
-.paso-n{width:36px;height:36px;border-radius:50%;border:2px solid rgba(0,87,183,.15);display:flex;align-items:center;justify-content:center;font-size:.76rem;font-weight:800;color:var(--muted);flex-shrink:0;transition:all .3s}
-.paso.on .paso-n{background:var(--b);color:#fff;border-color:var(--b);box-shadow:0 4px 14px rgba(0,87,183,.35)}
-.paso-t{font-size:.88rem;font-weight:700;color:var(--text);margin-bottom:2px;transition:color .2s}
+.paso{display:flex;gap:16px;padding:18px 20px;border-radius:16px;cursor:pointer;transition:.3s;border:1px solid transparent}
+.paso:hover{background:#F0F5FF;border-color:#d5e2f5}
+.paso.on{background:#EEF5FF;border-color:rgba(0,87,183,.18)}
+.paso-n{width:36px;height:36px;border-radius:50%;border:2px solid #d5e2f5;display:flex;align-items:center;justify-content:center;font-size:.76rem;font-weight:800;color:#888;flex-shrink:0;transition:.3s}
+.paso.on .paso-n{background:var(--b);color:#fff;border-color:var(--b);box-shadow:0 4px 14px rgba(0,87,183,.3)}
+.paso-t{font-size:.88rem;font-weight:700;color:#0A1628;margin-bottom:2px;transition:.2s}
 .paso.on .paso-t{color:var(--b)}
-.paso-d{font-size:.76rem;color:var(--muted);line-height:1.7;max-height:0;overflow:hidden;transition:max-height .4s,opacity .3s;opacity:0}
+.paso-d{font-size:.76rem;color:#667;line-height:1.7;max-height:0;overflow:hidden;transition:.4s;opacity:0}
 .paso.on .paso-d{max-height:200px;opacity:1}
-.pp{background:var(--off);border-radius:28px;padding:36px;box-shadow:0 8px 40px rgba(0,87,183,.08);border:1px solid rgba(0,87,183,.08);position:sticky;top:100px}
+.pp{background:#F0F5FF;border-radius:24px;padding:36px;box-shadow:0 8px 40px rgba(0,87,183,.08);border:1px solid #d5e2f5;position:sticky;top:88px}
 .pp-s{font-size:.6rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--b);margin-bottom:10px}
-.pp-t{font-size:1.5rem;font-weight:800;color:var(--text);margin-bottom:10px;letter-spacing:-.03em;line-height:1.1}
-.pp-d{font-size:.82rem;color:var(--muted);line-height:1.8;margin-bottom:16px}
+.pp-t{font-size:1.5rem;font-weight:800;color:#0A1628;margin-bottom:10px;letter-spacing:-.03em;line-height:1.1}
+.pp-d{font-size:.82rem;color:#667;line-height:1.8;margin-bottom:16px}
 .pp-tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:20px}
 .pp-tag{background:#fff;color:var(--b);font-size:.6rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:5px 12px;border-radius:50px;border:1px solid rgba(0,87,183,.15)}
-.pp-bar{height:4px;background:rgba(0,87,183,.08);border-radius:99px;overflow:hidden;margin-bottom:20px}
-.pp-prog{height:100%;background:linear-gradient(90deg,var(--b),var(--b3));border-radius:99px;transition:width .5s cubic-bezier(.4,0,.2,1)}
-.pp-box{background:#fff;border-radius:16px;padding:16px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;border:1px solid rgba(0,87,183,.08)}
-.pp-box p{font-size:.78rem;font-weight:700;color:var(--text)}
+.pp-bar{height:4px;background:#d5e2f5;border-radius:99px;overflow:hidden;margin-bottom:20px}
+.pp-prog{height:100%;background:linear-gradient(90deg,var(--b),var(--b3));border-radius:99px;transition:.5s}
+.pp-box{background:#fff;border-radius:14px;padding:16px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;border:1px solid #d5e2f5}
+.pp-box p{font-size:.78rem;font-weight:700;color:#0A1628}
 @media(max-width:900px){.prg{grid-template-columns:1fr}.pp{position:static}}
 
 /* TESTIMONIOS */
-#testimonios{background:var(--off)}
+#testimonios{background:#F0F5FF;padding:96px 5%}
 .tg{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:48px}
-.tc{background:#fff;border-radius:24px;padding:28px 24px;border:1px solid rgba(0,87,183,.08);box-shadow:0 4px 20px rgba(0,87,183,.06);transition:all .35s}
-.tc:hover{transform:translateY(-6px);box-shadow:0 16px 48px rgba(0,87,183,.12);border-color:rgba(0,87,183,.15)}
+.tc{background:#fff;border-radius:20px;padding:28px 24px;border:1px solid #d5e2f5;transition:.35s}
+.tc:hover{transform:translateY(-6px);box-shadow:0 16px 48px rgba(0,87,183,.1);border-color:rgba(0,87,183,.18)}
 .tc-stars{display:flex;gap:3px;margin-bottom:12px}
 .tc-stars svg{width:14px;height:14px}
-.tc-q{font-size:.88rem;color:var(--muted);line-height:1.82;font-style:italic;margin-bottom:18px}
-.tc-a{display:flex;align-items:center;gap:11px;padding-top:14px;border-top:1px solid rgba(0,87,183,.06)}
+.tc-q{font-size:.88rem;color:#556;line-height:1.82;font-style:italic;margin-bottom:18px}
+.tc-a{display:flex;align-items:center;gap:11px;padding-top:14px;border-top:1px solid #eef2fa}
 .tc-av{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--b),var(--b3));display:flex;align-items:center;justify-content:center;font-weight:800;color:#fff;font-size:.82rem;flex-shrink:0}
-.tc-n{font-size:.86rem;font-weight:800;color:var(--text);margin-bottom:1px}
-.tc-i{font-size:.64rem;color:var(--muted)}
+.tc-n{font-size:.86rem;font-weight:800;color:#0A1628;margin-bottom:1px}
+.tc-i{font-size:.64rem;color:#888}
 @media(max-width:900px){.tg{grid-template-columns:1fr 1fr}}
 @media(max-width:600px){.tg{grid-template-columns:1fr}}
 
-/* GALERIA */
-#galeria{background:#fff}
-.gg{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:220px;gap:14px;margin-top:44px}
-.gi{border-radius:22px;overflow:hidden;position:relative;cursor:none;box-shadow:0 4px 20px rgba(0,87,183,.1);transition:all .4s;background:linear-gradient(135deg,#0D47A1,#1976D2)}
-.gi:nth-child(1){grid-column:span 2;grid-row:span 2}
-.gi:nth-child(4){grid-column:span 2}
-.gi:hover{transform:translateY(-4px);box-shadow:0 16px 48px rgba(0,87,183,.2)}
-.gi img{width:100%;height:100%;object-fit:cover;transition:transform .6s}
-.gi:hover img{transform:scale(1.08)}
-.gi-ov{position:absolute;inset:0;background:linear-gradient(to top,rgba(2,13,31,.7),transparent 50%);opacity:0;transition:opacity .3s}
-.gi:hover .gi-ov{opacity:1}
-.gi-l{position:absolute;bottom:14px;left:16px;font-size:.64rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#fff;opacity:0;transition:all .35s;transform:translateY(6px)}
-.gi:hover .gi-l{opacity:1;transform:translateY(0)}
-@media(max-width:768px){.gg{grid-template-columns:1fr 1fr;grid-auto-rows:180px}.gi:nth-child(1),.gi:nth-child(4){grid-column:span 1;grid-row:span 1}}
-
 /* BLOG */
-#blog{background:var(--off)}
+#blog{background:#fff;padding:96px 5%}
 .blog-g{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:48px}
-.blog-c{border-radius:24px;overflow:hidden;background:#fff;border:1px solid rgba(0,87,183,.08);box-shadow:0 4px 20px rgba(0,87,183,.06);transition:all .35s;cursor:none}
-.blog-c:hover{transform:translateY(-6px);box-shadow:0 16px 48px rgba(0,87,183,.12);border-color:rgba(0,87,183,.15)}
-.blog-img{height:200px;background:linear-gradient(135deg,#0D47A1,#1976D2);overflow:hidden}
-.blog-img img{width:100%;height:100%;object-fit:cover;transition:transform .5s}
+.blog-c{border-radius:20px;overflow:hidden;background:#fff;border:1px solid #d5e2f5;transition:.35s;cursor:pointer}
+.blog-c:hover{transform:translateY(-6px);box-shadow:0 16px 48px rgba(0,87,183,.1);border-color:rgba(0,87,183,.18)}
+.blog-img{height:200px;overflow:hidden;background:linear-gradient(135deg,#0D47A1,#1976D2)}
+.blog-img img{width:100%;height:100%;object-fit:cover;transition:.5s}
 .blog-c:hover .blog-img img{transform:scale(1.06)}
 .blog-body{padding:24px}
-.blog-cat{display:inline-block;font-size:.6rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--b);background:rgba(0,87,183,.06);border-radius:50px;padding:3px 10px;margin-bottom:12px;border:1px solid rgba(0,87,183,.1)}
-.blog-t{font-size:1rem;font-weight:800;color:var(--text);margin-bottom:8px;letter-spacing:-.02em;line-height:1.3}
-.blog-d{font-size:.78rem;color:var(--muted);line-height:1.7;margin-bottom:14px}
+.blog-cat{display:inline-block;font-size:.6rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--b);background:rgba(0,87,183,.07);border-radius:50px;padding:3px 10px;margin-bottom:12px;border:1px solid rgba(0,87,183,.1)}
+.blog-t{font-size:1rem;font-weight:800;color:#0A1628;margin-bottom:8px;letter-spacing:-.02em;line-height:1.3}
+.blog-d{font-size:.78rem;color:#667;line-height:1.7;margin-bottom:14px}
 .blog-meta{display:flex;align-items:center;justify-content:space-between}
-.blog-fecha{font-size:.68rem;color:var(--muted);font-weight:500}
-.blog-link{font-size:.72rem;font-weight:700;color:var(--b);text-decoration:none;display:flex;align-items:center;gap:4px;transition:gap .2s}
+.blog-fecha{font-size:.68rem;color:#888;font-weight:500}
+.blog-link{font-size:.72rem;font-weight:700;color:var(--b);text-decoration:none;transition:.2s}
 .blog-link:hover{gap:8px}
 @media(max-width:900px){.blog-g{grid-template-columns:1fr 1fr}}
 @media(max-width:600px){.blog-g{grid-template-columns:1fr}}
 
-/* CTA FINAL */
-#cta-f{background:linear-gradient(135deg,#020D1F 0%,#021852 50%,#020D1F 100%);padding:120px 5%;text-align:center;position:relative;overflow:hidden}
-#cta-f::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 60% at 50% 50%,rgba(0,87,183,.25),transparent 70%);pointer-events:none}
-.cta-in{position:relative;z-index:2;max-width:640px;margin:0 auto}
-.cta-chip{display:inline-flex;align-items:center;gap:7px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:50px;padding:6px 18px;margin-bottom:20px}
-.cta-chip span{font-size:.62rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.7)}
-.cta-t{font-size:clamp(2.6rem,5vw,4.8rem);font-weight:900;color:#fff;line-height:.96;letter-spacing:-.04em;margin-bottom:18px}
-.cta-t em{font-style:italic;color:#3BA7FF;font-weight:300}
-.cta-s{font-size:.96rem;color:rgba(255,255,255,.5);max-width:420px;margin:0 auto 40px;line-height:1.85}
-.cta-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-bottom:36px}
-.cta-meta{display:flex;align-items:center;justify-content:center;gap:24px;flex-wrap:wrap}
-.cta-m{font-size:.7rem;font-weight:600;color:rgba(255,255,255,.35);display:flex;align-items:center;gap:6px}
-.cta-m::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--b3);flex-shrink:0}
+/* CTA FINAL - IMAGEN DE FONDO */
+#ctaf{position:relative;overflow:hidden;min-height:500px;display:flex;align-items:center;justify-content:center;text-align:center;padding:96px 5%}
+.ctaf-bg{position:absolute;inset:0;background:url('images/campus1.jpg') center/cover no-repeat}
+.ctaf-ov{position:absolute;inset:0;background:linear-gradient(135deg,rgba(0,61,143,.95),rgba(5,20,50,.92))}
+.ctaf-in{position:relative;z-index:2;max-width:640px;margin:0 auto}
+.ctaf-badge{display:inline-flex;align-items:center;gap:7px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:50px;padding:6px 18px;margin-bottom:20px}
+.ctaf-badge span{font-size:.62rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.7)}
+.ctaf-t{font-size:clamp(2.8rem,5.5vw,5rem);font-weight:900;color:#fff;line-height:.96;letter-spacing:-.04em;margin-bottom:18px}
+.ctaf-t em{color:#3BA7FF;font-style:italic;font-weight:300}
+.ctaf-s{font-size:.96rem;color:rgba(255,255,255,.55);max-width:420px;margin:0 auto 40px;line-height:1.85}
+.ctaf-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-bottom:36px}
+.ctaf-meta{display:flex;align-items:center;justify-content:center;gap:24px;flex-wrap:wrap}
+.ctaf-m{font-size:.7rem;font-weight:600;color:rgba(255,255,255,.35);display:flex;align-items:center;gap:6px}
+.ctaf-m::before{content:'';width:5px;height:5px;border-radius:50%;background:#3BA7FF;flex-shrink:0}
 
 /* FOOTER */
-footer{background:#020D1F;padding:72px 5% 28px;border-top:1px solid rgba(255,255,255,.04)}
+footer{background:#08142A;padding:72px 5% 28px}
 .fg{display:grid;grid-template-columns:1.8fr 1fr 1fr 1fr;gap:48px;margin-bottom:48px}
 .f-logo img{height:50px;margin-bottom:10px}
 .f-tag{font-size:.6rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.18);margin-bottom:12px}
 .f-desc{font-size:.76rem;color:rgba(255,255,255,.32);line-height:1.8;max-width:220px;margin-bottom:20px}
 .f-soc{display:flex;gap:8px;margin-bottom:20px}
-.fss{width:34px;height:34px;border:1px solid rgba(255,255,255,.08);border-radius:10px;display:flex;align-items:center;justify-content:center;text-decoration:none;transition:all .25s}
+.fss{width:34px;height:34px;border:1px solid rgba(255,255,255,.08);border-radius:10px;display:flex;align-items:center;justify-content:center;text-decoration:none;transition:.25s}
 .fss:hover{background:var(--b);border-color:var(--b);transform:translateY(-2px)}
 .fss svg{width:14px;height:14px}
-.fwa{display:flex;align-items:center;gap:10px;background:rgba(37,211,102,.07);border:1px solid rgba(37,211,102,.13);border-radius:14px;padding:12px 14px;text-decoration:none;transition:all .3s}
+.fwa{display:flex;align-items:center;gap:10px;background:rgba(37,211,102,.07);border:1px solid rgba(37,211,102,.13);border-radius:14px;padding:12px 14px;text-decoration:none;transition:.3s}
 .fwa:hover{background:rgba(37,211,102,.13)}
 .fwa svg{width:17px;height:17px;flex-shrink:0}
 .fwa-t{font-size:.72rem;color:rgba(255,255,255,.45);line-height:1.3}
 .fwa-t strong{display:block;font-size:.78rem;color:#fff;font-weight:700}
 .fc h5{font-size:.6rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.18);margin-bottom:16px}
 .fc ul{list-style:none;display:flex;flex-direction:column;gap:9px}
-.fc ul li a{font-size:.77rem;color:rgba(255,255,255,.35);text-decoration:none;transition:color .2s}
+.fc ul li a{font-size:.77rem;color:rgba(255,255,255,.35);text-decoration:none;transition:.2s}
 .fc ul li a:hover{color:#3BA7FF}
-.fb{border-top:1px solid rgba(255,255,255,.05);padding-top:20px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+.fb{border-top:1px solid rgba(255,255,255,.05);padding-top:20px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
 .fcp,.frf{font-size:.68rem;color:rgba(255,255,255,.15)}
 @media(max-width:900px){.fg{grid-template-columns:1fr 1fr;gap:28px}}
 @media(max-width:600px){.fg{grid-template-columns:1fr}.fb{flex-direction:column;text-align:center}}
 
 /* WA FLOAT */
 .waf{position:fixed;bottom:28px;right:28px;z-index:800}
-.waf-b{width:56px;height:56px;background:var(--g);border-radius:50%;display:flex;align-items:center;justify-content:center;text-decoration:none;box-shadow:0 6px 24px rgba(37,211,102,.5);transition:all .3s;animation:wap 3s ease-in-out infinite}
-.waf-b:hover{transform:scale(1.12);box-shadow:0 10px 36px rgba(37,211,102,.65)}
+.waf-b{width:56px;height:56px;background:var(--g);border-radius:50%;display:flex;align-items:center;justify-content:center;text-decoration:none;box-shadow:0 6px 24px rgba(37,211,102,.5);transition:.3s;animation:wap 3s ease-in-out infinite}
+.waf-b:hover{transform:scale(1.12)}
 .waf-b svg{width:26px;height:26px}
 @keyframes wap{0%,100%{box-shadow:0 6px 24px rgba(37,211,102,.5)}50%{box-shadow:0 6px 36px rgba(37,211,102,.7),0 0 0 8px rgba(37,211,102,.1)}}
 
+/* REVEAL */
+[data-r]{opacity:0;transform:translateY(36px);transition:opacity .7s cubic-bezier(.4,0,.2,1),transform .7s cubic-bezier(.4,0,.2,1)}
+[data-r].on{opacity:1;transform:none}
+[data-r][data-d="1"]{transition-delay:.12s}
+[data-r][data-d="2"]{transition-delay:.24s}
+
 /* MODAL */
-.mov{position:fixed;inset:0;z-index:9000;background:rgba(2,13,31,.85);backdrop-filter:blur(16px);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .3s;padding:20px}
+.mov{position:fixed;inset:0;z-index:9999;background:rgba(5,20,50,.88);backdrop-filter:blur(16px);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:.3s;padding:20px}
 .mov.open{opacity:1;pointer-events:all}
-.mbox{background:#fff;border-radius:32px;width:100%;max-width:560px;max-height:90vh;overflow-y:auto;transform:translateY(24px) scale(.98);transition:transform .35s cubic-bezier(.34,1.56,.64,1);box-shadow:0 40px 100px rgba(2,13,31,.4)}
-.mov.open .mbox{transform:translateY(0) scale(1)}
-.mh{background:linear-gradient(135deg,#003580,var(--b),var(--b3));padding:28px 32px;border-radius:32px 32px 0 0;position:sticky;top:0}
+.mbox{background:#fff;border-radius:28px;width:100%;max-width:560px;max-height:90vh;overflow-y:auto;transform:translateY(24px) scale(.98);transition:.35s cubic-bezier(.34,1.56,.64,1);box-shadow:0 40px 100px rgba(5,20,50,.4)}
+.mov.open .mbox{transform:none}
+.mh{background:linear-gradient(135deg,var(--b2),var(--b),var(--b3));padding:28px 32px;border-radius:28px 28px 0 0;position:sticky;top:0}
 .mh-b{font-size:.6rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.55);margin-bottom:6px;display:flex;align-items:center;gap:6px}
 .mh-b::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--g);box-shadow:0 0 8px rgba(37,211,102,.8)}
 .mh-t{font-size:1.5rem;font-weight:800;color:#fff;margin-bottom:4px;letter-spacing:-.03em}
 .mh-s{font-size:.8rem;color:rgba(255,255,255,.55)}
-.mc{position:absolute;top:20px;right:20px;width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,.12);border:none;cursor:none;color:#fff;font-size:.95rem;display:flex;align-items:center;justify-content:center;transition:all .2s}
+.mc{position:absolute;top:20px;right:20px;width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,.12);border:none;cursor:pointer;color:#fff;font-size:.95rem;display:flex;align-items:center;justify-content:center;transition:.2s}
 .mc:hover{background:rgba(255,255,255,.22);transform:rotate(90deg)}
 .mb{padding:28px 32px}
 .fr2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .fg2{display:flex;flex-direction:column;gap:4px;margin-bottom:12px}
-.fg2 label{font-size:.62rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
-.fg2 input,.fg2 select,.fg2 textarea{background:var(--off);border:1.5px solid rgba(0,87,183,.1);border-radius:12px;padding:11px 14px;font-family:'Inter',sans-serif;font-size:.86rem;color:var(--text);outline:none;transition:all .25s;width:100%;cursor:none}
+.fg2 label{font-size:.62rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#888}
+.fg2 input,.fg2 select,.fg2 textarea{background:#F5F8FF;border:1.5px solid #d5e2f5;border-radius:12px;padding:11px 14px;font-family:'Inter',sans-serif;font-size:.86rem;color:#111;outline:none;transition:.25s;width:100%}
 .fg2 input:focus,.fg2 select:focus,.fg2 textarea:focus{border-color:var(--b);background:#fff;box-shadow:0 0 0 3px rgba(0,87,183,.08)}
-.fg2 textarea{min-height:82px;resize:vertical}
-.btn-sub{width:100%;padding:14px;background:linear-gradient(135deg,var(--b2),var(--b3));color:#fff;border:none;border-radius:50px;font-family:'Inter',sans-serif;font-size:.88rem;font-weight:700;cursor:none;transition:all .3s;margin-top:4px;box-shadow:0 6px 22px rgba(0,87,183,.35)}
-.btn-sub:hover{transform:translateY(-2px);box-shadow:0 10px 32px rgba(0,87,183,.45)}
-.btn-mwa{width:100%;margin-top:10px;padding:13px;background:var(--g);color:#fff;border:none;border-radius:50px;font-family:'Inter',sans-serif;font-size:.84rem;font-weight:700;cursor:none;display:flex;align-items:center;justify-content:center;gap:8px;text-decoration:none;transition:all .3s}
+.fg2 textarea{min-height:80px;resize:vertical}
+.btn-sub{width:100%;padding:14px;background:linear-gradient(135deg,var(--b2),var(--b3));color:#fff;border:none;border-radius:50px;font-family:'Inter',sans-serif;font-size:.88rem;font-weight:700;cursor:pointer;transition:.3s;margin-top:4px;box-shadow:0 6px 22px rgba(0,87,183,.35)}
+.btn-sub:hover{transform:translateY(-2px)}
+.btn-mwa{width:100%;margin-top:10px;padding:13px;background:var(--g);color:#fff;border:none;border-radius:50px;font-family:'Inter',sans-serif;font-size:.84rem;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;text-decoration:none;transition:.3s}
 .btn-mwa:hover{background:#1ebe5d}
-@media(max-width:600px){.fr2{grid-template-columns:1fr}.mov{padding:0;align-items:flex-end}.mbox{border-radius:32px 32px 0 0;max-height:95vh}.mh{border-radius:32px 32px 0 0}}
+@media(max-width:600px){.fr2{grid-template-columns:1fr}.mov{padding:0;align-items:flex-end}.mbox{border-radius:28px 28px 0 0;max-height:95vh}.mh{border-radius:28px 28px 0 0}}
 </style>
 </head>
 <body>
 
-<div id="cursor"></div>
-<div id="cursor-ring"></div>
-<div id="progress"></div>
-
-<!-- NAV -->
 <nav id="nav">
   <a href="index.html" class="nl"><img src="images/logo.png" alt="Experience Connect"></a>
   <ul class="nm">
@@ -392,9 +320,9 @@ footer{background:#020D1F;padding:72px 5% 28px;border-top:1px solid rgba(255,255
     <li><a href="#blog">Blog</a></li>
     <li><a href="contacto.html">Contacto</a></li>
   </ul>
-  <div class="nav-btns">
-    <a href="https://wa.me/593983234334" target="_blank" class="nav-wa"><svg viewBox="0 0 24 24" fill="white"><path d="M3 21l1.65-3.8a9 9 0 113.4 2.9L3 21"/><path d="M9 10c0 5 3.5 7.5 7.5 6" stroke="white" fill="none" stroke-width="1.5" stroke-linecap="round"/></svg>WhatsApp</a>
-    <button onclick="abrirModal()" class="nav-cta">Agendar asesor&iacute;a</button>
+  <div class="nbtns">
+    <a href="https://wa.me/593983234334" target="_blank" class="nwa"><svg viewBox="0 0 24 24" fill="white"><path d="M3 21l1.65-3.8a9 9 0 113.4 2.9L3 21"/><path d="M9 10c0 5 3.5 7.5 7.5 6" stroke="white" fill="none" stroke-width="1.5" stroke-linecap="round"/></svg>WhatsApp</a>
+    <button onclick="abrirModal()" class="ncta">Agendar</button>
   </div>
   <div class="ham" id="ham"><span></span><span></span><span></span></div>
 </nav>
@@ -408,61 +336,39 @@ footer{background:#020D1F;padding:72px 5% 28px;border-top:1px solid rgba(255,255
   <a href="visados.html">Visados</a>
   <a href="#blog">Blog</a>
   <a href="contacto.html">Contacto</a>
-  <button onclick="abrirModal();document.getElementById('mob').classList.remove('open')" style="background:var(--b);color:#fff;border:none;padding:14px 32px;border-radius:50px;font-family:Inter,sans-serif;font-size:.9rem;font-weight:700;cursor:none">Agendar asesor&iacute;a</button>
+  <button onclick="abrirModal();document.getElementById('mob').classList.remove('open')" style="background:var(--b);color:#fff;border:none;padding:14px 32px;border-radius:50px;font-family:Inter,sans-serif;font-size:.9rem;font-weight:700;cursor:pointer">Agendar asesor&iacute;a</button>
 </div>
 
-<!-- HERO -->
+<!-- HERO PANTALLA COMPLETA -->
 <section id="hero">
-  <div class="hero-bg-glow">
-    <div class="glow1"></div>
-    <div class="glow2"></div>
-    <div class="glow3"></div>
-  </div>
-  <div class="hero-grid-bg"></div>
-  <div class="hero-in">
-    <div class="hero-left">
-      <div class="hero-label"><div class="hero-label-dot"></div><span>Asesor&iacute;a Internacional &mdash; Ecuador</span></div>
-      <h1 class="hero-h1">
-        <span class="line1">Llevamos tu</span>
-        <span class="line2">futuro al</span>
-        <span class="line3">siguiente nivel.</span>
-      </h1>
-      <p class="hero-p">Te asesoramos en tu preparaci&oacute;n acad&eacute;mica en el extranjero. Estudia en las mejores universidades de Europa y Am&eacute;rica Latina con acompa&ntilde;amiento real en cada paso del camino.</p>
-      <div class="hero-btns">
-        <button onclick="abrirModal()" class="btn-hero-main">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
-          Agendar asesor&iacute;a gratuita
-        </button>
-        <a href="https://wa.me/593983234334" target="_blank" class="btn-hero-wa">
-          <svg viewBox="0 0 24 24" fill="white"><path d="M3 21l1.65-3.8a9 9 0 113.4 2.9L3 21"/><path d="M9 10c0 5 3.5 7.5 7.5 6" stroke="white" fill="none" stroke-width="1.5" stroke-linecap="round"/></svg>
-          WhatsApp directo
-        </a>
-      </div>
-      <div class="hero-stats">
-        <div class="hst"><div class="hst-n" data-count="500">0</div><div class="hst-l">Estudiantes</div></div>
-        <div class="hst"><div class="hst-n" data-count="10">0</div><div class="hst-l">Pa&iacute;ses</div></div>
-        <div class="hst"><div class="hst-n" data-count="95">0</div><div class="hst-l">% Satisfacci&oacute;n</div></div>
-        <div class="hst"><div class="hst-n" data-count="15">0</div><div class="hst-l">A&ntilde;os exp.</div></div>
-      </div>
+  <div class="hero-bg"></div>
+  <div class="hero-ov"></div>
+  <div class="hero-content">
+    <div class="hero-tag"><div class="hero-tag-dot"></div><span>Asesor&iacute;a Internacional desde Ecuador</span></div>
+    <h1 class="hero-h1">
+      <span>Estudia.</span>
+      <span>Viaja.</span>
+      <span class="accent">Vive el mundo.</span>
+    </h1>
+    <p class="hero-sub">Llevamos tu futuro acad&eacute;mico al siguiente nivel.</p>
+    <div class="hero-btns">
+      <button onclick="abrirModal()" class="hero-btn1">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+        Agendar asesor&iacute;a gratuita
+      </button>
+      <a href="https://wa.me/593983234334" target="_blank" class="hero-btn2">
+        <svg viewBox="0 0 24 24" fill="white"><path d="M3 21l1.65-3.8a9 9 0 113.4 2.9L3 21"/><path d="M9 10c0 5 3.5 7.5 7.5 6" stroke="white" fill="none" stroke-width="1.5" stroke-linecap="round"/></svg>
+        WhatsApp directo
+      </a>
     </div>
-    <div class="hero-right">
-      <div class="hero-img-frame">
-        <img src="images/asesoria.jpg" alt="Estudiante Experience Connect">
-      </div>
-      <div class="hfc hfc1">
-        <div class="hfc-ico" style="background:#E8F5E9">&#127891;</div>
-        <div><div class="hfc-t">+500 Graduados</div><div class="hfc-s">Estudiantes exitosos</div></div>
-      </div>
-      <div class="hfc hfc2">
-        <div class="hfc-ico" style="background:#E3F2FD">&#9992;&#65039;</div>
-        <div><div class="hfc-t">6 Destinos</div><div class="hfc-s">Europa y LATAM</div></div>
-      </div>
-      <div class="hfc hfc3">
-        <div class="hfc-ico" style="background:#FFF8E1">&#11088;</div>
-        <div><div class="hfc-t">95% Aprobaci&oacute;n</div><div class="hfc-s">Tasa de &eacute;xito</div></div>
-      </div>
+    <div class="hero-stats">
+      <div class="hst"><div class="hst-n">+<em>500</em></div><div class="hst-l">Estudiantes</div></div>
+      <div class="hst"><div class="hst-n">+<em>10</em></div><div class="hst-l">Pa&iacute;ses</div></div>
+      <div class="hst"><div class="hst-n"><em>95</em>%</div><div class="hst-l">Satisfacci&oacute;n</div></div>
+      <div class="hst"><div class="hst-n"><em>15</em>+</div><div class="hst-l">A&ntilde;os exp.</div></div>
     </div>
   </div>
+  <div class="hero-scroll"><div class="scroll-line"></div>Scroll</div>
 </section>
 
 <!-- MARQUEE -->
@@ -470,239 +376,190 @@ footer{background:#020D1F;padding:72px 5% 28px;border-top:1px solid rgba(255,255
 <div class="mq-i">Espa&ntilde;a<div class="mq-d"></div></div><div class="mq-i">Italia<div class="mq-d"></div></div><div class="mq-i">Alemania<div class="mq-d"></div></div><div class="mq-i">Argentina<div class="mq-d"></div></div><div class="mq-i">Portugal<div class="mq-d"></div></div><div class="mq-i">Rep&uacute;blica Checa<div class="mq-d"></div></div><div class="mq-i">Travel &bull; Study &bull; Work<div class="mq-d"></div></div><div class="mq-i">+500 Estudiantes<div class="mq-d"></div></div><div class="mq-i">Asesor&iacute;a 360&deg;<div class="mq-d"></div></div><div class="mq-i">Espa&ntilde;a<div class="mq-d"></div></div><div class="mq-i">Italia<div class="mq-d"></div></div><div class="mq-i">Alemania<div class="mq-d"></div></div><div class="mq-i">Argentina<div class="mq-d"></div></div><div class="mq-i">Portugal<div class="mq-d"></div></div><div class="mq-i">Rep&uacute;blica Checa<div class="mq-d"></div></div><div class="mq-i">Travel &bull; Study &bull; Work<div class="mq-d"></div></div><div class="mq-i">+500 Estudiantes<div class="mq-d"></div></div><div class="mq-i">Asesor&iacute;a 360&deg;<div class="mq-d"></div></div>
 </div></div>
 
-<!-- ABOUT -->
-<section id="about" class="sec"><div class="sec-in">
-  <div data-r><div class="chip"><div class="chip-d"></div><span>Qui&eacute;nes somos</span></div>
-  <div class="sec-h2">M&aacute;s de 15 a&ntilde;os conectando<br>talentos con el <em>mundo</em></div></div>
-  <div class="about-g">
-    <div class="about-img" data-r>
-      <img src="images/asesoria.jpg" alt="Experience Connect">
-      <div class="about-badge"><div class="ab-ico">&#127891;</div><div><div class="ab-n">+500</div><div class="ab-l">Estudiantes exitosos</div></div></div>
-    </div>
-    <div data-r>
-      <p style="font-size:.95rem;color:var(--muted);line-height:1.9;margin-bottom:10px">Experience Connect es una consultora ecuatoriana especializada en movilidad estudiantil internacional. Acompa&ntilde;amos a j&oacute;venes y profesionales en cada paso de su proceso hacia el exterior.</p>
-      <p style="font-size:.95rem;color:var(--muted);line-height:1.9;margin-bottom:28px">Con presencia en Ecuador y Argentina, somos el puente entre el talento latinoamericano y las mejores universidades del mundo. <strong style="color:var(--text)">Vive el mundo con nosotros.</strong></p>
-      <div class="about-feats">
-        <div class="af"><div class="af-ico"><svg viewBox="0 0 22 22"><path d="M11 2L20 7V15L11 20L2 15V7L11 2Z"/></svg></div><div><div class="af-t">Proceso 100% acompa&ntilde;ado</div><div class="af-d">Desde la primera consulta hasta tu llegada y adaptaci&oacute;n completa en el destino.</div></div></div>
-        <div class="af"><div class="af-ico"><svg viewBox="0 0 22 22"><circle cx="11" cy="11" r="9"/><path d="M11 7v4l3 3" stroke-linecap="round"/></svg></div><div><div class="af-t">Respuesta garantizada en 24 horas</div><div class="af-d">Consultores disponibles para resolver tus dudas de forma r&aacute;pida y personalizada.</div></div></div>
-        <div class="af"><div class="af-ico"><svg viewBox="0 0 22 22"><path d="M9 11l2 2 4-4"/><rect x="3" y="3" width="16" height="16" rx="2"/></svg></div><div><div class="af-t">Documentaci&oacute;n 100% garantizada</div><div class="af-d">Apostillados, traducciones certificadas y todos los tr&aacute;mites migratorios bajo nuestra gesti&oacute;n.</div></div></div>
-      </div>
-      <button onclick="abrirModal()" class="btn-hero-main" style="display:inline-flex">Agendar asesor&iacute;a gratuita</button>
-    </div>
-  </div>
-</div></section>
-
-<!-- PERFIL -->
-<section id="perfil" class="sec" style="background:var(--off)"><div class="sec-in">
-  <div class="p-intro" data-r>
-    <div class="chip" style="justify-content:center"><div class="chip-d"></div><span>&iquest;Qui&eacute;n eres?</span></div>
-    <div class="sec-h2">Dise&ntilde;amos tu ruta <em>personalizada</em></div>
-    <p class="sec-sub" style="margin:0 auto">Ya seas bachiller o profesional, si tu meta est&aacute; en otro pa&iacute;s nosotros gestionamos todo el proceso.</p>
-  </div>
-  <div class="p-grid">
-    <div class="pcard pca" data-r>
-      <div class="pcard-shine"></div>
-      <div class="pc-num">01 &mdash; Para J&oacute;venes</div>
-      <div class="pc-ico"><svg viewBox="0 0 28 28" fill="none"><path d="M14 3L23 8.5V13H5V8.5L14 3Z" stroke="white" stroke-width="1.5" stroke-linejoin="round"/><path d="M7 13V22M11 13V22M17 13V22M21 13V22" stroke="white" stroke-width="1.5"/><path d="M3 22H25" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg></div>
-      <div class="pc-title">Soy Bachiller</div>
-      <p class="pc-desc">Tu primera gran aventura internacional empieza aqu&iacute;. Homologaci&oacute;n, selecci&oacute;n de carrera, visas y todo lo necesario para iniciar tu carrera en el exterior.</p>
-      <div class="pc-list">
-        <div class="pc-li">Carreras universitarias de grado</div>
-        <div class="pc-li">Programas de idiomas y certificaci&oacute;n</div>
-        <div class="pc-li">Becas y opciones de financiamiento</div>
-        <div class="pc-li">Gu&iacute;a completa de documentaci&oacute;n</div>
-      </div>
-      <div class="pc-btns">
-        <button onclick="abrirModal()" class="bpa">Quiero estudiar mi Grado</button>
-        <a href="https://wa.me/593983234334" target="_blank" class="btn-hero-wa" style="padding:11px 18px;font-size:.78rem;border-radius:50px"><svg viewBox="0 0 24 24" fill="white" width="14" height="14"><path d="M3 21l1.65-3.8a9 9 0 113.4 2.9L3 21"/><path d="M9 10c0 5 3.5 7.5 7.5 6" stroke="white" fill="none" stroke-width="1.5" stroke-linecap="round"/></svg>WhatsApp</a>
+<!-- PERFIL - PANTALLAS DIVIDIDAS -->
+<section id="perfil">
+  <div class="perfil-grid">
+    <div class="perfil-card">
+      <div class="pc-bg pc-bg-bach"></div>
+      <div class="pc-ov-bach"></div>
+      <div class="pc-content">
+        <div class="pc-num">01 &mdash; Para J&oacute;venes</div>
+        <div class="pc-title">Soy<br>Bachiller</div>
+        <p class="pc-desc">Tu primera gran aventura internacional. Grado, idiomas y todo el acompa&ntilde;amiento que necesitas.</p>
+        <div class="pc-tags">
+          <span class="pc-tag">Grado</span>
+          <span class="pc-tag">Idiomas</span>
+          <span class="pc-tag">16&ndash;25 a&ntilde;os</span>
+        </div>
+        <button onclick="abrirModal()" class="pc-btn">Empezar mi proceso &rarr;</button>
       </div>
     </div>
-    <div class="pcard pcb" data-r data-d="1">
-      <div class="pc-num" style="color:var(--muted)">02 &mdash; Para Profesionales</div>
-      <div class="pc-ico"><svg viewBox="0 0 28 28" fill="none"><circle cx="14" cy="10" r="5.5" stroke="#0057B7" stroke-width="1.5"/><path d="M4 25C4 19.477 8.477 15 14 15C19.523 15 24 19.477 24 25" stroke="#0057B7" stroke-width="1.5" stroke-linecap="round"/></svg></div>
-      <div class="pc-title">Soy Profesional</div>
-      <p class="pc-desc">Especializaciones m&eacute;dicas MIR y maestr&iacute;as de alto nivel con alta empleabilidad en los mercados m&aacute;s competitivos del mundo.</p>
-      <div class="pc-list">
-        <div class="pc-li">Maestr&iacute;as y posgrados internacionales</div>
-        <div class="pc-li">Especialidades m&eacute;dicas MIR y cl&iacute;nicas</div>
-        <div class="pc-li">MBA y programas corporativos globales</div>
-        <div class="pc-li">Networking internacional</div>
-      </div>
-      <div class="pc-btns">
-        <button onclick="abrirModal()" class="bpb">Quiero especializarme</button>
-        <a href="https://wa.me/593983234334" target="_blank" class="btn-hero-wa" style="padding:11px 18px;font-size:.78rem;border-radius:50px"><svg viewBox="0 0 24 24" fill="white" width="14" height="14"><path d="M3 21l1.65-3.8a9 9 0 113.4 2.9L3 21"/><path d="M9 10c0 5 3.5 7.5 7.5 6" stroke="white" fill="none" stroke-width="1.5" stroke-linecap="round"/></svg>WhatsApp</a>
+    <div class="perfil-card">
+      <div class="pc-bg pc-bg-pro"></div>
+      <div class="pc-ov-pro"></div>
+      <div class="pc-content">
+        <div class="pc-num">02 &mdash; Para Profesionales</div>
+        <div class="pc-title">Soy<br>Profesional</div>
+        <p class="pc-desc">Maestr&iacute;as, MIR y especializaciones en los mercados m&aacute;s competitivos del mundo.</p>
+        <div class="pc-tags">
+          <span class="pc-tag">Maestr&iacute;as</span>
+          <span class="pc-tag">MIR</span>
+          <span class="pc-tag">25&ndash;55 a&ntilde;os</span>
+        </div>
+        <button onclick="abrirModal()" class="pc-btn">Quiero especializarme &rarr;</button>
       </div>
     </div>
   </div>
-</div></section>
+</section>
 
 <!-- DESTINOS -->
-<section id="destinos" class="sec"><div class="sec-in">
+<section id="destinos"><div class="sec-in">
   <div class="dest-hdr">
-    <div data-r><div class="chip"><div class="chip-d"></div><span>Destinos internacionales</span></div><div class="sec-h2">Elige tu pa&iacute;s,<br><em>nosotros el camino</em></div></div>
-    <div data-r><p class="sec-sub" style="margin-bottom:18px">Cada destino seleccionado por calidad educativa, seguridad y oportunidades reales para el estudiante latinoamericano.</p><div style="display:flex;gap:10px;flex-wrap:wrap"><a href="https://wa.me/593983234334" target="_blank" class="btn-hero-wa" style="font-size:.78rem;padding:10px 18px;border-radius:50px"><svg viewBox="0 0 24 24" fill="white" width="14" height="14"><path d="M3 21l1.65-3.8a9 9 0 113.4 2.9L3 21"/><path d="M9 10c0 5 3.5 7.5 7.5 6" stroke="white" fill="none" stroke-width="1.5" stroke-linecap="round"/></svg>Consultar</a><button onclick="abrirModal()" class="btn-hero-main" style="font-size:.78rem;padding:10px 20px">Agendar</button></div></div>
+    <div data-r>
+      <div class="sec-label"><div class="sec-label-d"></div><span>Destinos internacionales</span></div>
+      <div class="sec-h2">Elige tu pa&iacute;s,<br><em>nosotros el camino</em></div>
+    </div>
+    <div data-r>
+      <p class="dest-sub">Cada destino seleccionado por calidad educativa, seguridad y oportunidades reales para el estudiante latinoamericano.</p>
+      <div style="display:flex;gap:10px;flex-wrap:wrap">
+        <a href="https://wa.me/593983234334" target="_blank" class="nwa" style="border-radius:50px"><svg viewBox="0 0 24 24" fill="white" width="14" height="14"><path d="M3 21l1.65-3.8a9 9 0 113.4 2.9L3 21"/><path d="M9 10c0 5 3.5 7.5 7.5 6" stroke="white" fill="none" stroke-width="1.5" stroke-linecap="round"/></svg>Consultar</a>
+        <button onclick="abrirModal()" class="ncta">Agendar</button>
+      </div>
+    </div>
   </div>
   <div class="dg">
-    <div class="dc" data-r><div class="dc-img"><img src="images/espana.jpg" alt="Espa&ntilde;a"><div class="dc-ov"></div><div class="dc-inf"><div class="dc-name">Espa&ntilde;a</div><span class="dc-pr">900&ndash;1.400 EUR/mes</span></div></div><div class="dc-body"><p class="dc-desc">Lengua sin barreras, cultura vibrante y universidades de excelencia europea reconocidas mundialmente.</p><div class="dc-tags"><span class="dtag">Grado</span><span class="dtag">Posgrado</span><span class="dtag">MIR</span></div><div class="dc-btns"><a href="destinos/espana.html" class="bs bs-b">Ver m&aacute;s</a><button onclick="abrirModal('Espa&ntilde;a')" class="bs bs-d">Agendar</button><a href="https://wa.me/593983234334?text=Quiero%20estudiar%20en%20Espa%C3%B1a" target="_blank" class="bs bs-g">WA</a></div></div></div>
-    <div class="dc" data-r data-d="1"><div class="dc-img"><img src="images/italia.jpg" alt="Italia"><div class="dc-ov"></div><div class="dc-inf"><div class="dc-name">Italia</div><span class="dc-pr">950&ndash;1.350 EUR/mes</span></div></div><div class="dc-body"><p class="dc-desc">L&iacute;deres mundiales en Arquitectura, Dise&ntilde;o, Moda y Medicina con siglos de tradici&oacute;n acad&eacute;mica.</p><div class="dc-tags"><span class="dtag">Dise&ntilde;o</span><span class="dtag">Medicina</span><span class="dtag">Arquitectura</span></div><div class="dc-btns"><a href="destinos/italia.html" class="bs bs-b">Ver m&aacute;s</a><button onclick="abrirModal('Italia')" class="bs bs-d">Agendar</button><a href="https://wa.me/593983234334?text=Quiero%20estudiar%20en%20Italia" target="_blank" class="bs bs-g">WA</a></div></div></div>
-    <div class="dc" data-r data-d="2"><div class="dc-img"><img src="images/alemania.jpg" alt="Alemania"><div class="dc-ov"></div><div class="dc-inf"><div class="dc-name">Alemania</div><span class="dc-pr">1.000&ndash;1.400 EUR/mes</span></div></div><div class="dc-body"><p class="dc-desc">Referente mundial en ingenier&iacute;a y tecnolog&iacute;a con educaci&oacute;n p&uacute;blica de excelencia.</p><div class="dc-tags"><span class="dtag">Ingenier&iacute;a</span><span class="dtag">Medicina</span><span class="dtag">Tecnolog&iacute;a</span></div><div class="dc-btns"><a href="destinos/alemania.html" class="bs bs-b">Ver m&aacute;s</a><button onclick="abrirModal('Alemania')" class="bs bs-d">Agendar</button><a href="https://wa.me/593983234334?text=Quiero%20estudiar%20en%20Alemania" target="_blank" class="bs bs-g">WA</a></div></div></div>
-    <div class="dc" data-r><div class="dc-img"><img src="images/argentina.jpg" alt="Argentina"><div class="dc-ov"></div><div class="dc-inf"><div class="dc-name">Argentina</div><span class="dc-pr">300&ndash;350 USD/mes</span></div></div><div class="dc-body"><p class="dc-desc">Educaci&oacute;n universitaria p&uacute;blica y gratuita de prestigio regional en medicina y ciencias.</p><div class="dc-tags"><span class="dtag">Medicina</span><span class="dtag">Gratuita</span><span class="dtag">Accesible</span></div><div class="dc-btns"><a href="destinos/argentina.html" class="bs bs-b">Ver m&aacute;s</a><button onclick="abrirModal('Argentina')" class="bs bs-d">Agendar</button><a href="https://wa.me/593983234334?text=Quiero%20estudiar%20en%20Argentina" target="_blank" class="bs bs-g">WA</a></div></div></div>
-    <div class="dc" data-r data-d="1"><div class="dc-img"><img src="images/portugal.jpg" alt="Portugal"><div class="dc-ov"></div><div class="dc-inf"><div class="dc-name">Portugal</div><span class="dc-pr">800&ndash;1.100 EUR/mes</span></div></div><div class="dc-body"><p class="dc-desc">La puerta de entrada a Europa con idioma cercano y costos accesibles para latinoamericanos.</p><div class="dc-tags"><span class="dtag">Grado</span><span class="dtag">Posgrado</span><span class="dtag">Europa</span></div><div class="dc-btns"><a href="destinos/portugal.html" class="bs bs-b">Ver m&aacute;s</a><button onclick="abrirModal('Portugal')" class="bs bs-d">Agendar</button><a href="https://wa.me/593983234334?text=Quiero%20estudiar%20en%20Portugal" target="_blank" class="bs bs-g">WA</a></div></div></div>
-    <div class="dc" data-r data-d="2"><div class="dc-img"><img src="images/republica-checa.jpg" alt="Rep&uacute;blica Checa"><div class="dc-ov"></div><div class="dc-inf"><div class="dc-name">Rep. Checa</div><span class="dc-pr">700&ndash;1.000 EUR/mes</span></div></div><div class="dc-body"><p class="dc-desc">El destino secreto de Europa Central con tradici&oacute;n centenaria y costos muy bajos.</p><div class="dc-tags"><span class="dtag">Medicina</span><span class="dtag">Ingenier&iacute;a</span><span class="dtag">Bajo Costo</span></div><div class="dc-btns"><a href="destinos/republica-checa.html" class="bs bs-b">Ver m&aacute;s</a><button onclick="abrirModal('Rep. Checa')" class="bs bs-d">Agendar</button><a href="https://wa.me/593983234334?text=Quiero%20estudiar%20en%20Rep.%20Checa" target="_blank" class="bs bs-g">WA</a></div></div></div>
+    <div class="dc" data-r><div class="dc-img"><img src="images/espana.jpg" alt="Espa&ntilde;a"><div class="dc-ov"></div><div class="dc-inf"><div class="dc-nm">Espa&ntilde;a</div><span class="dc-pr">900&ndash;1.400 EUR</span></div></div><div class="dc-body"><div class="dc-tags"><span class="dtag">Grado</span><span class="dtag">Posgrado</span><span class="dtag">MIR</span></div><div class="dc-btns"><a href="destinos/espana.html" class="bs bs-b">Ver m&aacute;s</a><button onclick="abrirModal('Espa&ntilde;a')" class="bs bs-d">Agendar</button><a href="https://wa.me/593983234334" target="_blank" class="bs bs-g">WA</a></div></div></div>
+    <div class="dc" data-r data-d="1"><div class="dc-img"><img src="images/italia.jpg" alt="Italia"><div class="dc-ov"></div><div class="dc-inf"><div class="dc-nm">Italia</div><span class="dc-pr">950&ndash;1.350 EUR</span></div></div><div class="dc-body"><div class="dc-tags"><span class="dtag">Dise&ntilde;o</span><span class="dtag">Medicina</span><span class="dtag">Arquitectura</span></div><div class="dc-btns"><a href="destinos/italia.html" class="bs bs-b">Ver m&aacute;s</a><button onclick="abrirModal('Italia')" class="bs bs-d">Agendar</button><a href="https://wa.me/593983234334" target="_blank" class="bs bs-g">WA</a></div></div></div>
+    <div class="dc" data-r data-d="2"><div class="dc-img"><img src="images/alemania.jpg" alt="Alemania"><div class="dc-ov"></div><div class="dc-inf"><div class="dc-nm">Alemania</div><span class="dc-pr">1.000&ndash;1.400 EUR</span></div></div><div class="dc-body"><div class="dc-tags"><span class="dtag">Ingenier&iacute;a</span><span class="dtag">Medicina</span><span class="dtag">Tecnolog&iacute;a</span></div><div class="dc-btns"><a href="destinos/alemania.html" class="bs bs-b">Ver m&aacute;s</a><button onclick="abrirModal('Alemania')" class="bs bs-d">Agendar</button><a href="https://wa.me/593983234334" target="_blank" class="bs bs-g">WA</a></div></div></div>
+    <div class="dc" data-r><div class="dc-img"><img src="images/argentina.jpg" alt="Argentina"><div class="dc-ov"></div><div class="dc-inf"><div class="dc-nm">Argentina</div><span class="dc-pr">300&ndash;350 USD</span></div></div><div class="dc-body"><div class="dc-tags"><span class="dtag">Medicina</span><span class="dtag">Gratuita</span><span class="dtag">Accesible</span></div><div class="dc-btns"><a href="destinos/argentina.html" class="bs bs-b">Ver m&aacute;s</a><button onclick="abrirModal('Argentina')" class="bs bs-d">Agendar</button><a href="https://wa.me/593983234334" target="_blank" class="bs bs-g">WA</a></div></div></div>
+    <div class="dc" data-r data-d="1"><div class="dc-img"><img src="images/portugal.jpg" alt="Portugal"><div class="dc-ov"></div><div class="dc-inf"><div class="dc-nm">Portugal</div><span class="dc-pr">800&ndash;1.100 EUR</span></div></div><div class="dc-body"><div class="dc-tags"><span class="dtag">Grado</span><span class="dtag">Posgrado</span><span class="dtag">Europa</span></div><div class="dc-btns"><a href="destinos/portugal.html" class="bs bs-b">Ver m&aacute;s</a><button onclick="abrirModal('Portugal')" class="bs bs-d">Agendar</button><a href="https://wa.me/593983234334" target="_blank" class="bs bs-g">WA</a></div></div></div>
+    <div class="dc" data-r data-d="2"><div class="dc-img"><img src="images/republica-checa.jpg" alt="Rep&uacute;blica Checa"><div class="dc-ov"></div><div class="dc-inf"><div class="dc-nm">Rep. Checa</div><span class="dc-pr">700&ndash;1.000 EUR</span></div></div><div class="dc-body"><div class="dc-tags"><span class="dtag">Medicina</span><span class="dtag">Ingenier&iacute;a</span><span class="dtag">Bajo Costo</span></div><div class="dc-btns"><a href="destinos/republica-checa.html" class="bs bs-b">Ver m&aacute;s</a><button onclick="abrirModal('Rep. Checa')" class="bs bs-d">Agendar</button><a href="https://wa.me/593983234334" target="_blank" class="bs bs-g">WA</a></div></div></div>
   </div>
 </div></section>
 
-<!-- CREDIBILIDAD -->
-<section id="cred"><div class="cred-in">
-  <div class="cred-top">
-    <div data-r>
-      <div class="chip" style="background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.15)"><div class="chip-d" style="background:#3BA7FF"></div><span style="color:#3BA7FF">Nuestra trayectoria</span></div>
-      <div class="sec-h2" style="color:#fff">Resultados que<br><em style="color:#3BA7FF">hablan por s&iacute; solos</em></div>
-      <p class="sec-sub" style="color:rgba(255,255,255,.5);margin-bottom:28px">M&aacute;s de 500 familias ecuatorianas confiaron en nosotros para el proceso m&aacute;s importante de sus vidas.</p>
-      <button onclick="abrirModal()" class="btn-hero-main">Agendar asesor&iacute;a gratuita</button>
-    </div>
-    <div class="cred-stats" data-r>
-      <div class="cs"><div class="cs-n">+<span>500</span></div><div class="cs-l">Estudiantes asesorados</div></div>
-      <div class="cs"><div class="cs-n">+<span>10</span></div><div class="cs-l">Pa&iacute;ses de destino</div></div>
-      <div class="cs"><div class="cs-n"><span>95</span>%</div><div class="cs-l">Tasa de aprobaci&oacute;n</div></div>
-      <div class="cs"><div class="cs-n"><span>15</span>+</div><div class="cs-l">A&ntilde;os de experiencia</div></div>
-    </div>
+<!-- STATS BANDA -->
+<section id="stats">
+  <div class="stats-in">
+    <div class="stat" data-r><div class="stat-n">+<em>500</em></div><div class="stat-l">Estudiantes asesorados</div></div>
+    <div class="stat" data-r data-d="1"><div class="stat-n">+<em>10</em></div><div class="stat-l">Pa&iacute;ses de destino</div></div>
+    <div class="stat" data-r data-d="2"><div class="stat-n"><em>95</em>%</div><div class="stat-l">Tasa de aprobaci&oacute;n</div></div>
+    <div class="stat" data-r><div class="stat-n"><em>15</em>+</div><div class="stat-l">A&ntilde;os de experiencia</div></div>
   </div>
-  <div data-r>
-    <div class="chip" style="background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.15);margin-bottom:20px"><div class="chip-d" style="background:#3BA7FF"></div><span style="color:#3BA7FF">Universidades aliadas</span></div>
-    <div class="unis">
-      <div class="uni"><span class="uni-f">&#127462;&#127479;</span><div class="uni-n">UBA</div><div class="uni-c">Buenos Aires</div></div>
-      <div class="uni"><span class="uni-f">&#127462;&#127479;</span><div class="uni-n">UNLP</div><div class="uni-c">La Plata</div></div>
-      <div class="uni"><span class="uni-f">&#127466;&#127480;</span><div class="uni-n">UCM</div><div class="uni-c">Madrid</div></div>
-      <div class="uni"><span class="uni-f">&#127466;&#127480;</span><div class="uni-n">UAB</div><div class="uni-c">Barcelona</div></div>
-      <div class="uni"><span class="uni-f">&#127465;&#127466;</span><div class="uni-n">TU Munich</div><div class="uni-c">M&uacute;nich</div></div>
-      <div class="uni"><span class="uni-f">&#127470;&#127481;</span><div class="uni-n">Politecnico</div><div class="uni-c">Mil&aacute;n</div></div>
-      <div class="uni"><span class="uni-f">&#127477;&#127481;</span><div class="uni-n">Univ. Lisboa</div><div class="uni-c">Lisboa</div></div>
-      <div class="uni"><span class="uni-f">&#127464;&#127487;</span><div class="uni-n">Univ. Praga</div><div class="uni-c">Praga</div></div>
+</section>
+
+<!-- GALERIA -->
+<section id="galeria"><div class="sec-in">
+  <div class="galeria-hdr">
+    <div data-r>
+      <div class="sec-label"><div class="sec-label-d"></div><span>Galer&iacute;a</span></div>
+      <div class="sec-h2">Momentos que<br><em>cambian vidas</em></div>
     </div>
+    <div data-r><p class="dest-sub">Estudiantes, universidades y la vida en el exterior con el respaldo de Experience Connect.</p></div>
+  </div>
+  <div class="gg">
+    <div class="gi"><img src="images/galeria-1.jpg" alt="Experiencias"><div class="gi-ov"></div><div class="gi-l">Experiencias</div></div>
+    <div class="gi"><img src="images/vida1.jpg" alt="Vida estudiantil"><div class="gi-ov"></div><div class="gi-l">Vida estudiantil</div></div>
+    <div class="gi"><img src="images/campus2.jpg" alt="Campus"><div class="gi-ov"></div><div class="gi-l">Universidades</div></div>
+    <div class="gi"><img src="images/galeria-3.jpg" alt="Estudiantes"><div class="gi-ov"></div><div class="gi-l">Estudiantes</div></div>
+    <div class="gi"><img src="images/estudiar1.jpg" alt="Estudiar"><div class="gi-ov"></div><div class="gi-l">Estudio</div></div>
+    <div class="gi"><img src="images/grupo1.jpg" alt="Grupo"><div class="gi-ov"></div><div class="gi-l">Comunidad</div></div>
   </div>
 </div></section>
 
 <!-- SERVICIOS -->
-<section id="servicios" class="sec"><div class="sec-in">
+<section id="servicios"><div class="sec-in">
   <div data-r>
-    <div class="chip"><div class="chip-d"></div><span>Nuestros servicios</span></div>
-    <div class="sec-h2">Gesti&oacute;n integral<br><em>de tu proceso</em></div>
-    <p class="sec-sub" style="margin-bottom:28px">Evaluamos tu perfil, tus metas y tu presupuesto para gestionar cada paso del camino hacia tu destino ideal.</p>
-    <div style="display:flex;gap:10px;flex-wrap:wrap">
-      <button onclick="abrirModal()" class="btn-hero-main">Agendar asesor&iacute;a</button>
-      <a href="https://wa.me/593983234334" target="_blank" class="btn-hero-wa" style="font-size:.82rem;padding:11px 20px;border-radius:50px"><svg viewBox="0 0 24 24" fill="white" width="15" height="15"><path d="M3 21l1.65-3.8a9 9 0 113.4 2.9L3 21"/><path d="M9 10c0 5 3.5 7.5 7.5 6" stroke="white" fill="none" stroke-width="1.5" stroke-linecap="round"/></svg>Consultar</a>
-    </div>
+    <div class="sec-label"><div class="sec-label-d"></div><span>Nuestros servicios</span></div>
+    <div class="sec-h2">Todo lo que<br><em>necesitas</em></div>
   </div>
   <div class="sg">
-    <div class="sc" data-r><div class="sc-n">01</div><div class="sc-ico"><svg viewBox="0 0 22 22"><path d="M11 2L19 6V9H3V6L11 2Z" stroke-linejoin="round"/><path d="M5 9V17M8 9V17M14 9V17M17 9V17"/><path d="M2 17H20" stroke-linecap="round"/></svg></div><div class="sc-t">Estudios de Grado</div><p class="sc-d">Asesor&iacute;a para bachilleres. Selecci&oacute;n de carrera, universidad y pa&iacute;s seg&uacute;n tu perfil acad&eacute;mico y presupuesto real.</p></div>
-    <div class="sc" data-r data-d="1"><div class="sc-n">02</div><div class="sc-ico"><svg viewBox="0 0 22 22"><circle cx="11" cy="7" r="4"/><path d="M3 20C3 15.582 6.582 12 11 12C15.418 12 19 15.582 19 20" stroke-linecap="round"/></svg></div><div class="sc-t">Posgrados Internacionales</div><p class="sc-d">Maestr&iacute;as, doctorados y especializaciones en las universidades top de Europa y Am&eacute;rica Latina.</p></div>
-    <div class="sc" data-r data-d="2"><div class="sc-n">03</div><div class="sc-ico"><svg viewBox="0 0 22 22"><path d="M11 2C8 2 6 4.5 6 7C6 11 11 16 11 16s5-5 5-9c0-2.5-2-5-5-5z"/><path d="M4 20C5.5 16.5 8 14 11 14c3 0 5.5 2.5 7 6" stroke-linecap="round"/></svg></div><div class="sc-t">Especialidades M&eacute;dicas</div><p class="sc-d">Programas MIR en Espa&ntilde;a y cl&iacute;nicas en Italia y Argentina para m&eacute;dicos que buscan formaci&oacute;n de primer nivel.</p></div>
-    <div class="sc" data-r><div class="sc-n">04</div><div class="sc-ico"><svg viewBox="0 0 22 22"><path d="M4 18L8 14L11 17L15 12L18 15"/><rect x="2" y="3" width="18" height="14" rx="1"/></svg></div><div class="sc-t">Asesor&iacute;a Migratoria</div><p class="sc-d">Tramitaci&oacute;n completa de visados estudiantiles y toda la documentaci&oacute;n migratoria necesaria.</p></div>
-    <div class="sc" data-r data-d="1"><div class="sc-n">05</div><div class="sc-ico"><svg viewBox="0 0 22 22"><rect x="3" y="3" width="16" height="16" rx="1"/><path d="M7 8H15M7 11H13M7 14H10" stroke-linecap="round"/></svg></div><div class="sc-t">Procesos Universitarios</div><p class="sc-d">Homologaci&oacute;n de t&iacute;tulos, gesti&oacute;n de admisiones y matr&iacute;culas en universidades internacionales.</p></div>
-    <div class="sc" data-r data-d="2"><div class="sc-n">06</div><div class="sc-ico"><svg viewBox="0 0 22 22"><path d="M11 2L13.5 8.5H20L14.5 12.5L16.5 19L11 15L5.5 19L7.5 12.5L2 8.5H8.5L11 2Z" stroke-linejoin="round"/></svg></div><div class="sc-t">Validaci&oacute;n y Documentaci&oacute;n</div><p class="sc-d">Apostillado oficial, traducci&oacute;n certificada y preparaci&oacute;n completa del expediente acad&eacute;mico.</p></div>
+    <div class="sc" data-r><div class="sc-n">01</div><div class="sc-ico"><svg viewBox="0 0 22 22"><path d="M11 2L19 6V9H3V6L11 2Z" stroke-linejoin="round"/><path d="M5 9V17M8 9V17M14 9V17M17 9V17"/><path d="M2 17H20" stroke-linecap="round"/></svg></div><div class="sc-t">Estudios de Grado</div><p class="sc-d">Selecci&oacute;n de carrera, universidad y pa&iacute;s seg&uacute;n tu perfil y presupuesto real.</p></div>
+    <div class="sc" data-r data-d="1"><div class="sc-n">02</div><div class="sc-ico"><svg viewBox="0 0 22 22"><circle cx="11" cy="7" r="4"/><path d="M3 20C3 15.582 6.582 12 11 12C15.418 12 19 15.582 19 20" stroke-linecap="round"/></svg></div><div class="sc-t">Posgrados Internacionales</div><p class="sc-d">Maestr&iacute;as y doctorados en las universidades top de Europa y Am&eacute;rica Latina.</p></div>
+    <div class="sc" data-r data-d="2"><div class="sc-n">03</div><div class="sc-ico"><svg viewBox="0 0 22 22"><path d="M11 2C8 2 6 4.5 6 7C6 11 11 16 11 16s5-5 5-9c0-2.5-2-5-5-5z"/><path d="M4 20C5.5 16.5 8 14 11 14c3 0 5.5 2.5 7 6" stroke-linecap="round"/></svg></div><div class="sc-t">Especialidades M&eacute;dicas</div><p class="sc-d">Programas MIR en Espa&ntilde;a y cl&iacute;nicas en Italia y Argentina para m&eacute;dicos.</p></div>
+    <div class="sc" data-r><div class="sc-n">04</div><div class="sc-ico"><svg viewBox="0 0 22 22"><path d="M4 18L8 14L11 17L15 12L18 15"/><rect x="2" y="3" width="18" height="14" rx="1"/></svg></div><div class="sc-t">Asesor&iacute;a Migratoria</div><p class="sc-d">Visados estudiantiles y toda la documentaci&oacute;n migratoria necesaria gestionada por nosotros.</p></div>
+    <div class="sc" data-r data-d="1"><div class="sc-n">05</div><div class="sc-ico"><svg viewBox="0 0 22 22"><rect x="3" y="3" width="16" height="16" rx="1"/><path d="M7 8H15M7 11H13M7 14H10" stroke-linecap="round"/></svg></div><div class="sc-t">Procesos Universitarios</div><p class="sc-d">Homologaci&oacute;n de t&iacute;tulos, admisiones y matr&iacute;culas en universidades internacionales.</p></div>
+    <div class="sc" data-r data-d="2"><div class="sc-n">06</div><div class="sc-ico"><svg viewBox="0 0 22 22"><path d="M11 2L13.5 8.5H20L14.5 12.5L16.5 19L11 15L5.5 19L7.5 12.5L2 8.5H8.5L11 2Z" stroke-linejoin="round"/></svg></div><div class="sc-t">Validaci&oacute;n y Documentaci&oacute;n</div><p class="sc-d">Apostillado oficial, traducci&oacute;n certificada y preparaci&oacute;n completa del expediente.</p></div>
   </div>
 </div></section>
 
 <!-- PROCESO -->
-<section id="proceso" class="sec" style="background:var(--off)"><div class="sec-in">
+<section id="proceso"><div class="sec-in">
   <div data-r>
-    <div class="chip"><div class="chip-d"></div><span>C&oacute;mo funciona</span></div>
-    <div class="sec-h2">Tu ruta hacia<br><em>el exterior</em></div>
-    <p class="sec-sub">Un proceso claro y acompa&ntilde;ado desde la primera consulta hasta tu llegada al destino elegido.</p>
+    <div class="sec-label"><div class="sec-label-d"></div><span>C&oacute;mo funciona</span></div>
+    <div class="sec-h2">Tu ruta al<br><em>exterior</em></div>
   </div>
   <div class="prg">
     <div class="pasos">
-      <div class="paso on" onclick="sp(this,0)"><div class="paso-n">01</div><div><div class="paso-t">Agenda tu asesor&iacute;a gratuita</div><div class="paso-d">Completa el formulario. Un consultor experto te contacta en menos de 24 horas sin costo.</div></div></div>
-      <div class="paso" onclick="sp(this,1)"><div class="paso-n">02</div><div><div class="paso-t">Evaluamos tu perfil completo</div><div class="paso-d">Analizamos historial acad&eacute;mico, idioma, presupuesto y metas para encontrar la opci&oacute;n ideal.</div></div></div>
-      <div class="paso" onclick="sp(this,2)"><div class="paso-n">03</div><div><div class="paso-t">Pa&iacute;s, universidad y programa</div><div class="paso-d">Presentamos opciones con costos reales y calidad de vida verificada. T&uacute; decides.</div></div></div>
-      <div class="paso" onclick="sp(this,3)"><div class="paso-n">04</div><div><div class="paso-t">Gesti&oacute;n documental completa</div><div class="paso-d">Apostillados, traducciones certificadas, cartas de motivaci&oacute;n y formularios de admisi&oacute;n.</div></div></div>
-      <div class="paso" onclick="sp(this,4)"><div class="paso-n">05</div><div><div class="paso-t">Visa y proceso migratorio</div><div class="paso-d">Visa estudiantil, seguro m&eacute;dico y todos los tr&aacute;mites migratorios para tu pa&iacute;s destino.</div></div></div>
-      <div class="paso" onclick="sp(this,5)"><div class="paso-n">06</div><div><div class="paso-t">Tu experiencia internacional</div><div class="paso-d">Orientaci&oacute;n en alojamiento, viaje y adaptaci&oacute;n cultural completa en el destino elegido.</div></div></div>
+      <div class="paso on" onclick="sp(this,0)"><div class="paso-n">01</div><div><div class="paso-t">Agenda tu asesor&iacute;a gratuita</div><div class="paso-d">Un consultor experto te contacta en menos de 24 horas. Sin costo.</div></div></div>
+      <div class="paso" onclick="sp(this,1)"><div class="paso-n">02</div><div><div class="paso-t">Evaluamos tu perfil</div><div class="paso-d">Analizamos historial acad&eacute;mico, idioma, presupuesto y metas.</div></div></div>
+      <div class="paso" onclick="sp(this,2)"><div class="paso-n">03</div><div><div class="paso-t">Pa&iacute;s, universidad y programa</div><div class="paso-d">Presentamos opciones con costos reales. T&uacute; decides.</div></div></div>
+      <div class="paso" onclick="sp(this,3)"><div class="paso-n">04</div><div><div class="paso-t">Gesti&oacute;n documental</div><div class="paso-d">Apostillados, traducciones y formularios de admisi&oacute;n.</div></div></div>
+      <div class="paso" onclick="sp(this,4)"><div class="paso-n">05</div><div><div class="paso-t">Visa y proceso migratorio</div><div class="paso-d">Visa estudiantil y todos los tr&aacute;mites para tu pa&iacute;s destino.</div></div></div>
+      <div class="paso" onclick="sp(this,5)"><div class="paso-n">06</div><div><div class="paso-t">Tu experiencia internacional</div><div class="paso-d">Orientaci&oacute;n en alojamiento y adaptaci&oacute;n en el destino.</div></div></div>
     </div>
     <div class="pp" data-r>
       <div class="pp-s" id="pS">Paso 01 de 06</div>
       <div class="pp-t" id="pT">Agenda tu asesor&iacute;a gratuita</div>
-      <div class="pp-d" id="pD">Completa el formulario con tu perfil. Un consultor experto te contacta en menos de 24 horas para una sesi&oacute;n personalizada y sin costo.</div>
+      <div class="pp-d" id="pD">Un consultor experto te contacta en menos de 24 horas para una sesi&oacute;n personalizada y sin costo.</div>
       <div class="pp-tags" id="pTg"><span class="pp-tag">24H</span><span class="pp-tag">Sin costo</span><span class="pp-tag">Personalizada</span></div>
       <div class="pp-bar"><div class="pp-prog" id="pB" style="width:16.6%"></div></div>
-      <div class="pp-box"><p>&iquest;Listo para dar el primer paso?</p><div style="display:flex;gap:7px"><button onclick="abrirModal()" class="btn-hero-main" style="font-size:.72rem;padding:9px 16px">Agendar</button><a href="https://wa.me/593983234334" target="_blank" class="btn-hero-wa" style="font-size:.72rem;padding:9px 14px;border-radius:50px"><svg viewBox="0 0 24 24" fill="white" width="12" height="12"><path d="M3 21l1.65-3.8a9 9 0 113.4 2.9L3 21"/><path d="M9 10c0 5 3.5 7.5 7.5 6" stroke="white" fill="none" stroke-width="1.5" stroke-linecap="round"/></svg>WA</a></div></div>
+      <div class="pp-box"><p>&iquest;Listo para el primer paso?</p><div style="display:flex;gap:7px"><button onclick="abrirModal()" class="ncta" style="font-size:.72rem;padding:9px 16px">Agendar</button><a href="https://wa.me/593983234334" target="_blank" class="nwa" style="font-size:.72rem;padding:9px 14px"><svg viewBox="0 0 24 24" fill="white" width="12" height="12"><path d="M3 21l1.65-3.8a9 9 0 113.4 2.9L3 21"/><path d="M9 10c0 5 3.5 7.5 7.5 6" stroke="white" fill="none" stroke-width="1.5" stroke-linecap="round"/></svg>WA</a></div></div>
     </div>
   </div>
 </div></section>
 
 <!-- TESTIMONIOS -->
-<section id="testimonios" class="sec"><div class="sec-in">
+<section id="testimonios"><div class="sec-in">
   <div data-r>
-    <div class="chip"><div class="chip-d"></div><span>Historias reales</span></div>
+    <div class="sec-label"><div class="sec-label-d"></div><span>Historias reales</span></div>
     <div class="sec-h2">Lo que dicen<br><em>nuestros estudiantes</em></div>
-    <p class="sec-sub">M&aacute;s de 500 estudiantes ya transformaron su vida acad&eacute;mica. Estas son sus historias reales.</p>
   </div>
   <div class="tg">
-    <div class="tc" data-r><div class="tc-stars"><svg viewBox="0 0 14 14" fill="#F59E0B"><polygon points="7,1 9,5 13,5.5 10,8.5 10.8,13 7,10.8 3.2,13 4,8.5 1,5.5 5,5"/></svg><svg viewBox="0 0 14 14" fill="#F59E0B"><polygon points="7,1 9,5 13,5.5 10,8.5 10.8,13 7,10.8 3.2,13 4,8.5 1,5.5 5,5"/></svg><svg viewBox="0 0 14 14" fill="#F59E0B"><polygon points="7,1 9,5 13,5.5 10,8.5 10.8,13 7,10.8 3.2,13 4,8.5 1,5.5 5,5"/></svg><svg viewBox="0 0 14 14" fill="#F59E0B"><polygon points="7,1 9,5 13,5.5 10,8.5 10.8,13 7,10.8 3.2,13 4,8.5 1,5.5 5,5"/></svg><svg viewBox="0 0 14 14" fill="#F59E0B"><polygon points="7,1 9,5 13,5.5 10,8.5 10.8,13 7,10.8 3.2,13 4,8.5 1,5.5 5,5"/></svg></div><p class="tc-q">&ldquo;Gracias a Experience Connect pude iniciar mi proyecto de estudiar en Argentina con seguridad y confianza. Acompa&ntilde;amiento constante en cada etapa.&rdquo;</p><div class="tc-a"><div class="tc-av">JT</div><div><div class="tc-n">Jhair Torres</div><div class="tc-i">Ingenier&iacute;a Civil &mdash; UNLP Argentina</div></div></div></div>
-    <div class="tc" data-r data-d="1"><div class="tc-stars"><svg viewBox="0 0 14 14" fill="#F59E0B"><polygon points="7,1 9,5 13,5.5 10,8.5 10.8,13 7,10.8 3.2,13 4,8.5 1,5.5 5,5"/></svg><svg viewBox="0 0 14 14" fill="#F59E0B"><polygon points="7,1 9,5 13,5.5 10,8.5 10.8,13 7,10.8 3.2,13 4,8.5 1,5.5 5,5"/></svg><svg viewBox="0 0 14 14" fill="#F59E0B"><polygon points="7,1 9,5 13,5.5 10,8.5 10.8,13 7,10.8 3.2,13 4,8.5 1,5.5 5,5"/></svg><svg viewBox="0 0 14 14" fill="#F59E0B"><polygon points="7,1 9,5 13,5.5 10,8.5 10.8,13 7,10.8 3.2,13 4,8.5 1,5.5 5,5"/></svg><svg viewBox="0 0 14 14" fill="#F59E0B"><polygon points="7,1 9,5 13,5.5 10,8.5 10.8,13 7,10.8 3.2,13 4,8.5 1,5.5 5,5"/></svg></div><p class="tc-q">&ldquo;Todo el proceso fue muy claro y seguro. Lo que m&aacute;s destaco es el acompa&ntilde;amiento antes, durante y despu&eacute;s. Hoy estudio Odontolog&iacute;a en La Plata.&rdquo;</p><div class="tc-a"><div class="tc-av">LC</div><div><div class="tc-n">Lennin Carrillo</div><div class="tc-i">Odontolog&iacute;a &mdash; UNLP Argentina</div></div></div></div>
-    <div class="tc" data-r data-d="2"><div class="tc-stars"><svg viewBox="0 0 14 14" fill="#F59E0B"><polygon points="7,1 9,5 13,5.5 10,8.5 10.8,13 7,10.8 3.2,13 4,8.5 1,5.5 5,5"/></svg><svg viewBox="0 0 14 14" fill="#F59E0B"><polygon points="7,1 9,5 13,5.5 10,8.5 10.8,13 7,10.8 3.2,13 4,8.5 1,5.5 5,5"/></svg><svg viewBox="0 0 14 14" fill="#F59E0B"><polygon points="7,1 9,5 13,5.5 10,8.5 10.8,13 7,10.8 3.2,13 4,8.5 1,5.5 5,5"/></svg><svg viewBox="0 0 14 14" fill="#F59E0B"><polygon points="7,1 9,5 13,5.5 10,8.5 10.8,13 7,10.8 3.2,13 4,8.5 1,5.5 5,5"/></svg><svg viewBox="0 0 14 14" fill="#F59E0B"><polygon points="7,1 9,5 13,5.5 10,8.5 10.8,13 7,10.8 3.2,13 4,8.5 1,5.5 5,5"/></svg></div><p class="tc-q">&ldquo;Experience Connect fue clave para mi homologaci&oacute;n y las pruebas PCE. Hoy mi proceso en la Complutense de Madrid avanza con paso firme.&rdquo;</p><div class="tc-a"><div class="tc-av">GE</div><div><div class="tc-n">G&eacute;nesis Estrella</div><div class="tc-i">Medicina &mdash; UCM Madrid, Espa&ntilde;a</div></div></div></div>
-    <div class="tc" data-r><div class="tc-stars"><svg viewBox="0 0 14 14" fill="#F59E0B"><polygon points="7,1 9,5 13,5.5 10,8.5 10.8,13 7,10.8 3.2,13 4,8.5 1,5.5 5,5"/></svg><svg viewBox="0 0 14 14" fill="#F59E0B"><polygon points="7,1 9,5 13,5.5 10,8.5 10.8,13 7,10.8 3.2,13 4,8.5 1,5.5 5,5"/></svg><svg viewBox="0 0 14 14" fill="#F59E0B"><polygon points="7,1 9,5 13,5.5 10,8.5 10.8,13 7,10.8 3.2,13 4,8.5 1,5.5 5,5"/></svg><svg viewBox="0 0 14 14" fill="#F59E0B"><polygon points="7,1 9,5 13,5.5 10,8.5 10.8,13 7,10.8 3.2,13 4,8.5 1,5.5 5,5"/></svg><svg viewBox="0 0 14 14" fill="#F59E0B"><polygon points="7,1 9,5 13,5.5 10,8.5 10.8,13 7,10.8 3.2,13 4,8.5 1,5.5 5,5"/></svg></div><p class="tc-q">&ldquo;Recomendamos los servicios de Experience Connect por su responsabilidad y calidad humana. Hoy mi hija Alison inicia Psicolog&iacute;a en la UNLP.&rdquo;</p><div class="tc-a"><div class="tc-av">BO</div><div><div class="tc-n">Byron Obando</div><div class="tc-i">Padre de familia &mdash; Psicolog&iacute;a UNLP 2025</div></div></div></div>
-    <div class="tc" data-r data-d="1"><div class="tc-stars"><svg viewBox="0 0 14 14" fill="#F59E0B"><polygon points="7,1 9,5 13,5.5 10,8.5 10.8,13 7,10.8 3.2,13 4,8.5 1,5.5 5,5"/></svg><svg viewBox="0 0 14 14" fill="#F59E0B"><polygon points="7,1 9,5 13,5.5 10,8.5 10.8,13 7,10.8 3.2,13 4,8.5 1,5.5 5,5"/></svg><svg viewBox="0 0 14 14" fill="#F59E0B"><polygon points="7,1 9,5 13,5.5 10,8.5 10.8,13 7,10.8 3.2,13 4,8.5 1,5.5 5,5"/></svg><svg viewBox="0 0 14 14" fill="#F59E0B"><polygon points="7,1 9,5 13,5.5 10,8.5 10.8,13 7,10.8 3.2,13 4,8.5 1,5.5 5,5"/></svg><svg viewBox="0 0 14 14" fill="#F59E0B"><polygon points="7,1 9,5 13,5.5 10,8.5 10.8,13 7,10.8 3.2,13 4,8.5 1,5.5 5,5"/></svg></div><p class="tc-q">&ldquo;Hoy estudio Odontolog&iacute;a en la UBA desde marzo 2026. Muy agradecida por el compromiso y la atenci&oacute;n personalizada de todo el equipo.&rdquo;</p><div class="tc-a"><div class="tc-av">LC</div><div><div class="tc-n">Liz Cueva</div><div class="tc-i">Odontolog&iacute;a &mdash; UBA Buenos Aires</div></div></div></div>
+    <div class="tc" data-r><div class="tc-stars"><svg viewBox="0 0 14 14" fill="#F59E0B"><polygon points="7,1 9,5 13,5.5 10,8.5 10.8,13 7,10.8 3.2,13 4,8.5 1,5.5 5,5"/></svg><svg viewBox="0 0 14 14" fill="#F59E0B"><polygon points="7,1 9,5 13,5.5 10,8.5 10.8,13 7,10.8 3.2,13 4,8.5 1,5.5 5,5"/></svg><svg viewBox="0 0 14 14" fill="#F59E0B"><polygon points="7,1 9,5 13,5.5 10,8.5 10.8,13 7,10.8 3.2,13 4,8.5 1,5.5 5,5"/></svg><svg viewBox="0 0 14 14" fill="#F59E0B"><polygon points="7,1 9,5 13,5.5 10,8.5 10.8,13 7,10.8 3.2,13 4,8.5 1,5.5 5,5"/></svg><svg viewBox="0 0 14 14" fill="#F59E0B"><polygon points="7,1 9,5 13,5.5 10,8.5 10.8,13 7,10.8 3.2,13 4,8.5 1,5.5 5,5"/></svg></div><p class="tc-q">&ldquo;Gracias a Experience Connect pude iniciar mi proceso con seguridad y confianza. Acompa&ntilde;amiento constante en cada etapa.&rdquo;</p><div class="tc-a"><div class="tc-av">JT</div><div><div class="tc-n">Jhair Torres</div><div class="tc-i">Ingenier&iacute;a Civil &mdash; UNLP Argentina</div></div></div></div>
+    <div class="tc" data-r data-d="1"><div class="tc-stars"><svg viewBox="0 0 14 14" fill="#F59E0B"><polygon points="7,1 9,5 13,5.5 10,8.5 10.8,13 7,10.8 3.2,13 4,8.5 1,5.5 5,5"/></svg><svg viewBox="0 0 14 14" fill="#F59E0B"><polygon points="7,1 9,5 13,5.5 10,8.5 10.8,13 7,10.8 3.2,13 4,8.5 1,5.5 5,5"/></svg><svg viewBox="0 0 14 14" fill="#F59E0B"><polygon points="7,1 9,5 13,5.5 10,8.5 10.8,13 7,10.8 3.2,13 4,8.5 1,5.5 5,5"/></svg><svg viewBox="0 0 14 14" fill="#F59E0B"><polygon points="7,1 9,5 13,5.5 10,8.5 10.8,13 7,10.8 3.2,13 4,8.5 1,5.5 5,5"/></svg><svg viewBox="0 0 14 14" fill="#F59E0B"><polygon points="7,1 9,5 13,5.5 10,8.5 10.8,13 7,10.8 3.2,13 4,8.5 1,5.5 5,5"/></svg></div><p class="tc-q">&ldquo;Todo el proceso fue muy claro. Lo que m&aacute;s destaco es el acompa&ntilde;amiento antes, durante y despu&eacute;s. Hoy estudio Odontolog&iacute;a en La Plata.&rdquo;</p><div class="tc-a"><div class="tc-av">LC</div><div><div class="tc-n">Lennin Carrillo</div><div class="tc-i">Odontolog&iacute;a &mdash; UNLP Argentina</div></div></div></div>
+    <div class="tc" data-r data-d="2"><div class="tc-stars"><svg viewBox="0 0 14 14" fill="#F59E0B"><polygon points="7,1 9,5 13,5.5 10,8.5 10.8,13 7,10.8 3.2,13 4,8.5 1,5.5 5,5"/></svg><svg viewBox="0 0 14 14" fill="#F59E0B"><polygon points="7,1 9,5 13,5.5 10,8.5 10.8,13 7,10.8 3.2,13 4,8.5 1,5.5 5,5"/></svg><svg viewBox="0 0 14 14" fill="#F59E0B"><polygon points="7,1 9,5 13,5.5 10,8.5 10.8,13 7,10.8 3.2,13 4,8.5 1,5.5 5,5"/></svg><svg viewBox="0 0 14 14" fill="#F59E0B"><polygon points="7,1 9,5 13,5.5 10,8.5 10.8,13 7,10.8 3.2,13 4,8.5 1,5.5 5,5"/></svg><svg viewBox="0 0 14 14" fill="#F59E0B"><polygon points="7,1 9,5 13,5.5 10,8.5 10.8,13 7,10.8 3.2,13 4,8.5 1,5.5 5,5"/></svg></div><p class="tc-q">&ldquo;Experience Connect fue clave para mi homologaci&oacute;n. Hoy mi proceso en la Complutense de Madrid avanza con paso firme.&rdquo;</p><div class="tc-a"><div class="tc-av">GE</div><div><div class="tc-n">G&eacute;nesis Estrella</div><div class="tc-i">Medicina &mdash; UCM Madrid, Espa&ntilde;a</div></div></div></div>
+    <div class="tc" data-r><div class="tc-stars"><svg viewBox="0 0 14 14" fill="#F59E0B"><polygon points="7,1 9,5 13,5.5 10,8.5 10.8,13 7,10.8 3.2,13 4,8.5 1,5.5 5,5"/></svg><svg viewBox="0 0 14 14" fill="#F59E0B"><polygon points="7,1 9,5 13,5.5 10,8.5 10.8,13 7,10.8 3.2,13 4,8.5 1,5.5 5,5"/></svg><svg viewBox="0 0 14 14" fill="#F59E0B"><polygon points="7,1 9,5 13,5.5 10,8.5 10.8,13 7,10.8 3.2,13 4,8.5 1,5.5 5,5"/></svg><svg viewBox="0 0 14 14" fill="#F59E0B"><polygon points="7,1 9,5 13,5.5 10,8.5 10.8,13 7,10.8 3.2,13 4,8.5 1,5.5 5,5"/></svg><svg viewBox="0 0 14 14" fill="#F59E0B"><polygon points="7,1 9,5 13,5.5 10,8.5 10.8,13 7,10.8 3.2,13 4,8.5 1,5.5 5,5"/></svg></div><p class="tc-q">&ldquo;Recomendamos Experience Connect por su responsabilidad y calidad humana. Hoy mi hija Alison inicia Psicolog&iacute;a en la UNLP.&rdquo;</p><div class="tc-a"><div class="tc-av">BO</div><div><div class="tc-n">Byron Obando</div><div class="tc-i">Padre de familia &mdash; Psicolog&iacute;a UNLP 2025</div></div></div></div>
+    <div class="tc" data-r data-d="1"><div class="tc-stars"><svg viewBox="0 0 14 14" fill="#F59E0B"><polygon points="7,1 9,5 13,5.5 10,8.5 10.8,13 7,10.8 3.2,13 4,8.5 1,5.5 5,5"/></svg><svg viewBox="0 0 14 14" fill="#F59E0B"><polygon points="7,1 9,5 13,5.5 10,8.5 10.8,13 7,10.8 3.2,13 4,8.5 1,5.5 5,5"/></svg><svg viewBox="0 0 14 14" fill="#F59E0B"><polygon points="7,1 9,5 13,5.5 10,8.5 10.8,13 7,10.8 3.2,13 4,8.5 1,5.5 5,5"/></svg><svg viewBox="0 0 14 14" fill="#F59E0B"><polygon points="7,1 9,5 13,5.5 10,8.5 10.8,13 7,10.8 3.2,13 4,8.5 1,5.5 5,5"/></svg><svg viewBox="0 0 14 14" fill="#F59E0B"><polygon points="7,1 9,5 13,5.5 10,8.5 10.8,13 7,10.8 3.2,13 4,8.5 1,5.5 5,5"/></svg></div><p class="tc-q">&ldquo;Hoy estudio Odontolog&iacute;a en la UBA desde marzo 2026. Muy agradecida por el compromiso y la atenci&oacute;n del equipo.&rdquo;</p><div class="tc-a"><div class="tc-av">LC</div><div><div class="tc-n">Liz Cueva</div><div class="tc-i">Odontolog&iacute;a &mdash; UBA Buenos Aires</div></div></div></div>
     <div class="tc" data-r data-d="2" style="display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;background:rgba(0,87,183,.05);border-color:rgba(0,87,183,.15)">
-      <div style="font-size:3rem;font-weight:900;color:var(--b);letter-spacing:-.05em;margin-bottom:6px">+50</div>
-      <p style="font-size:.84rem;color:var(--muted);margin-bottom:18px;line-height:1.7">testimonios reales verificados en nuestras redes sociales</p>
-      <a href="https://www.instagram.com/experience.connect" target="_blank" class="btn-hero-main" style="font-size:.76rem;padding:10px 20px;display:inline-flex">Ver en Instagram</a>
+      <div style="font-size:3.2rem;font-weight:900;color:var(--b);letter-spacing:-.05em;margin-bottom:6px">+50</div>
+      <p style="font-size:.84rem;color:#667;margin-bottom:18px;line-height:1.7">testimonios verificados en redes sociales</p>
+      <a href="https://www.instagram.com/experience.connect" target="_blank" class="ncta" style="display:inline-flex">Ver en Instagram</a>
     </div>
-  </div>
-</div></section>
-
-<!-- GALERIA -->
-<section id="galeria" class="sec" style="background:var(--off)"><div class="sec-in">
-  <div data-r>
-    <div class="chip"><div class="chip-d"></div><span>Galer&iacute;a</span></div>
-    <div class="sec-h2">Momentos que<br><em>cambian vidas</em></div>
-    <p class="sec-sub">Estudiantes, universidades y el d&iacute;a a d&iacute;a de vivir tu sue&ntilde;o internacional.</p>
-  </div>
-  <div class="gg">
-    <div class="gi" data-r><img src="images/galeria-1.jpg" alt="Experiencias"><div class="gi-ov"></div><div class="gi-l">Experiencias</div></div>
-    <div class="gi" data-r><img src="images/galeria-2.jpg" alt="Estudiantes"><div class="gi-ov"></div><div class="gi-l">Estudiantes</div></div>
-    <div class="gi" data-r><img src="images/galeria-3.jpg" alt="Universidades"><div class="gi-ov"></div><div class="gi-l">Universidades</div></div>
-    <div class="gi" data-r><img src="images/galeria-4.jpg" alt="Viajes"><div class="gi-ov"></div><div class="gi-l">Viajes</div></div>
-    <div class="gi" data-r><img src="images/galeria-5.jpg" alt="Graduaciones"><div class="gi-ov"></div><div class="gi-l">Graduaciones</div></div>
-    <div class="gi" data-r><img src="images/galeria-6.jpg" alt="Procesos"><div class="gi-ov"></div><div class="gi-l">Procesos</div></div>
-    <div class="gi" data-r><img src="images/galeria-7.jpg" alt="Comunidad"><div class="gi-ov"></div><div class="gi-l">Comunidad</div></div>
-    <div class="gi" data-r><img src="images/galeria-8.jpg" alt="Aventuras"><div class="gi-ov"></div><div class="gi-l">Aventuras</div></div>
   </div>
 </div></section>
 
 <!-- BLOG -->
-<section id="blog" class="sec"><div class="sec-in">
+<section id="blog" style="background:#F0F5FF;padding:96px 5%"><div class="sec-in">
   <div data-r>
-    <div class="chip"><div class="chip-d"></div><span>Blog &amp; Recursos</span></div>
+    <div class="sec-label"><div class="sec-label-d"></div><span>Blog &amp; Recursos</span></div>
     <div class="sec-h2">Gu&iacute;as para tu<br><em>aventura internacional</em></div>
-    <p class="sec-sub">Art&iacute;culos, gu&iacute;as pr&aacute;cticas y consejos de estudiantes que ya viven su sue&ntilde;o en el exterior.</p>
   </div>
   <div class="blog-g">
-    <div class="blog-c" data-r><div class="blog-img"><img src="images/argentina.jpg" alt="Argentina"></div><div class="blog-body"><span class="blog-cat">Argentina</span><div class="blog-t">&iquest;C&oacute;mo estudiar medicina gratis en Argentina desde Ecuador?</div><div class="blog-d">Gu&iacute;a completa con requisitos, costos reales y consejos de estudiantes ecuatorianos en Buenos Aires y La Plata.</div><div class="blog-meta"><span class="blog-fecha">Mayo 2025</span><a href="blog/" class="blog-link">Leer m&aacute;s &rarr;</a></div></div></div>
-    <div class="blog-c" data-r data-d="1"><div class="blog-img"><img src="images/espana.jpg" alt="Espa&ntilde;a"></div><div class="blog-body"><span class="blog-cat">Espa&ntilde;a</span><div class="blog-t">MIR en Espa&ntilde;a: todo lo que necesitas saber como m&eacute;dico ecuatoriano</div><div class="blog-d">Requisitos, plazos y proceso completo para acceder al MIR desde Ecuador. Casos reales de nuestros estudiantes.</div><div class="blog-meta"><span class="blog-fecha">Abril 2025</span><a href="blog/" class="blog-link">Leer m&aacute;s &rarr;</a></div></div></div>
-    <div class="blog-c" data-r data-d="2"><div class="blog-img"><img src="images/universidad.jpg" alt="Costos"></div><div class="blog-body"><span class="blog-cat">Gu&iacute;a Pr&aacute;ctica</span><div class="blog-t">Costos reales de vida estudiantil en Europa: comparativa 2025</div><div class="blog-d">Alquiler, alimentaci&oacute;n, transporte y gastos personales en Espa&ntilde;a, Alemania, Italia y Portugal.</div><div class="blog-meta"><span class="blog-fecha">Marzo 2025</span><a href="blog/" class="blog-link">Leer m&aacute;s &rarr;</a></div></div></div>
+    <div class="blog-c" data-r><div class="blog-img"><img src="images/argentina.jpg" alt="Argentina"></div><div class="blog-body"><span class="blog-cat">Argentina</span><div class="blog-t">&iquest;C&oacute;mo estudiar medicina gratis en Argentina desde Ecuador?</div><div class="blog-d">Gu&iacute;a con requisitos, costos reales y consejos de estudiantes ecuatorianos en Buenos Aires.</div><div class="blog-meta"><span class="blog-fecha">Mayo 2025</span><a href="blog/" class="blog-link">Leer m&aacute;s &rarr;</a></div></div></div>
+    <div class="blog-c" data-r data-d="1"><div class="blog-img"><img src="images/espana.jpg" alt="Espa&ntilde;a"></div><div class="blog-body"><span class="blog-cat">Espa&ntilde;a</span><div class="blog-t">MIR en Espa&ntilde;a: todo lo que necesitas saber como m&eacute;dico ecuatoriano</div><div class="blog-d">Requisitos, plazos y proceso completo para acceder al MIR desde Ecuador.</div><div class="blog-meta"><span class="blog-fecha">Abril 2025</span><a href="blog/" class="blog-link">Leer m&aacute;s &rarr;</a></div></div></div>
+    <div class="blog-c" data-r data-d="2"><div class="blog-img"><img src="images/universidad.jpg" alt="Costos"></div><div class="blog-body"><span class="blog-cat">Gu&iacute;a Pr&aacute;ctica</span><div class="blog-t">Costos reales de vida estudiantil en Europa: comparativa 2025</div><div class="blog-d">Alquiler, alimentaci&oacute;n y gastos personales en Espa&ntilde;a, Alemania, Italia y Portugal.</div><div class="blog-meta"><span class="blog-fecha">Marzo 2025</span><a href="blog/" class="blog-link">Leer m&aacute;s &rarr;</a></div></div></div>
   </div>
   <div style="text-align:center;margin-top:36px" data-r>
-    <a href="blog/" class="btn-hero-main" style="display:inline-flex">Ver todos los art&iacute;culos &rarr;</a>
+    <a href="blog/" class="ncta" style="display:inline-flex;font-size:.88rem;padding:12px 28px">Ver todos los art&iacute;culos &rarr;</a>
   </div>
 </div></section>
 
 <!-- CTA FINAL -->
-<section id="cta-f">
-  <div class="cta-in" data-r>
-    <div class="cta-chip"><div class="chip-d" style="background:#3BA7FF"></div><span>Experience Connect &mdash; Ecuador</span></div>
-    <div class="cta-t">Tu futuro<br>comienza <em>hoy mismo</em></div>
-    <p class="cta-s">No esperes el momento perfecto. M&aacute;s de 500 estudiantes ya dieron ese paso con nosotros.</p>
-    <div class="cta-btns">
-      <button onclick="abrirModal()" class="btn-hero-main" style="padding:16px 36px;font-size:.86rem">Agendar asesor&iacute;a gratuita</button>
-      <a href="https://wa.me/593983234334" target="_blank" class="btn-hero-wa" style="padding:16px 32px;font-size:.86rem;border-radius:50px"><svg viewBox="0 0 24 24" fill="white" width="17" height="17"><path d="M3 21l1.65-3.8a9 9 0 113.4 2.9L3 21"/><path d="M9 10c0 5 3.5 7.5 7.5 6" stroke="white" fill="none" stroke-width="1.5" stroke-linecap="round"/></svg>Escribir al WhatsApp</a>
+<section id="ctaf">
+  <div class="ctaf-bg"></div>
+  <div class="ctaf-ov"></div>
+  <div class="ctaf-in" data-r>
+    <div class="ctaf-badge"><span>Experience Connect &mdash; Ecuador</span></div>
+    <div class="ctaf-t">Tu futuro<br>comienza <em>hoy</em></div>
+    <p class="ctaf-s">M&aacute;s de 500 estudiantes ya dieron ese paso. No esperes m&aacute;s.</p>
+    <div class="ctaf-btns">
+      <button onclick="abrirModal()" class="hero-btn1" style="padding:16px 36px;font-size:.88rem">Agendar asesor&iacute;a gratuita</button>
+      <a href="https://wa.me/593983234334" target="_blank" class="hero-btn2" style="padding:16px 30px;font-size:.88rem"><svg viewBox="0 0 24 24" fill="white" width="17" height="17"><path d="M3 21l1.65-3.8a9 9 0 113.4 2.9L3 21"/><path d="M9 10c0 5 3.5 7.5 7.5 6" stroke="white" fill="none" stroke-width="1.5" stroke-linecap="round"/></svg>WhatsApp</a>
     </div>
-    <div class="cta-meta">
-      <div class="cta-m">Respuesta en 24 horas</div>
-      <div class="cta-m">Sin costo inicial</div>
-      <div class="cta-m">+500 estudiantes exitosos</div>
-      <div class="cta-m">10+ pa&iacute;ses disponibles</div>
+    <div class="ctaf-meta">
+      <div class="ctaf-m">Respuesta en 24 horas</div>
+      <div class="ctaf-m">Sin costo inicial</div>
+      <div class="ctaf-m">+500 estudiantes exitosos</div>
     </div>
   </div>
 </section>
@@ -713,18 +570,17 @@ footer{background:#020D1F;padding:72px 5% 28px;border-top:1px solid rgba(255,255
     <div>
       <div class="f-logo"><img src="images/logo.png" alt="Experience Connect"></div>
       <div class="f-tag">Travel &bull; Study &bull; Work</div>
-      <p class="f-desc">Conectamos tu talento con las mejores universidades del mundo. Presencia en Ecuador y Argentina.</p>
+      <p class="f-desc">Conectamos tu talento con las mejores universidades del mundo.</p>
       <div class="f-soc">
         <a class="fss" href="https://www.instagram.com/experience.connect" target="_blank"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.2" fill="white" stroke="none"/></svg></a>
         <a class="fss" href="https://www.facebook.com/share/18eC2YorDv/" target="_blank"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg></a>
-        <a class="fss" href="https://www.tiktok.com/@experienceconnect" target="_blank"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><path d="M9 12a4 4 0 104 4V4a5 5 0 005 5"/></svg></a>
         <a class="fss" href="https://wa.me/593983234334" target="_blank"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><path d="M3 21l1.65-3.8a9 9 0 113.4 2.9L3 21"/><path d="M9 10c0 5 3.5 7.5 7.5 6" stroke-linecap="round"/></svg></a>
       </div>
       <a href="https://wa.me/593983234334" target="_blank" class="fwa"><svg viewBox="0 0 24 24" fill="#25D366" width="17" height="17"><path d="M3 21l1.65-3.8a9 9 0 113.4 2.9L3 21"/><path d="M9 10c0 5 3.5 7.5 7.5 6" stroke="#25D366" fill="none" stroke-width="1.5" stroke-linecap="round"/></svg><div class="fwa-t"><strong>+593 98 323 4334</strong>Esr&iacute;benos en WhatsApp</div></a>
     </div>
     <div class="fc"><h5>Destinos</h5><ul><li><a href="destinos/espana.html">Espa&ntilde;a</a></li><li><a href="destinos/italia.html">Italia</a></li><li><a href="destinos/alemania.html">Alemania</a></li><li><a href="destinos/argentina.html">Argentina</a></li><li><a href="destinos/portugal.html">Portugal</a></li><li><a href="destinos/republica-checa.html">Rep. Checa</a></li></ul></div>
     <div class="fc"><h5>Servicios</h5><ul><li><a href="servicios.html">Grado Internacional</a></li><li><a href="servicios.html">Posgrados</a></li><li><a href="servicios.html">Especialidades M&eacute;dicas</a></li><li><a href="servicios.html">Asesor&iacute;a Migratoria</a></li><li><a href="proceso.html">C&oacute;mo funciona</a></li><li><a href="worktravel.html">Work &amp; Travel</a></li></ul></div>
-    <div class="fc"><h5>Contacto</h5><ul><li><a href="mailto:asesoria@experienceconnectec.com">asesoria@experienceconnectec.com</a></li><li><a href="mailto:experienceconnectec@gmail.com">experienceconnectec@gmail.com</a></li><li><a href="https://wa.me/593983234334" target="_blank">+593 98 323 4334</a></li><li><a href="https://wa.me/593993528177" target="_blank">+593 99 352 8177</a></li><li><a href="blog/">Blog</a></li><li><a href="contacto.html">Contacto</a></li></ul></div>
+    <div class="fc"><h5>Contacto</h5><ul><li><a href="mailto:asesoria@experienceconnectec.com">asesoria@experienceconnectec.com</a></li><li><a href="https://wa.me/593983234334" target="_blank">+593 98 323 4334</a></li><li><a href="https://wa.me/593993528177" target="_blank">+593 99 352 8177</a></li><li><a href="blog/">Blog</a></li><li><a href="contacto.html">Contacto</a></li></ul></div>
   </div>
   <div class="fb"><span class="fcp">&copy; 2025 Experience Connect. Todos los derechos reservados.</span><span class="frf">experienceconnectec.com &bull; Travel &bull; Study &bull; Work</span></div>
 </footer>
@@ -740,20 +596,11 @@ footer{background:#020D1F;padding:72px 5% 28px;border-top:1px solid rgba(255,255
       <button class="mc" onclick="cerrarModal()">&#x2715;</button>
     </div>
     <div class="mb">
-      <div class="fr2">
-        <div class="fg2"><label>Nombre completo</label><input type="text" id="mNom" placeholder="Tu nombre completo"></div>
-        <div class="fg2"><label>WhatsApp</label><input type="tel" id="mWA" placeholder="+593 98 323 4334"></div>
-      </div>
-      <div class="fr2">
-        <div class="fg2"><label>Email</label><input type="email" id="mEM" placeholder="tu@correo.com"></div>
-        <div class="fg2"><label>Tu perfil</label><select id="mPerfil"><option value="">Selecciona...</option><option>Bachiller / Estudiante</option><option>Profesional / Posgrado</option><option>M&eacute;dico / MIR</option><option>Otro</option></select></div>
-      </div>
-      <div class="fr2">
-        <div class="fg2"><label>Destino de inter&eacute;s</label><select id="mDest"><option value="">Selecciona...</option><option>Espa&ntilde;a</option><option>Italia</option><option>Alemania</option><option>Argentina</option><option>Portugal</option><option>Rep. Checa</option><option>No s&eacute; a&uacute;n</option></select></div>
-        <div class="fg2"><label>Cu&aacute;ndo planeas viajar</label><select id="mFecha"><option value="">Selecciona...</option><option>Pr&oacute;ximos 3 meses</option><option>En 6 meses</option><option>En 1 a&ntilde;o</option><option>M&aacute;s de 1 a&ntilde;o</option></select></div>
-      </div>
+      <div class="fr2"><div class="fg2"><label>Nombre completo</label><input type="text" id="mNom" placeholder="Tu nombre"></div><div class="fg2"><label>WhatsApp</label><input type="tel" id="mWA" placeholder="+593 98 323 4334"></div></div>
+      <div class="fr2"><div class="fg2"><label>Email</label><input type="email" id="mEM" placeholder="tu@correo.com"></div><div class="fg2"><label>Tu perfil</label><select id="mPerfil"><option value="">Selecciona...</option><option>Bachiller / Estudiante</option><option>Profesional / Posgrado</option><option>M&eacute;dico / MIR</option><option>Otro</option></select></div></div>
+      <div class="fr2"><div class="fg2"><label>Destino de inter&eacute;s</label><select id="mDest"><option value="">Selecciona...</option><option>Espa&ntilde;a</option><option>Italia</option><option>Alemania</option><option>Argentina</option><option>Portugal</option><option>Rep. Checa</option><option>No s&eacute; a&uacute;n</option></select></div><div class="fg2"><label>Cu&aacute;ndo planeas viajar</label><select id="mFecha"><option value="">Selecciona...</option><option>Pr&oacute;ximos 3 meses</option><option>En 6 meses</option><option>En 1 a&ntilde;o</option><option>M&aacute;s de 1 a&ntilde;o</option></select></div></div>
       <div class="fg2"><label>Carrera o programa</label><input type="text" id="mCar" placeholder="Medicina, Ingenier&iacute;a, MBA..."></div>
-      <div class="fg2"><label>Cu&eacute;ntanos tus metas (opcional)</label><textarea id="mMsg" placeholder="&iquest;Qu&eacute; quieres lograr con tu experiencia internacional?"></textarea></div>
+      <div class="fg2"><label>Tus metas (opcional)</label><textarea id="mMsg" placeholder="&iquest;Qu&eacute; quieres lograr?"></textarea></div>
       <button class="btn-sub" onclick="enviarModal()">Enviar y agendar asesor&iacute;a</button>
       <a href="https://wa.me/593983234334?text=Hola,%20quiero%20agendar%20una%20asesoria" target="_blank" class="btn-mwa"><svg viewBox="0 0 24 24" fill="white" width="16" height="16"><path d="M3 21l1.65-3.8a9 9 0 113.4 2.9L3 21"/><path d="M9 10c0 5 3.5 7.5 7.5 6" stroke="white" fill="none" stroke-width="1.5" stroke-linecap="round"/></svg>O esr&iacute;benos por WhatsApp</a>
     </div>
@@ -761,79 +608,17 @@ footer{background:#020D1F;padding:72px 5% 28px;border-top:1px solid rgba(255,255
 </div>
 
 <script>
-// CURSOR
-var cur=document.getElementById('cursor'),ring=document.getElementById('cursor-ring');
-var mx=0,my=0,rx=0,ry=0;
-document.addEventListener('mousemove',function(e){
-  mx=e.clientX;my=e.clientY;
-  cur.style.left=mx+'px';cur.style.top=my+'px';
-});
-function animRing(){
-  rx+=(mx-rx)*.12;ry+=(my-ry)*.12;
-  ring.style.left=rx+'px';ring.style.top=ry+'px';
-  requestAnimationFrame(animRing);
-}
-animRing();
-document.querySelectorAll('a,button,.dc,.pcard,.hst,.tc,.sc,.gi,.blog-c').forEach(function(el){
-  el.addEventListener('mouseenter',function(){
-    cur.style.width='20px';cur.style.height='20px';
-    ring.style.width='60px';ring.style.height='60px';
-    ring.style.opacity='.6';
-  });
-  el.addEventListener('mouseleave',function(){
-    cur.style.width='12px';cur.style.height='12px';
-    ring.style.width='40px';ring.style.height='40px';
-    ring.style.opacity='1';
-  });
-});
-
-// SCROLL PROGRESS
-window.addEventListener('scroll',function(){
-  var s=document.documentElement.scrollTop;
-  var h=document.documentElement.scrollHeight-document.documentElement.clientHeight;
-  document.getElementById('progress').style.width=(s/h*100)+'%';
-});
-
-// NAV
 document.getElementById('ham').addEventListener('click',function(){document.getElementById('mob').classList.add('open')});
 document.getElementById('mobX').addEventListener('click',function(){document.getElementById('mob').classList.remove('open')});
-
-// REVEAL
 var ro=new IntersectionObserver(function(e){e.forEach(function(x){if(x.isIntersecting){x.target.classList.add('on');ro.unobserve(x.target)}})},{threshold:.08,rootMargin:'0px 0px -40px 0px'});
 document.querySelectorAll('[data-r]').forEach(function(el){ro.observe(el)});
-
-// COUNT UP
-function countUp(el,target,prefix,suffix){
-  var start=0,dur=2000,step=dur/60;
-  var timer=setInterval(function(){
-    start+=target/60;
-    if(start>=target){start=target;clearInterval(timer);}
-    el.textContent=(prefix||'')+(start>=10?Math.round(start):Math.round(start*10)/10)+(suffix||'');
-  },step);
-}
-var countObs=new IntersectionObserver(function(e){
-  e.forEach(function(x){
-    if(x.isIntersecting){
-      var el=x.target;
-      var count=parseInt(el.getAttribute('data-count'));
-      if(count===500)countUp(el,500,'+','');
-      else if(count===10)countUp(el,10,'+','');
-      else if(count===95)countUp(el,95,'','');
-      else if(count===15)countUp(el,15,'','+');
-      countObs.unobserve(el);
-    }
-  });
-},{threshold:.5});
-document.querySelectorAll('[data-count]').forEach(function(el){countObs.observe(el)});
-
-// PROCESO
 var PD=[
-  {t:'Agenda tu asesoría gratuita',d:'Completa el formulario. Un consultor experto te contacta en menos de 24 horas para una sesión personalizada y sin costo.',tags:['24H','Sin costo','Personalizada']},
-  {t:'Evaluamos tu perfil completo',d:'Analizamos historial académico, idioma, presupuesto y metas para encontrar la opción ideal para ti.',tags:['Perfil','Presupuesto','Metas']},
-  {t:'País, universidad y programa',d:'Presentamos opciones con costos reales y calidad de vida verificada. Tú decides.',tags:['Opciones','Comparativa','Costos reales']},
-  {t:'Gestión documental completa',d:'Apostillados, traducciones certificadas, cartas de motivación y formularios de admisión.',tags:['Apostillado','Traducción','Admisión']},
-  {t:'Visa y proceso migratorio',d:'Visa estudiantil, seguro médico y todos los trámites migratorios para tu país destino.',tags:['Visa','Seguro médico','Trámites']},
-  {t:'Tu experiencia internacional',d:'Orientación en alojamiento, logística de viaje y adaptación cultural en el destino elegido.',tags:['Alojamiento','Orientación','Acompañamiento']}
+  {t:'Agenda tu asesor\u00EDa gratuita',d:'Un consultor experto te contacta en menos de 24 horas para una sesi\u00F3n personalizada y sin costo.',tags:['24H','Sin costo','Personalizada']},
+  {t:'Evaluamos tu perfil',d:'Analizamos historial acad\u00E9mico, idioma, presupuesto y metas para encontrar la opci\u00F3n ideal.',tags:['Perfil','Presupuesto','Metas']},
+  {t:'Pa\u00EDs, universidad y programa',d:'Presentamos opciones con costos reales y calidad de vida verificada. T\u00FA decides.',tags:['Opciones','Costos reales','T\u00FA decides']},
+  {t:'Gesti\u00F3n documental',d:'Apostillados, traducciones certificadas, cartas de motivaci\u00F3n y formularios de admisi\u00F3n.',tags:['Apostillado','Traducci\u00F3n','Admisi\u00F3n']},
+  {t:'Visa y proceso migratorio',d:'Visa estudiantil, seguro m\u00E9dico y todos los tr\u00E1mites migratorios para tu pa\u00EDs destino.',tags:['Visa','Seguro','Tr\u00E1mites']},
+  {t:'Tu experiencia internacional',d:'Orientaci\u00F3n en alojamiento, log\u00EDstica de viaje y adaptaci\u00F3n cultural en el destino.',tags:['Alojamiento','Orientaci\u00F3n','Acompa\u00F1amiento']}
 ];
 function sp(el,idx){
   document.querySelectorAll('.paso').forEach(function(p){p.classList.remove('on')});
@@ -845,33 +630,17 @@ function sp(el,idx){
   document.getElementById('pTg').innerHTML=d.tags.map(function(t){return '<span class="pp-tag">'+t+'</span>'}).join('');
   document.getElementById('pB').style.width=((idx+1)/6*100)+'%';
 }
-
-// MODAL
-function abrirModal(dest){
-  document.getElementById('modal').classList.add('open');
-  document.body.style.overflow='hidden';
-  if(dest)document.getElementById('mDest').value=dest;
-}
+function abrirModal(dest){document.getElementById('modal').classList.add('open');document.body.style.overflow='hidden';if(dest)document.getElementById('mDest').value=dest;}
 function cerrarModal(){document.getElementById('modal').classList.remove('open');document.body.style.overflow='';}
 document.addEventListener('keydown',function(e){if(e.key==='Escape')cerrarModal()});
 function enviarModal(){
   var n=document.getElementById('mNom').value.trim();
   var w=document.getElementById('mWA').value.trim();
   if(!n||!w){alert('Por favor ingresa tu nombre y WhatsApp.');return;}
-  fetch('https://formsubmit.co/ajax/asesoria@experienceconnectec.com',{
-    method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},
-    body:JSON.stringify({_subject:'Nueva solicitud - Experience Connect',_captcha:'false',nombre:n,whatsapp:w,email:document.getElementById('mEM').value,perfil:document.getElementById('mPerfil').value,destino:document.getElementById('mDest').value,fecha:document.getElementById('mFecha').value,carrera:document.getElementById('mCar').value,mensaje:document.getElementById('mMsg').value})
-  }).catch(function(){});
+  fetch('https://formsubmit.co/ajax/asesoria@experienceconnectec.com',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify({_subject:'Nueva solicitud - Experience Connect',_captcha:'false',nombre:n,whatsapp:w,email:document.getElementById('mEM').value,perfil:document.getElementById('mPerfil').value,destino:document.getElementById('mDest').value,fecha:document.getElementById('mFecha').value,carrera:document.getElementById('mCar').value,mensaje:document.getElementById('mMsg').value})}).catch(function(){});
   cerrarModal();
   alert('Solicitud enviada. Te contactaremos en menos de 24 horas.');
 }
-
-// PARALLAX HERO
-window.addEventListener('scroll',function(){
-  var s=window.scrollY;
-  var bg=document.querySelector('.hero-bg-glow');
-  if(bg)bg.style.transform='translateY('+s*.3+'px)';
-});
 </script>
 </body>
 </html>
