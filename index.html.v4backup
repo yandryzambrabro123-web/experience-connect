@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Experience Connect — Vive el Mundo | Ecuador</title>
+<meta name="description" content="Estudia en el exterior con Experience Connect. Programas universitarios en Argentina, Europa y mas. +500 estudiantes exitosos desde Ecuador.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,700;0,800;0,900;1,800&family=Nunito+Sans:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+:root{
+--b:#1565C0;--b2:#0D47A1;--b3:#1976D2;--b4:#42A5F5;--b5:#E3F2FD;
+--g:#25D366;--w:#fff;--off:#F0F6FF;--text:#0A1628;--muted:#546E7A;
+--border:#E1EAF5;--dark:#050D1A;
+--s1:0 4px 20px rgba(21,101,192,.1);
+--s2:0 12px 48px rgba(21,101,192,.15);
+--s3:0 24px 80px rgba(21,101,192,.2);
+}
+body{font-family:'Nunito Sans',sans-serif;color:var(--text);background:var(--w);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+::-webkit-scrollbar{width:4px}::-webkit-scrollbar-thumb{background:var(--b);border-radius:99px}
+img{max-width:100%;display:block}
+
+/* ── NAV ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:900;height:72px;display:flex;align-items:center;justify-content:space-between;padding:0 5%;background:rgba(255,255,255,.97);backdrop-filter:blur(24px);border-bottom:1px solid rgba(21,101,192,.08);box-shadow:0 2px 24px rgba(21,101,192,.07);transition:all .3s}
+.nl img{height:56px;width:auto;object-fit:contain}
+.nm{display:flex;align-items:center;gap:24px;list-style:none}
+.nm a{font-size:.78rem;font-weight:700;color:var(--muted);text-decoration:none;transition:color .2s}
+.nm a:hover{color:var(--b)}
+.nb{background:var(--b);color:#fff;padding:10px 22px;border-radius:50px;font-size:.76rem;font-weight:800;border:none;cursor:pointer;font-family:'Nunito Sans',sans-serif;transition:all .25s;box-shadow:0 4px 18px rgba(21,101,192,.35)}
+.nb:hover{background:var(--b2);transform:translateY(-2px);box-shadow:0 8px 28px rgba(21,101,192,.45)}
+.nw{display:flex;align-items:center;gap:6px;background:var(--g);color:#fff;padding:10px 18px;border-radius:50px;font-size:.74rem;font-weight:800;text-decoration:none;transition:all .25s;box-shadow:0 4px 14px rgba(37,211,102,.3)}
+.nw:hover{background:#1ebe5d;transform:translateY(-2px)}
+.nw svg{width:14px;height:14px}
+.ham{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:6px}
+.ham span{width:22px;height:2px;background:var(--text);border-radius:99px}
+@media(max-width:1024px){.nm{display:none}.ham{display:flex}}
+.mob{position:fixed;inset:0;z-index:890;background:rgba(255,255,255,.98);backdrop-filter:blur(20px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px;transform:translateX(100%);transition:transform .4s}
+.mob.open{transform:none}
+.mob a{font-size:1.5rem;font-weight:800;color:var(--text);text-decoration:none;transition:color .2s}
+.mob a:hover{color:var(--b)}
+.mob-x{position:absolute;top:22px;right:22px;width:40px;height:40px;border:1.5px solid var(--border);border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:1rem;color:var(--muted)}
+
+/* ── HERO ── */
+#hero{min-height:100vh;background:var(--off);display:grid;grid-template-columns:1fr 1fr;align-items:center;padding:90px 5% 60px;gap:60px;position:relative;overflow:hidden;max-width:100%}
+.hero-blob{position:absolute;width:700px;height:700px;border-radius:50%;background:radial-gradient(circle,rgba(21,101,192,.08),transparent 70%);top:-200px;right:-200px;pointer-events:none}
+.hero-blob2{position:absolute;width:400px;height:400px;border-radius:50%;background:radial-gradient(circle,rgba(66,165,245,.06),transparent 70%);bottom:-100px;left:30%;pointer-events:none}
+.hero-left{position:relative;z-index:2;max-width:620px}
+.hero-tag{display:inline-flex;align-items:center;gap:8px;background:rgba(21,101,192,.08);border:1px solid rgba(21,101,192,.15);border-radius:50px;padding:6px 16px;margin-bottom:24px}
+.hero-tag-dot{width:6px;height:6px;border-radius:50%;background:var(--b);animation:dp 2s infinite}
+@keyframes dp{0%,100%{opacity:1}50%{opacity:.4}}
+.hero-tag span{font-size:.66rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--b)}
+.hero-h1{font-family:'Nunito',sans-serif;font-size:clamp(2.8rem,4.5vw,5rem);font-weight:900;color:var(--text);line-height:1.02;letter-spacing:-.03em;margin-bottom:8px}
+.hero-h1 .azul{color:var(--b)}
+.hero-h2{font-family:'Nunito',sans-serif;font-size:clamp(1.4rem,2vw,1.9rem);font-weight:700;color:var(--b);line-height:1.2;letter-spacing:-.02em;margin-bottom:20px}
+.hero-p{font-size:.96rem;color:var(--muted);line-height:1.85;margin-bottom:28px;font-weight:400;max-width:500px}
+.hero-tipos{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:28px}
+.htipo{display:flex;align-items:center;gap:12px;background:var(--w);border:1.5px solid var(--border);border-radius:16px;padding:14px 18px;cursor:pointer;transition:all .3s;font-family:'Nunito Sans',sans-serif;box-shadow:var(--s1)}
+.htipo:hover,.htipo.on{border-color:var(--b);box-shadow:var(--s2);transform:translateY(-2px);background:linear-gradient(135deg,rgba(21,101,192,.04),rgba(25,118,210,.02))}
+.htipo-ico{width:38px;height:38px;border-radius:12px;background:var(--off);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background .3s}
+.htipo:hover .htipo-ico,.htipo.on .htipo-ico{background:var(--b)}
+.htipo:hover .htipo-ico svg,.htipo.on .htipo-ico svg{stroke:#fff}
+.htipo-ico svg{width:19px;height:19px;stroke:var(--b);fill:none;transition:stroke .3s;stroke-width:2}
+.htipo-t{font-size:.88rem;font-weight:800;color:var(--text);margin-bottom:1px;letter-spacing:-.01em}
+.htipo-s{font-size:.68rem;color:var(--muted)}
+.hero-btns{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:36px}
+.btn-p{display:inline-flex;align-items:center;gap:9px;background:var(--b);color:#fff;padding:14px 28px;border-radius:50px;font-weight:800;font-size:.84rem;text-decoration:none;border:none;cursor:pointer;font-family:'Nunito Sans',sans-serif;transition:all .3s;box-shadow:0 6px 24px rgba(21,101,192,.4)}
+.btn-p:hover{background:var(--b2);transform:translateY(-3px);box-shadow:0 12px 36px rgba(21,101,192,.5)}
+.btn-p svg{width:17px;height:17px}
+.btn-g{display:inline-flex;align-items:center;gap:9px;background:var(--g);color:#fff;padding:14px 26px;border-radius:50px;font-weight:800;font-size:.84rem;text-decoration:none;transition:all .3s;box-shadow:0 6px 20px rgba(37,211,102,.4)}
+.btn-g:hover{background:#1ebe5d;transform:translateY(-3px)}
+.btn-g svg{width:17px;height:17px}
+.btn-o{display:inline-flex;align-items:center;gap:8px;background:transparent;color:var(--b);padding:13px 22px;border-radius:50px;font-weight:700;font-size:.82rem;text-decoration:none;border:1.5px solid rgba(21,101,192,.3);transition:all .3s}
+.btn-o:hover{border-color:var(--b);background:rgba(21,101,192,.05)}
+.hero-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.hst{background:var(--w);border-radius:16px;padding:14px 10px;text-align:center;box-shadow:var(--s1);border:1px solid var(--border);transition:all .3s}
+.hst:hover{transform:translateY(-3px);box-shadow:var(--s2)}
+.hst-ico{font-size:1.4rem;margin-bottom:4px}
+.hst-n{font-family:'Nunito',sans-serif;font-size:1.4rem;font-weight:900;color:var(--b);line-height:1;letter-spacing:-.03em}
+.hst-l{font-size:.56rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-top:2px;line-height:1.3}
+.hero-right{position:relative;z-index:2}
+.hero-img{border-radius:28px;overflow:hidden;box-shadow:var(--s3);aspect-ratio:4/5;background:linear-gradient(135deg,#1565C0,#42A5F5)}
+.hero-img img{width:100%;height:100%;object-fit:cover}
+.hfc{position:absolute;background:var(--w);border-radius:20px;box-shadow:var(--s2);padding:14px 18px;border:1px solid var(--border);display:flex;align-items:center;gap:11px;animation:fl 4s ease-in-out infinite}
+@keyframes fl{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+.hfc1{bottom:48px;left:-36px;animation-delay:0s}
+.hfc2{top:48px;right:-28px;animation-delay:1.5s}
+.hfc3{bottom:160px;right:-32px;animation-delay:.8s}
+.hfc-ico{width:36px;height:36px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0}
+.hfc-t{font-size:.8rem;font-weight:800;color:var(--text);letter-spacing:-.01em}
+.hfc-s{font-size:.64rem;color:var(--muted)}
+@media(max-width:960px){#hero{grid-template-columns:1fr;padding-top:100px}.hero-img{aspect-ratio:16/9}.hfc{display:none}}
+
+/* ── MARQUEE ── */
+.mq{background:linear-gradient(90deg,var(--b2),var(--b),var(--b3));padding:11px 0;overflow:hidden}
+.mq-t{display:flex;animation:mqs 30s linear infinite;white-space:nowrap}
+.mq-i{font-size:.62rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.8);padding:0 28px;display:flex;align-items:center;gap:12px;flex-shrink:0}
+.mq-d{width:4px;height:4px;border-radius:50%;background:rgba(255,255,255,.4)}
+@keyframes mqs{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* ── SECTIONS ── */
+.sec{padding:96px 5%}
+.sec-in{max-width:1280px;margin:0 auto}
+.chip{display:inline-flex;align-items:center;gap:7px;background:rgba(21,101,192,.07);border:1px solid rgba(21,101,192,.12);border-radius:50px;padding:5px 14px;margin-bottom:16px}
+.chip span{font-size:.62rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--b)}
+.chip-d{width:5px;height:5px;border-radius:50%;background:var(--b)}
+h2{font-family:'Nunito',sans-serif;font-size:clamp(2rem,3.5vw,3.2rem);font-weight:900;color:var(--text);line-height:1.05;letter-spacing:-.03em;margin-bottom:14px}
+h2 em{font-style:italic;color:var(--b)}
+.sub{font-size:.93rem;color:var(--muted);line-height:1.85;max-width:500px}
+[data-r]{opacity:0;transform:translateY(28px);transition:opacity .65s cubic-bezier(.4,0,.2,1),transform .65s cubic-bezier(.4,0,.2,1)}
+[data-r].on{opacity:1;transform:none}
+
+/* ── DESTINOS ── */
+#destinos{background:var(--w)}
+.dest-intro{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:end;margin-bottom:48px}
+.dg{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.dc{border-radius:24px;overflow:hidden;background:var(--w);border:1.5px solid var(--border);box-shadow:var(--s1);transition:all .4s;cursor:pointer}
+.dc:hover{transform:translateY(-8px);box-shadow:var(--s3);border-color:rgba(21,101,192,.2)}
+.dc-img{height:200px;position:relative;overflow:hidden;background:linear-gradient(135deg,#1565C0,#1976D2)}
+.dc-img img{width:100%;height:100%;object-fit:cover;transition:transform .6s}
+.dc:hover .dc-img img{transform:scale(1.07)}
+.dc-ov{position:absolute;inset:0;background:linear-gradient(to top,rgba(10,22,40,.88) 0%,transparent 55%)}
+.dc-info{position:absolute;bottom:0;left:0;right:0;padding:14px 18px;display:flex;align-items:flex-end;justify-content:space-between}
+.dc-name{font-family:'Nunito',sans-serif;font-size:1.15rem;font-weight:900;color:#fff;letter-spacing:-.02em}
+.dc-pr{font-size:.58rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#fff;background:rgba(21,101,192,.85);padding:4px 10px;border-radius:50px}
+.dc-body{padding:18px 20px 16px}
+.dc-desc{font-size:.78rem;color:var(--muted);line-height:1.72;margin-bottom:12px}
+.dc-tags{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:14px}
+.dtag{font-size:.6rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--b);background:var(--b5);border-radius:50px;padding:3px 10px;border:1px solid rgba(21,101,192,.1)}
+.dc-btns{display:flex;gap:6px;flex-wrap:wrap}
+.bs{display:inline-flex;align-items:center;gap:4px;padding:8px 14px;border-radius:50px;font-size:.72rem;font-weight:800;text-decoration:none;transition:all .25s;border:none;cursor:pointer;font-family:'Nunito Sans',sans-serif}
+.bs-b{background:var(--b);color:#fff;box-shadow:0 3px 12px rgba(21,101,192,.3)}.bs-b:hover{background:var(--b2)}
+.bs-d{background:var(--off);color:var(--text);border:1.5px solid var(--border)}.bs-d:hover{border-color:var(--b);color:var(--b)}
+.bs-g{background:var(--g);color:#fff}.bs-g:hover{background:#1ebe5d}
+.bs svg{width:11px;height:11px}
+
+/* ── PROGRAMAS ── */
+#programas{background:linear-gradient(135deg,#0A1628 0%,#0D47A1 60%,#1565C0 100%);padding:96px 5%}
+.prog-in{max-width:1280px;margin:0 auto}
+.prog-intro{text-align:center;max-width:680px;margin:0 auto 60px}
+.prog-intro h2{color:var(--w)}
+.prog-intro .sub{color:rgba(255,255,255,.55);margin:0 auto}
+.prog-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.prog-card{border-radius:24px;padding:36px 32px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.06);backdrop-filter:blur(12px);transition:all .35s;position:relative;overflow:hidden}
+.prog-card:hover{background:rgba(255,255,255,.1);transform:translateY(-6px);box-shadow:0 20px 60px rgba(0,0,0,.3)}
+.prog-card.featured{background:var(--w);border-color:transparent;box-shadow:var(--s3)}
+.prog-glow{position:absolute;width:200px;height:200px;border-radius:50%;background:rgba(66,165,245,.12);top:-60px;right:-60px;pointer-events:none}
+.prog-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.12);border-radius:50px;padding:4px 12px;margin-bottom:20px;font-size:.6rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.7)}
+.prog-card.featured .prog-badge{background:var(--b5);color:var(--b)}
+.prog-name{font-family:'Nunito',sans-serif;font-size:1.4rem;font-weight:900;color:var(--w);margin-bottom:8px;letter-spacing:-.03em}
+.prog-card.featured .prog-name{color:var(--text)}
+.prog-precio{margin-bottom:6px}
+.prog-ins{font-size:.72rem;font-weight:600;color:rgba(255,255,255,.45);margin-bottom:4px}
+.prog-card.featured .prog-ins{color:var(--muted)}
+.prog-val{font-family:'Nunito',sans-serif;font-size:2.4rem;font-weight:900;color:var(--w);line-height:1;letter-spacing:-.04em}
+.prog-card.featured .prog-val{color:var(--b)}
+.prog-val span{font-size:.9rem;font-weight:600;vertical-align:super;margin-right:2px}
+.prog-sep{height:1px;background:rgba(255,255,255,.1);margin:20px 0}
+.prog-card.featured .prog-sep{background:var(--border)}
+.prog-list{display:flex;flex-direction:column;gap:9px;margin-bottom:28px}
+.prog-li{display:flex;align-items:flex-start;gap:9px;font-size:.8rem;color:rgba(255,255,255,.7);font-weight:500;line-height:1.5}
+.prog-card.featured .prog-li{color:var(--muted)}
+.prog-li::before{content:'';width:16px;height:16px;border-radius:50%;background:rgba(66,165,245,.2);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M3 8l3 3 7-7' stroke='%2342A5F5' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:center;background-size:12px}
+.prog-card.featured .prog-li::before{background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M3 8l3 3 7-7' stroke='%231565C0' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")}
+.prog-cta{width:100%;padding:14px;border-radius:50px;font-family:'Nunito Sans',sans-serif;font-size:.82rem;font-weight:800;cursor:pointer;transition:all .3s;border:1.5px solid rgba(255,255,255,.25);background:transparent;color:var(--w);letter-spacing:.02em}
+.prog-cta:hover{background:rgba(255,255,255,.12)}
+.prog-card.featured .prog-cta{background:var(--b);color:#fff;border-color:transparent;box-shadow:0 6px 22px rgba(21,101,192,.4)}
+.prog-card.featured .prog-cta:hover{background:var(--b2);transform:translateY(-2px)}
+@media(max-width:900px){.prog-grid{grid-template-columns:1fr}}
+
+/* ── SOBRE NOSOTROS ── */
+#nosotros{background:var(--w)}
+.nos-g{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;margin-top:56px}
+.nos-img{border-radius:24px;overflow:hidden;box-shadow:var(--s3);position:relative;aspect-ratio:4/5;background:linear-gradient(135deg,#1565C0,#42A5F5)}
+.nos-img img{width:100%;height:100%;object-fit:cover}
+.nos-badge{position:absolute;bottom:24px;left:24px;background:rgba(255,255,255,.95);backdrop-filter:blur(12px);border-radius:18px;padding:16px 20px;box-shadow:var(--s2);display:flex;align-items:center;gap:12px;border:1px solid rgba(255,255,255,.8)}
+.nb-ico{width:42px;height:42px;border-radius:14px;background:linear-gradient(135deg,var(--b),var(--b3));display:flex;align-items:center;justify-content:center;font-size:1.2rem}
+.nb-n{font-family:'Nunito',sans-serif;font-size:1.5rem;font-weight:900;color:var(--b);line-height:1;letter-spacing:-.04em}
+.nb-l{font-size:.64rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-top:1px}
+.nos-feats{display:flex;flex-direction:column;gap:14px;margin:28px 0 32px}
+.nf{display:flex;gap:14px;align-items:flex-start;background:var(--off);border-radius:16px;padding:16px;border:1px solid var(--border);transition:all .3s}
+.nf:hover{box-shadow:var(--s1);border-color:rgba(21,101,192,.2);transform:translateX(4px)}
+.nf-ico{width:40px;height:40px;border-radius:12px;background:linear-gradient(135deg,rgba(21,101,192,.1),rgba(25,118,210,.15));display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.nf-ico svg{width:20px;height:20px;stroke:var(--b);fill:none;stroke-width:1.8}
+.nf-t{font-size:.86rem;font-weight:800;color:var(--text);margin-bottom:2px;letter-spacing:-.01em}
+.nf-d{font-size:.78rem;color:var(--muted);line-height:1.65}
+@media(max-width:900px){.nos-g{grid-template-columns:1fr}.nos-img{aspect-ratio:16/9}}
+
+/* ── SERVICIOS ── */
+#servicios{background:var(--off)}
+.sg{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:48px}
+.sc{background:var(--w);border-radius:24px;padding:36px 28px;border:1.5px solid var(--border);box-shadow:var(--s1);transition:all .35s;position:relative;overflow:hidden}
+.sc::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--b),var(--b3));transform:scaleX(0);transform-origin:left;transition:transform .4s;border-radius:0 0 24px 24px}
+.sc:hover{transform:translateY(-6px);box-shadow:var(--s2);border-color:rgba(21,101,192,.2)}
+.sc:hover::after{transform:scaleX(1)}
+.sc-n{font-size:.56rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:rgba(21,101,192,.3);margin-bottom:16px}
+.sc-ico{width:48px;height:48px;border-radius:16px;background:var(--b5);display:flex;align-items:center;justify-content:center;margin-bottom:16px;transition:all .3s}
+.sc:hover .sc-ico{background:var(--b)}
+.sc:hover .sc-ico svg{stroke:#fff}
+.sc-ico svg{width:24px;height:24px;stroke:var(--b);fill:none;stroke-width:1.8;transition:stroke .3s}
+.sc-t{font-family:'Nunito',sans-serif;font-size:.96rem;font-weight:900;color:var(--text);margin-bottom:8px;letter-spacing:-.02em}
+.sc-d{font-size:.78rem;color:var(--muted);line-height:1.8}
+@media(max-width:900px){.sg{grid-template-columns:1fr 1fr}}
+@media(max-width:600px){.sg{grid-template-columns:1fr}}
+
+/* ── PROCESO ── */
+#proceso{background:var(--w)}
+.prg{display:grid;grid-template-columns:1fr 1fr;gap:80px;margin-top:56px;align-items:start}
+.pasos{display:flex;flex-direction:column;gap:6px}
+.paso{display:flex;gap:16px;padding:18px 20px;border-radius:18px;cursor:pointer;transition:all .3s;border:1.5px solid transparent}
+.paso:hover{background:var(--off);border-color:var(--border)}
+.paso.on{background:var(--b5);border-color:rgba(21,101,192,.2);box-shadow:var(--s1)}
+.paso-n{width:36px;height:36px;border-radius:50%;border:2px solid var(--border);display:flex;align-items:center;justify-content:center;font-family:'Nunito',sans-serif;font-size:.76rem;font-weight:900;color:var(--muted);flex-shrink:0;transition:all .3s}
+.paso.on .paso-n{background:var(--b);color:#fff;border-color:var(--b);box-shadow:0 4px 14px rgba(21,101,192,.35)}
+.paso-t{font-size:.88rem;font-weight:800;color:var(--text);margin-bottom:2px;letter-spacing:-.01em;transition:color .25s}
+.paso.on .paso-t{color:var(--b)}
+.paso-d{font-size:.76rem;color:var(--muted);line-height:1.7;max-height:0;overflow:hidden;transition:max-height .4s,opacity .3s;opacity:0}
+.paso.on .paso-d{max-height:200px;opacity:1}
+.pp{background:var(--off);border-radius:28px;padding:36px;box-shadow:var(--s2);border:1.5px solid var(--border);position:sticky;top:90px}
+.pp-s{font-size:.6rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--b);margin-bottom:10px}
+.pp-t{font-family:'Nunito',sans-serif;font-size:1.5rem;font-weight:900;color:var(--text);margin-bottom:10px;letter-spacing:-.03em;line-height:1.1}
+.pp-d{font-size:.82rem;color:var(--muted);line-height:1.8;margin-bottom:16px}
+.pp-tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:20px}
+.pp-tag{background:var(--w);color:var(--b);font-size:.6rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;padding:5px 12px;border-radius:50px;border:1.5px solid rgba(21,101,192,.15)}
+.pp-bar{height:4px;background:var(--border);border-radius:99px;overflow:hidden;margin-bottom:20px}
+.pp-prog{height:100%;background:linear-gradient(90deg,var(--b),var(--b3));border-radius:99px;transition:width .5s cubic-bezier(.4,0,.2,1)}
+.pp-box{background:var(--w);border-radius:16px;padding:16px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;border:1.5px solid var(--border)}
+.pp-box p{font-size:.78rem;font-weight:700;color:var(--text)}
+@media(max-width:900px){.prg{grid-template-columns:1fr}.pp{position:static}}
+
+/* ── TESTIMONIOS ── */
+#testimonios{background:var(--off)}
+.tg{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:48px}
+.tc{background:var(--w);border-radius:24px;padding:30px 26px;border:1.5px solid var(--border);box-shadow:var(--s1);transition:all .35s}
+.tc:hover{transform:translateY(-6px);box-shadow:var(--s2);border-color:rgba(21,101,192,.2)}
+.tc-stars{display:flex;gap:3px;margin-bottom:12px}
+.tc-stars svg{width:14px;height:14px}
+.tc-q{font-family:'Nunito',sans-serif;font-size:.9rem;color:var(--muted);line-height:1.8;font-style:italic;margin-bottom:18px}
+.tc-a{display:flex;align-items:center;gap:11px;padding-top:14px;border-top:1px solid var(--border)}
+.tc-av{width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,var(--b),var(--b3));display:flex;align-items:center;justify-content:center;font-family:'Nunito',sans-serif;font-weight:900;color:#fff;font-size:.82rem;flex-shrink:0}
+.tc-n{font-size:.86rem;font-weight:800;color:var(--text);margin-bottom:1px;letter-spacing:-.01em}
+.tc-i{font-size:.64rem;color:var(--muted)}
+@media(max-width:900px){.tg{grid-template-columns:1fr 1fr}}
+@media(max-width:600px){.tg{grid-template-columns:1fr}}
+
+/* ── GALERIA ── */
+#galeria{background:var(--w)}
+.gg{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:220px;gap:14px;margin-top:44px}
+.gi{border-radius:22px;overflow:hidden;position:relative;cursor:pointer;box-shadow:var(--s1);transition:all .4s;background:linear-gradient(135deg,#1565C0,#1976D2)}
+.gi:nth-child(1){grid-column:span 2;grid-row:span 2}
+.gi:nth-child(4){grid-column:span 2}
+.gi:hover{transform:translateY(-4px);box-shadow:var(--s2)}
+.gi img{width:100%;height:100%;object-fit:cover;transition:transform .6s}
+.gi:hover img{transform:scale(1.07)}
+.gi-ov{position:absolute;inset:0;background:linear-gradient(to top,rgba(13,27,42,.7),transparent 50%);opacity:0;transition:opacity .3s}
+.gi:hover .gi-ov{opacity:1}
+.gi-l{position:absolute;bottom:14px;left:16px;font-size:.64rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#fff;opacity:0;transition:all .35s;transform:translateY(6px)}
+.gi:hover .gi-l{opacity:1;transform:translateY(0)}
+@media(max-width:768px){.gg{grid-template-columns:1fr 1fr;grid-auto-rows:180px}.gi:nth-child(1),.gi:nth-child(4){grid-column:span 1;grid-row:span 1}}
+
+/* ── BLOG ── */
+#blog{background:var(--off)}
+.blog-g{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:48px}
+.blog-c{border-radius:24px;overflow:hidden;background:var(--w);border:1.5px solid var(--border);box-shadow:var(--s1);transition:all .35s;cursor:pointer}
+.blog-c:hover{transform:translateY(-6px);box-shadow:var(--s2);border-color:rgba(21,101,192,.2)}
+.blog-img{height:200px;background:linear-gradient(135deg,#1565C0,#42A5F5);overflow:hidden}
+.blog-img img{width:100%;height:100%;object-fit:cover;transition:transform .5s}
+.blog-c:hover .blog-img img{transform:scale(1.05)}
+.blog-body{padding:24px}
+.blog-cat{display:inline-block;font-size:.6rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--b);background:var(--b5);border-radius:50px;padding:3px 10px;margin-bottom:12px;border:1px solid rgba(21,101,192,.1)}
+.blog-t{font-family:'Nunito',sans-serif;font-size:1rem;font-weight:900;color:var(--text);margin-bottom:8px;letter-spacing:-.02em;line-height:1.3}
+.blog-d{font-size:.78rem;color:var(--muted);line-height:1.7;margin-bottom:14px}
+.blog-meta{display:flex;align-items:center;justify-content:space-between}
+.blog-fecha{font-size:.68rem;color:var(--muted);font-weight:600}
+.blog-link{font-size:.72rem;font-weight:800;color:var(--b);text-decoration:none;display:flex;align-items:center;gap:4px;transition:gap .2s}
+.blog-link:hover{gap:8px}
+@media(max-width:900px){.blog-g{grid-template-columns:1fr 1fr}}
+@media(max-width:600px){.blog-g{grid-template-columns:1fr}}
+
+/* ── CTA FINAL ── */
+#cta-f{background:linear-gradient(135deg,var(--b5) 0%,#E8F4FF 50%,var(--b5) 100%);padding:120px 5%;text-align:center;position:relative;overflow:hidden}
+.cta-blob{position:absolute;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(21,101,192,.07),transparent 70%);top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none}
+.cta-in{position:relative;z-index:2;max-width:640px;margin:0 auto}
+.cta-badge{display:inline-flex;align-items:center;gap:7px;background:var(--w);border:1.5px solid rgba(21,101,192,.15);border-radius:50px;padding:6px 18px;margin-bottom:20px;box-shadow:var(--s1)}
+.cta-badge span{font-size:.62rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--b)}
+.cta-t{font-family:'Nunito',sans-serif;font-size:clamp(2.4rem,5vw,4.5rem);font-weight:900;color:var(--text);line-height:.98;letter-spacing:-.04em;margin-bottom:18px}
+.cta-t em{font-style:italic;color:var(--b)}
+.cta-s{font-size:.95rem;color:var(--muted);max-width:420px;margin:0 auto 40px;line-height:1.85}
+.cta-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-bottom:36px}
+.cta-meta{display:flex;align-items:center;justify-content:center;gap:24px;flex-wrap:wrap}
+.cta-m{font-size:.7rem;font-weight:700;color:var(--muted);display:flex;align-items:center;gap:6px}
+.cta-m::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--b);flex-shrink:0}
+
+/* ── FOOTER ── */
+footer{background:var(--dark);padding:72px 5% 28px;border-top:1px solid rgba(255,255,255,.04)}
+.fg{display:grid;grid-template-columns:1.8fr 1fr 1fr 1fr;gap:48px;margin-bottom:48px}
+.f-logo img{height:54px;margin-bottom:10px}
+.f-tag{font-size:.6rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.2);margin-bottom:12px}
+.f-desc{font-size:.76rem;color:rgba(255,255,255,.35);line-height:1.8;max-width:220px;margin-bottom:20px}
+.f-soc{display:flex;gap:8px;margin-bottom:20px}
+.fss{width:34px;height:34px;border:1px solid rgba(255,255,255,.1);border-radius:10px;display:flex;align-items:center;justify-content:center;text-decoration:none;transition:all .25s}
+.fss:hover{background:var(--b);border-color:var(--b);transform:translateY(-2px)}
+.fss svg{width:14px;height:14px}
+.fwa{display:flex;align-items:center;gap:10px;background:rgba(37,211,102,.08);border:1px solid rgba(37,211,102,.15);border-radius:14px;padding:12px 14px;text-decoration:none;transition:all .3s}
+.fwa:hover{background:rgba(37,211,102,.14)}
+.fwa svg{width:17px;height:17px;flex-shrink:0}
+.fwa-t{font-size:.72rem;color:rgba(255,255,255,.45);line-height:1.3}
+.fwa-t strong{display:block;font-size:.78rem;color:var(--w);font-weight:800}
+.fc h5{font-size:.6rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.2);margin-bottom:16px}
+.fc ul{list-style:none;display:flex;flex-direction:column;gap:9px}
+.fc ul li a{font-size:.77rem;color:rgba(255,255,255,.38);text-decoration:none;transition:color .2s}
+.fc ul li a:hover{color:#42A5F5}
+.fb{border-top:1px solid rgba(255,255,255,.06);padding-top:20px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+.fcp,.frf{font-size:.68rem;color:rgba(255,255,255,.16);letter-spacing:.04em}
+@media(max-width:900px){.fg{grid-template-columns:1fr 1fr;gap:28px}}
+@media(max-width:600px){.fg{grid-template-columns:1fr}.fb{flex-direction:column;text-align:center}}
+
+/* ── WA FLOAT ── */
+.waf{position:fixed;bottom:28px;right:28px;z-index:800}
+.waf-b{width:56px;height:56px;background:var(--g);border-radius:50%;display:flex;align-items:center;justify-content:center;text-decoration:none;box-shadow:0 6px 24px rgba(37,211,102,.5);transition:all .3s;animation:wap 3s ease-in-out infinite}
+.waf-b:hover{transform:scale(1.12);box-shadow:0 10px 36px rgba(37,211,102,.65)}
+.waf-b svg{width:26px;height:26px}
+@keyframes wap{0%,100%{box-shadow:0 6px 24px rgba(37,211,102,.5)}50%{box-shadow:0 6px 36px rgba(37,211,102,.7),0 0 0 8px rgba(37,211,102,.1)}}
+
+/* ── MODAL ── */
+.mov{position:fixed;inset:0;z-index:9000;background:rgba(10,22,40,.85);backdrop-filter:blur(16px);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .3s;padding:20px}
+.mov.open{opacity:1;pointer-events:all}
+.mbox{background:var(--w);border-radius:28px;width:100%;max-width:560px;max-height:90vh;overflow-y:auto;transform:translateY(24px) scale(.98);transition:transform .35s cubic-bezier(.34,1.56,.64,1);box-shadow:0 40px 100px rgba(10,22,40,.4)}
+.mov.open .mbox{transform:translateY(0) scale(1)}
+.mh{background:linear-gradient(135deg,var(--b2),var(--b),var(--b3));padding:28px 32px;border-radius:28px 28px 0 0;position:sticky;top:0}
+.mh-b{font-size:.6rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.55);margin-bottom:6px;display:flex;align-items:center;gap:6px}
+.mh-b::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--g);box-shadow:0 0 8px rgba(37,211,102,.8)}
+.mh-t{font-family:'Nunito',sans-serif;font-size:1.5rem;font-weight:900;color:#fff;margin-bottom:4px;letter-spacing:-.03em}
+.mh-s{font-size:.8rem;color:rgba(255,255,255,.55)}
+.mc{position:absolute;top:20px;right:20px;width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,.12);border:none;cursor:pointer;color:#fff;font-size:.95rem;display:flex;align-items:center;justify-content:center;transition:all .2s}
+.mc:hover{background:rgba(255,255,255,.22);transform:rotate(90deg)}
+.mb{padding:28px 32px}
+.fr2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.fg2{display:flex;flex-direction:column;gap:4px;margin-bottom:12px}
+.fg2 label{font-size:.62rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.fg2 input,.fg2 select,.fg2 textarea{background:var(--off);border:1.5px solid var(--border);border-radius:12px;padding:11px 14px;font-family:'Nunito Sans',sans-serif;font-size:.86rem;color:var(--text);outline:none;transition:all .25s;width:100%}
+.fg2 input:focus,.fg2 select:focus,.fg2 textarea:focus{border-color:var(--b);background:var(--w);box-shadow:0 0 0 3px rgba(21,101,192,.1)}
+.fg2 textarea{min-height:82px;resize:vertical}
+.btn-sub{width:100%;padding:14px;background:linear-gradient(135deg,var(--b2),var(--b));color:#fff;border:none;border-radius:50px;font-family:'Nunito Sans',sans-serif;font-size:.88rem;font-weight:800;cursor:pointer;transition:all .3s;margin-top:4px;box-shadow:0 6px 22px rgba(21,101,192,.35)}
+.btn-sub:hover{transform:translateY(-2px);box-shadow:0 10px 32px rgba(21,101,192,.45)}
+.btn-mwa{width:100%;margin-top:10px;padding:13px;background:var(--g);color:#fff;border:none;border-radius:50px;font-family:'Nunito Sans',sans-serif;font-size:.84rem;font-weight:800;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;text-decoration:none;transition:all .3s}
+.btn-mwa:hover{background:#1ebe5d}
+@media(max-width:600px){.fr2{grid-template-columns:1fr}.mov{padding:0;align-items:flex-end}.mbox{border-radius:28px 28px 0 0;max-height:95vh}.mh{border-radius:28px 28px 0 0}}
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <a href="index.html" class="nl"><img src="images/logo.png" alt="Experience Connect"></a>
+  <ul class="nm">
+    <li><a href="#destinos">Destinos</a></li>
+    <li><a href="servicios.html">Servicios</a></li>
+    <li><a href="#programas">Programas</a></li>
+    <li><a href="worktravel.html">Work & Travel</a></li>
+    <li><a href="visados.html">Visados</a></li>
+    <li><a href="#blog">Blog</a></li>
+    <li><a href="contacto.html">Contacto</a></li>
+    <li><a href="https://wa.me/593983234334" target="_blank" class="nw"><svg viewBox="0 0 24 24" fill="white"><path d="M3 21l1.65-3.8a9 9 0 113.4 2.9L3 21"/><path d="M9 10c0 5 3.5 7.5 7.5 6" stroke="white" fill="none" stroke-width="1.5" stroke-linecap="round"/></svg>WhatsApp</a></li>
+    <li><button onclick="abrirModal()" class="nb">Agendar</button></li>
+  </ul>
+  <div class="ham" id="ham"><span></span><span></span><span></span></div>
+</nav>
+
+<div class="mob" id="mob">
+  <div class="mob-x" id="mobX">&#x2715;</div>
+  <a href="#destinos">Destinos</a>
+  <a href="servicios.html">Servicios</a>
+  <a href="#programas">Programas</a>
+  <a href="worktravel.html">Work & Travel</a>
+  <a href="visados.html">Visados</a>
+  <a href="#blog">Blog</a>
+  <a href="contacto.html">Contacto</a>
+  <button onclick="abrirModal();document.getElementById('mob').classList.remove('open')" style="background:var(--b);color:#fff;border:none;padding:14px 32px;border-radius:50px;font-family:Nunito Sans,sans-serif;font-size:.9rem;font-weight:800;cursor:pointer;box-shadow:0 6px 22px rgba(21,101,192,.4)">Agendar Asesoria</button>
+</div>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-blob"></div><div class="hero-blob2"></div>
+  <div class="hero-left">
+    <div class="hero-tag"><div class="hero-tag-dot"></div><span>Asesoria Internacional &mdash; Ecuador</span></div>
+    <div class="hero-h1">Llevamos tu futuro<br><span class="azul">al siguiente nivel</span></div>
+    <div class="hero-h2">Conecta tus sue&ntilde;os con el mundo</div>
+    <p class="hero-p">Te asesoramos en tu preparaci&oacute;n acad&eacute;mica en el extranjero. Estudia en las mejores universidades de Europa y Am&eacute;rica Latina con acompa&ntilde;amiento real en cada paso del camino.</p>
+    <div class="hero-tipos">
+      <button class="htipo on" onclick="abrirModal()">
+        <div class="htipo-ico"><svg viewBox="0 0 24 24" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg></div>
+        <div><div class="htipo-t">Bachillerato</div><div class="htipo-s">16 a 25 a&ntilde;os</div></div>
+      </button>
+      <button class="htipo" onclick="abrirModal()">
+        <div class="htipo-ico"><svg viewBox="0 0 24 24" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2"/></svg></div>
+        <div><div class="htipo-t">Profesional</div><div class="htipo-s">25 a 55 a&ntilde;os</div></div>
+      </button>
+    </div>
+    <div class="hero-btns">
+      <button onclick="abrirModal()" class="btn-p"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>Agendar asesor&iacute;a gratuita</button>
+      <a href="https://wa.me/593983234334" target="_blank" class="btn-g"><svg viewBox="0 0 24 24" fill="white"><path d="M3 21l1.65-3.8a9 9 0 113.4 2.9L3 21"/><path d="M9 10c0 5 3.5 7.5 7.5 6" stroke="white" fill="none" stroke-width="1.5" stroke-linecap="round"/></svg>WhatsApp directo</a>
+      <a href="#destinos" class="btn-o">Ver destinos</a>
+    </div>
+    <div class="hero-stats">
+      <div class="hst"><div class="hst-ico">&#127891;</div><div class="hst-n">+500</div><div class="hst-l">Estudiantes</div></div>
+      <div class="hst"><div class="hst-ico">&#127758;</div><div class="hst-n">10+</div><div class="hst-l">Pa&iacute;ses</div></div>
+      <div class="hst"><div class="hst-ico">&#10003;</div><div class="hst-n">95%</div><div class="hst-l">Satisfacci&oacute;n</div></div>
+      <div class="hst"><div class="hst-ico">&#11088;</div><div class="hst-n">15+</div><div class="hst-l">A&ntilde;os exp.</div></div>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-img">
+      <img src="images/asesoria.jpg" alt="Estudiante Experience Connect">
+    </div>
+    <div class="hfc hfc1">
+      <div class="hfc-ico" style="background:#E8F5E9">&#127891;</div>
+      <div><div class="hfc-t">+500 Graduados</div><div class="hfc-s">Estudiantes exitosos</div></div>
+    </div>
+    <div class="hfc hfc2">
+      <div class="hfc-ico" style="background:#E3F2FD">&#9992;&#65039;</div>
+      <div><div class="hfc-t">6 Destinos</div><div class="hfc-s">Europa y LATAM</div></div>
+    </div>
+    <div class="hfc hfc3">
+      <div class="hfc-ico" style="background:#FFF8E1">&#11088;</div>
+      <div><div class="hfc-t">95% Aprobaci&oacute;n</div><div class="hfc-s">Tasa de &eacute;xito</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="mq"><div class="mq-t">
+<div class="mq-i">Espa&ntilde;a<div class="mq-d"></div></div><div class="mq-i">Italia<div class="mq-d"></div></div><div class="mq-i">Alemania<div class="mq-d"></div></div><div class="mq-i">Argentina<div class="mq-d"></div></div><div class="mq-i">Portugal<div class="mq-d"></div></div><div class="mq-i">Rep&uacute;blica Checa<div class="mq-d"></div></div><div class="mq-i">Travel &bull; Study &bull; Work<div class="mq-d"></div></div><div class="mq-i">+500 Estudiantes<div class="mq-d"></div></div><div class="mq-i">Asesor&iacute;a 360&deg;<div class="mq-d"></div></div><div class="mq-i">Espa&ntilde;a<div class="mq-d"></div></div><div class="mq-i">Italia<div class="mq-d"></div></div><div class="mq-i">Alemania<div class="mq-d"></div></div><div class="mq-i">Argentina<div class="mq-d"></div></div><div class="mq-i">Portugal<div class="mq-d"></div></div><div class="mq-i">Rep&uacute;blica Checa<div class="mq-d"></div></div><div class="mq-i">Travel &bull; Study &bull; Work<div class="mq-d"></div></div><div class="mq-i">+500 Estudiantes<div class="mq-d"></div></div><div class="mq-i">Asesor&iacute;a 360&deg;<div class="mq-d"></div></div>
+</div></div>
+
+<!-- DESTINOS -->
+<section id="destinos" class="sec"><div class="sec-in">
+  <div class="dest-intro">
+    <div data-r><div class="chip"><div class="chip-d"></div><span>Destinos internacionales</span></div><h2>Elige tu pa&iacute;s,<br><em>nosotros el camino</em></h2></div>
+    <div data-r><p class="sub" style="margin-bottom:18px">Cada destino seleccionado por calidad educativa, seguridad y oportunidades reales para el estudiante latinoamericano.</p><div style="display:flex;gap:10px;flex-wrap:wrap"><a href="https://wa.me/593983234334" target="_blank" class="btn-g" style="font-size:.78rem;padding:10px 18px;border-radius:50px"><svg viewBox="0 0 24 24" fill="white" width="14" height="14"><path d="M3 21l1.65-3.8a9 9 0 113.4 2.9L3 21"/><path d="M9 10c0 5 3.5 7.5 7.5 6" stroke="white" fill="none" stroke-width="1.5" stroke-linecap="round"/></svg>Consultar</a><button onclick="abrirModal()" class="btn-p" style="font-size:.78rem;padding:10px 20px">Agendar</button></div></div>
+  </div>
+  <div class="dg">
+    <div class="dc" data-r><div class="dc-img"><img src="images/espana.jpg" alt="Espa&ntilde;a"><div class="dc-ov"></div><div class="dc-info"><div class="dc-name">Espa&ntilde;a</div><span class="dc-pr">900&ndash;1.400 EUR/mes</span></div></div><div class="dc-body"><p class="dc-desc">El destino favorito del hispanohablante. Lengua sin barreras, cultura vibrante y universidades de excelencia europea reconocidas mundialmente.</p><div class="dc-tags"><span class="dtag">Grado</span><span class="dtag">Posgrado</span><span class="dtag">MIR</span></div><div class="dc-btns"><a href="destinos/espana.html" class="bs bs-b">Ver m&aacute;s</a><button onclick="abrirModal('Espa&ntilde;a')" class="bs bs-d">Agendar</button><a href="https://wa.me/593983234334?text=Quiero%20estudiar%20en%20Espa%C3%B1a" target="_blank" class="bs bs-g">WA</a></div></div></div>
+    <div class="dc" data-r><div class="dc-img"><img src="images/italia.jpg" alt="Italia"><div class="dc-ov"></div><div class="dc-info"><div class="dc-name">Italia</div><span class="dc-pr">950&ndash;1.350 EUR/mes</span></div></div><div class="dc-body"><p class="dc-desc">Cuna del pensamiento universitario europeo. L&iacute;deres mundiales en Arquitectura, Dise&ntilde;o, Moda y Medicina con siglos de tradici&oacute;n acad&eacute;mica.</p><div class="dc-tags"><span class="dtag">Dise&ntilde;o</span><span class="dtag">Medicina</span><span class="dtag">Arquitectura</span></div><div class="dc-btns"><a href="destinos/italia.html" class="bs bs-b">Ver m&aacute;s</a><button onclick="abrirModal('Italia')" class="bs bs-d">Agendar</button><a href="https://wa.me/593983234334?text=Quiero%20estudiar%20en%20Italia" target="_blank" class="bs bs-g">WA</a></div></div></div>
+    <div class="dc" data-r><div class="dc-img"><img src="images/alemania.jpg" alt="Alemania"><div class="dc-ov"></div><div class="dc-info"><div class="dc-name">Alemania</div><span class="dc-pr">1.000&ndash;1.400 EUR/mes</span></div></div><div class="dc-body"><p class="dc-desc">Referente mundial en ingenier&iacute;a y tecnolog&iacute;a. Educaci&oacute;n p&uacute;blica de primer nivel con uno de los mercados laborales m&aacute;s robustos de Europa.</p><div class="dc-tags"><span class="dtag">Ingenier&iacute;a</span><span class="dtag">Medicina</span><span class="dtag">Tecnolog&iacute;a</span></div><div class="dc-btns"><a href="destinos/alemania.html" class="bs bs-b">Ver m&aacute;s</a><button onclick="abrirModal('Alemania')" class="bs bs-d">Agendar</button><a href="https://wa.me/593983234334?text=Quiero%20estudiar%20en%20Alemania" target="_blank" class="bs bs-g">WA</a></div></div></div>
+    <div class="dc" data-r><div class="dc-img"><img src="images/argentina.jpg" alt="Argentina"><div class="dc-ov"></div><div class="dc-info"><div class="dc-name">Argentina</div><span class="dc-pr">300&ndash;350 USD/mes</span></div></div><div class="dc-body"><p class="dc-desc">La Par&iacute;s de Am&eacute;rica Latina. Educaci&oacute;n universitaria p&uacute;blica y gratuita de prestigio regional en medicina, ciencias e ingenier&iacute;a.</p><div class="dc-tags"><span class="dtag">Medicina</span><span class="dtag">Gratuita</span><span class="dtag">Accesible</span></div><div class="dc-btns"><a href="destinos/argentina.html" class="bs bs-b">Ver m&aacute;s</a><button onclick="abrirModal('Argentina')" class="bs bs-d">Agendar</button><a href="https://wa.me/593983234334?text=Quiero%20estudiar%20en%20Argentina" target="_blank" class="bs bs-g">WA</a></div></div></div>
+    <div class="dc" data-r><div class="dc-img"><img src="images/portugal.jpg" alt="Portugal"><div class="dc-ov"></div><div class="dc-info"><div class="dc-name">Portugal</div><span class="dc-pr">800&ndash;1.100 EUR/mes</span></div></div><div class="dc-body"><p class="dc-desc">La puerta de entrada a Europa. Idioma cercano, costos accesibles y universidades con creciente reconocimiento internacional para latinoamericanos.</p><div class="dc-tags"><span class="dtag">Grado</span><span class="dtag">Posgrado</span><span class="dtag">Europa</span></div><div class="dc-btns"><a href="destinos/portugal.html" class="bs bs-b">Ver m&aacute;s</a><button onclick="abrirModal('Portugal')" class="bs bs-d">Agendar</button><a href="https://wa.me/593983234334?text=Quiero%20estudiar%20en%20Portugal" target="_blank" class="bs bs-g">WA</a></div></div></div>
+    <div class="dc" data-r><div class="dc-img"><img src="images/republica-checa.jpg" alt="Rep&uacute;blica Checa"><div class="dc-ov"></div><div class="dc-info"><div class="dc-name">Rep. Checa</div><span class="dc-pr">700&ndash;1.000 EUR/mes</span></div></div><div class="dc-body"><p class="dc-desc">El destino secreto de Europa Central. Tradici&oacute;n universitaria centenaria, costos muy bajos y ubicaci&oacute;n estrat&eacute;gica en el coraz&oacute;n de Europa.</p><div class="dc-tags"><span class="dtag">Medicina</span><span class="dtag">Ingenier&iacute;a</span><span class="dtag">Bajo Costo</span></div><div class="dc-btns"><a href="destinos/republica-checa.html" class="bs bs-b">Ver m&aacute;s</a><button onclick="abrirModal('Rep. Checa')" class="bs bs-d">Agendar</button><a href="https://wa.me/593983234334?text=Quiero%20estudiar%20en%20Rep.%20Checa" target="_blank" class="bs bs-g">WA</a></div></div></div>
+  </div>
+</div></section>
+
+<!-- PROGRAMAS -->
+<section id="programas"><div class="prog-in">
+  <div class="prog-intro" data-r>
+    <div class="chip" style="background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.2)"><div class="chip-d" style="background:#42A5F5"></div><span style="color:#42A5F5">Nuestros programas</span></div>
+    <h2>Elige el programa<br><em style="color:#42A5F5">perfecto para ti</em></h2>
+    <p class="sub">Desde orientaci&oacute;n vocacional hasta cupo asegurado en universidad. Acompa&ntilde;amiento completo en cada etapa de tu proceso internacional.</p>
+  </div>
+  <div class="prog-grid">
+    <div class="prog-card" data-r>
+      <div class="prog-glow"></div>
+      <div class="prog-badge">Paquete B&aacute;sico</div>
+      <div class="prog-name">Paquete Acad&eacute;mico</div>
+      <div class="prog-precio">
+        <div class="prog-ins">Inscripci&oacute;n: $199</div>
+        <div class="prog-val"><span>$</span>299</div>
+      </div>
+      <div class="prog-sep"></div>
+      <div class="prog-list">
+        <div class="prog-li">Orientaci&oacute;n vocacional completa</div>
+        <div class="prog-li">Diagn&oacute;stico aptitudinal</div>
+        <div class="prog-li">Levantamiento de perfil acad&eacute;mico</div>
+        <div class="prog-li">2 a 3 oportunidades universitarias filtradas</div>
+        <div class="prog-li">Plan de estudios espec&iacute;fico</div>
+        <div class="prog-li">Validez de 3 a&ntilde;os</div>
+      </div>
+      <button onclick="abrirModal()" class="prog-cta">Empezar ahora</button>
+    </div>
+    <div class="prog-card featured" data-r>
+      <div class="prog-badge">M&aacute;s popular</div>
+      <div class="prog-name">Paquete Universitario</div>
+      <div class="prog-precio">
+        <div class="prog-ins">Inscripci&oacute;n: $199</div>
+        <div class="prog-val"><span>$</span>2.099</div>
+      </div>
+      <div class="prog-sep"></div>
+      <div class="prog-list">
+        <div class="prog-li">Todo lo del Paquete Acad&eacute;mico</div>
+        <div class="prog-li">Ingreso directo al programa de estudios</div>
+        <div class="prog-li">Cupo asegurado en la universidad elegida</div>
+        <div class="prog-li">Gesti&oacute;n completa de documentaci&oacute;n</div>
+        <div class="prog-li">Apoyo en visa y proceso migratorio</div>
+        <div class="prog-li">Acompa&ntilde;amiento hasta tu llegada</div>
+      </div>
+      <button onclick="abrirModal()" class="prog-cta">Empezar ahora</button>
+    </div>
+    <div class="prog-card" data-r>
+      <div class="prog-glow"></div>
+      <div class="prog-badge">Premium</div>
+      <div class="prog-name">Paquete Master</div>
+      <div class="prog-precio">
+        <div class="prog-ins">Inscripci&oacute;n: $199</div>
+        <div class="prog-val"><span>$</span>2.149</div>
+      </div>
+      <div class="prog-sep"></div>
+      <div class="prog-list">
+        <div class="prog-li">Todo lo del Paquete Universitario</div>
+        <div class="prog-li">Maestr&iacute;as y especializaciones internacionales</div>
+        <div class="prog-li">Programas con reconocimiento global</div>
+        <div class="prog-li">Networking y conexiones profesionales</div>
+        <div class="prog-li">MBA y programas ejecutivos</div>
+        <div class="prog-li">Seguimiento posgrado completo</div>
+      </div>
+      <button onclick="abrirModal()" class="prog-cta">Empezar ahora</button>
+    </div>
+  </div>
+  <div style="text-align:center;margin-top:32px" data-r>
+    <p style="font-size:.84rem;color:rgba(255,255,255,.45);margin-bottom:16px">&#10003; Tambi&eacute;n disponible: <strong style="color:rgba(255,255,255,.7)">Paquete Vinculaci&oacute;n $1.999</strong> &mdash; para profesionales que buscan conectar con el mercado laboral internacional</p>
+    <a href="https://wa.me/593983234334?text=Quiero%20informacion%20sobre%20los%20paquetes" target="_blank" class="btn-g" style="display:inline-flex;font-size:.82rem">Ver todos los programas</a>
+  </div>
+</div></section>
+
+<!-- NOSOTROS -->
+<section id="nosotros" class="sec"><div class="sec-in">
+  <div data-r><div class="chip"><div class="chip-d"></div><span>Qui&eacute;nes somos</span></div><h2>M&aacute;s de 15 a&ntilde;os conectando<br>talentos con el <em>mundo</em></h2></div>
+  <div class="nos-g">
+    <div class="nos-img" data-r>
+      <img src="images/asesoria.jpg" alt="Experience Connect equipo">
+      <div class="nos-badge"><div class="nb-ico">&#127891;</div><div><div class="nb-n">+500</div><div class="nb-l">Estudiantes exitosos</div></div></div>
+    </div>
+    <div data-r>
+      <p style="font-size:.94rem;color:var(--muted);line-height:1.9;margin-bottom:10px">Experience Connect es una consultora ecuatoriana especializada en movilidad estudiantil internacional. Acompa&ntilde;amos a j&oacute;venes y profesionales en cada paso de su proceso hacia el exterior, desde la selecci&oacute;n de universidad hasta su llegada y adaptaci&oacute;n en el destino.</p>
+      <p style="font-size:.94rem;color:var(--muted);line-height:1.9;margin-bottom:28px">Con presencia en Ecuador y Argentina, somos el puente entre el talento latinoamericano y las mejores universidades del mundo. <strong style="color:var(--text)">Vive el mundo con nosotros.</strong></p>
+      <div class="nos-feats">
+        <div class="nf"><div class="nf-ico"><svg viewBox="0 0 22 22"><path d="M11 2L20 7V15L11 20L2 15V7L11 2Z"/></svg></div><div><div class="nf-t">Proceso 100% acompa&ntilde;ado</div><div class="nf-d">Desde la primera consulta hasta tu llegada y adaptaci&oacute;n completa en el destino internacional.</div></div></div>
+        <div class="nf"><div class="nf-ico"><svg viewBox="0 0 22 22"><circle cx="11" cy="11" r="9"/><path d="M11 7v4l3 3" stroke-linecap="round"/></svg></div><div><div class="nf-t">Respuesta garantizada en 24 horas</div><div class="nf-d">Consultores especializados disponibles para resolver cada duda de forma r&aacute;pida y personalizada.</div></div></div>
+        <div class="nf"><div class="nf-ico"><svg viewBox="0 0 22 22"><path d="M9 11l2 2 4-4"/><rect x="3" y="3" width="16" height="16" rx="2"/></svg></div><div><div class="nf-t">Documentaci&oacute;n 100% garantizada</div><div class="nf-d">Gestionamos apostillados, traducciones certificadas y todos los tr&aacute;mites migratorios necesarios.</div></div></div>
+      </div>
+      <button onclick="abrirModal()" class="btn-p">Agendar asesor&iacute;a gratuita</button>
+    </div>
+  </div>
+</div></section>
+
+<!-- SERVICIOS -->
+<section id="servicios" class="sec"><div class="sec-in">
+  <div data-r><div class="chip"><div class="chip-d"></div><span>Nuestros servicios</span></div><h2>Gesti&oacute;n integral<br><em>de tu proceso</em></h2><p class="sub" style="margin-bottom:28px">No creemos en f&oacute;rmulas gen&eacute;ricas. Evaluamos tu perfil, tus metas y tu presupuesto para gestionar cada paso del camino hacia tu destino ideal.</p><div style="display:flex;gap:10px;flex-wrap:wrap"><button onclick="abrirModal()" class="btn-p">Agendar asesor&iacute;a</button><a href="https://wa.me/593983234334" target="_blank" class="btn-g" style="font-size:.82rem;padding:11px 20px;border-radius:50px"><svg viewBox="0 0 24 24" fill="white" width="15" height="15"><path d="M3 21l1.65-3.8a9 9 0 113.4 2.9L3 21"/><path d="M9 10c0 5 3.5 7.5 7.5 6" stroke="white" fill="none" stroke-width="1.5" stroke-linecap="round"/></svg>Consultar</a></div></div>
+  <div class="sg">
+    <div class="sc" data-r><div class="sc-n">01</div><div class="sc-ico"><svg viewBox="0 0 22 22"><path d="M11 2L19 6V9H3V6L11 2Z" stroke-linejoin="round"/><path d="M5 9V17M8 9V17M14 9V17M17 9V17"/><path d="M2 17H20" stroke-linecap="round"/></svg></div><div class="sc-t">Estudios de Grado</div><p class="sc-d">Asesor&iacute;a para bachilleres en la selecci&oacute;n de carrera, universidad y pa&iacute;s ideal seg&uacute;n perfil acad&eacute;mico y presupuesto familiar real.</p></div>
+    <div class="sc" data-r><div class="sc-n">02</div><div class="sc-ico"><svg viewBox="0 0 22 22"><circle cx="11" cy="7" r="4"/><path d="M3 20C3 15.582 6.582 12 11 12C15.418 12 19 15.582 19 20" stroke-linecap="round"/></svg></div><div class="sc-t">Posgrados Internacionales</div><p class="sc-d">Maestr&iacute;as, doctorados y especializaciones en las universidades top de Europa y Am&eacute;rica Latina con alta empleabilidad real.</p></div>
+    <div class="sc" data-r><div class="sc-n">03</div><div class="sc-ico"><svg viewBox="0 0 22 22"><path d="M11 2C8 2 6 4.5 6 7C6 11 11 16 11 16s5-5 5-9c0-2.5-2-5-5-5z"/><path d="M4 20C5.5 16.5 8 14 11 14c3 0 5.5 2.5 7 6" stroke-linecap="round"/></svg></div><div class="sc-t">Especialidades M&eacute;dicas</div><p class="sc-d">Programas MIR en Espa&ntilde;a y cl&iacute;nicas especializadas en Italia y Argentina para m&eacute;dicos que buscan formaci&oacute;n de primer nivel mundial.</p></div>
+    <div class="sc" data-r><div class="sc-n">04</div><div class="sc-ico"><svg viewBox="0 0 22 22"><path d="M4 18L8 14L11 17L15 12L18 15"/><rect x="2" y="3" width="18" height="14" rx="1"/></svg></div><div class="sc-t">Asesor&iacute;a Migratoria</div><p class="sc-d">Tramitaci&oacute;n completa de visados estudiantiles, permisos de residencia y toda la documentaci&oacute;n migratoria para cada destino.</p></div>
+    <div class="sc" data-r><div class="sc-n">05</div><div class="sc-ico"><svg viewBox="0 0 22 22"><rect x="3" y="3" width="16" height="16" rx="1"/><path d="M7 8H15M7 11H13M7 14H10" stroke-linecap="round"/></svg></div><div class="sc-t">Procesos Universitarios</div><p class="sc-d">Homologaci&oacute;n de t&iacute;tulos, gesti&oacute;n de admisiones y matr&iacute;culas en sistemas universitarios internacionales de Europa y Am&eacute;rica Latina.</p></div>
+    <div class="sc" data-r><div class="sc-n">06</div><div class="sc-ico"><svg viewBox="0 0 22 22"><path d="M11 2L13.5 8.5H20L14.5 12.5L16.5 19L11 15L5.5 19L7.5 12.5L2 8.5H8.5L11 2Z" stroke-linejoin="round"/></svg></div><div class="sc-t">Validaci&oacute;n y Documentaci&oacute;n</div><p class="sc-d">Apostillado oficial, traducci&oacute;n certificada y preparaci&oacute;n completa del expediente acad&eacute;mico para cada universidad de destino.</p></div>
+  </div>
+</div></section>
+
+<!-- PROCESO -->
+<section id="proceso" class="sec" style="background:var(--off)"><div class="sec-in">
+  <div data-r><div class="chip"><div class="chip-d"></div><span>C&oacute;mo funciona</span></div><h2>Tu ruta hacia<br><em>el exterior</em></h2><p class="sub">Un proceso claro, transparente y acompa&ntilde;ado desde la primera consulta hasta tu llegada al destino elegido.</p></div>
+  <div class="prg">
+    <div class="pasos">
+      <div class="paso on" onclick="sp(this,0)"><div class="paso-n">01</div><div><div class="paso-t">Agenda tu asesor&iacute;a gratuita</div><div class="paso-d">Completa el formulario. Un consultor experto te contacta en menos de 24 horas para una sesi&oacute;n personalizada sin costo.</div></div></div>
+      <div class="paso" onclick="sp(this,1)"><div class="paso-n">02</div><div><div class="paso-t">Evaluamos tu perfil completo</div><div class="paso-d">Analizamos historial acad&eacute;mico, nivel de idioma, presupuesto y metas para encontrar la opci&oacute;n ideal para ti.</div></div></div>
+      <div class="paso" onclick="sp(this,2)"><div class="paso-n">03</div><div><div class="paso-t">Pa&iacute;s, universidad y programa</div><div class="paso-d">Presentamos opciones con costos reales, tasas de empleabilidad y calidad de vida verificada. T&uacute; decides.</div></div></div>
+      <div class="paso" onclick="sp(this,3)"><div class="paso-n">04</div><div><div class="paso-t">Gesti&oacute;n documental completa</div><div class="paso-d">Apostillados, traducciones certificadas, cartas de motivaci&oacute;n y formularios de admisi&oacute;n universitaria.</div></div></div>
+      <div class="paso" onclick="sp(this,4)"><div class="paso-n">05</div><div><div class="paso-t">Visa y proceso migratorio</div><div class="paso-d">Visa estudiantil, seguro m&eacute;dico internacional y todos los tr&aacute;mites migratorios para tu pa&iacute;s destino.</div></div></div>
+      <div class="paso" onclick="sp(this,5)"><div class="paso-n">06</div><div><div class="paso-t">Tu experiencia internacional</div><div class="paso-d">Orientaci&oacute;n en alojamiento, log&iacute;stica de viaje y adaptaci&oacute;n cultural completa en el destino elegido.</div></div></div>
+    </div>
+    <div class="pp" data-r>
+      <div class="pp-s" id="pS">Paso 01 de 06</div>
+      <div class="pp-t" id="pT">Agenda tu asesor&iacute;a gratuita</div>
+      <div class="pp-d" id="pD">Completa el formulario con tu perfil. Un consultor experto te contacta en menos de 24 horas para una sesi&oacute;n personalizada y sin costo.</div>
+      <div class="pp-tags" id="pTg"><span class="pp-tag">24H</span><span class="pp-tag">Sin costo</span><span class="pp-tag">Personalizada</span></div>
+      <div class="pp-bar"><div class="pp-prog" id="pB" style="width:16.6%"></div></div>
+      <div class="pp-box"><p>&iquest;Listo para dar el primer paso?</p><div style="display:flex;gap:7px"><button onclick="abrirModal()" class="btn-p" style="font-size:.72rem;padding:9px 16px">Agendar</button><a href="https://wa.me/593983234334" target="_blank" class="btn-g" style="font-size:.72rem;padding:9px 14px;border-radius:50px"><svg viewBox="0 0 24 24" fill="white" width="12" height="12"><path d="M3 21l1.65-3.8a9 9 0 113.4 2.9L3 21"/><path d="M9 10c0 5 3.5 7.5 7.5 6" stroke="white" fill="none" stroke-width="1.5" stroke-linecap="round"/></svg>WA</a></div></div>
+    </div>
+  </div>
+</div></section>
+
+<!-- TESTIMONIOS -->
+<section id="testimonios" class="sec"><div class="sec-in">
+  <div data-r><div class="chip"><div class="chip-d"></div><span>Historias reales</span></div><h2>Lo que dicen<br><em>nuestros estudiantes</em></h2><p class="sub">M&aacute;s de 500 estudiantes ya transformaron su vida acad&eacute;mica. Estas son sus historias reales y verificadas.</p></div>
+  <div class="tg">
+    <div class="tc" data-r><div class="tc-stars"><svg viewBox="0 0 14 14" fill="#F59E0B"><polygon points="7,1 9,5 13,5.5 10,8.5 10.8,13 7,10.8 3.2,13 4,8.5 1,5.5 5,5"/></svg><svg viewBox="0 0 14 14" fill="#F59E0B"><polygon points="7,1 9,5 13,5.5 10,8.5 10.8,13 7,10.8 3.2,13 4,8.5 1,5.5 5,5"/></svg><svg viewBox="0 0 14 14" fill="#F59E0B"><polygon points="7,1 9,5 13,5.5 10,8.5 10.8,13 7,10.8 3.2,13 4,8.5 1,5.5 5,5"/></svg><svg viewBox="0 0 14 14" fill="#F59E0B"><polygon points="7,1 9,5 13,5.5 10,8.5 10.8,13 7,10.8 3.2,13 4,8.5 1,5.5 5,5"/></svg><svg viewBox="0 0 14 14" fill="#F59E0B"><polygon points="7,1 9,5 13,5.5 10,8.5 10.8,13 7,10.8 3.2,13 4,8.5 1,5.5 5,5"/></svg></div><p class="tc-q">"Gracias a Experience Connect pude iniciar mi proyecto de estudiar en Argentina con seguridad y confianza. Acompa&ntilde;amiento constante en cada etapa del proceso."</p><div class="tc-a"><div class="tc-av">JT</div><div><div class="tc-n">Jhair Torres</div><div class="tc-i">Ingenier&iacute;a Civil &mdash; UNLP Argentina</div></div></div></div>
+    <div class="tc" data-r><div class="tc-stars"><svg viewBox="0 0 14 14" fill="#F59E0B"><polygon points="7,1 9,5 13,5.5 10,8.5 10.8,13 7,10.8 3.2,13 4,8.5 1,5.5 5,5"/></svg><svg viewBox="0 0 14 14" fill="#F59E0B"><polygon points="7,1 9,5 13,5.5 10,8.5 10.8,13 7,10.8 3.2,13 4,8.5 1,5.5 5,5"/></svg><svg viewBox="0 0 14 14" fill="#F59E0B"><polygon points="7,1 9,5 13,5.5 10,8.5 10.8,13 7,10.8 3.2,13 4,8.5 1,5.5 5,5"/></svg><svg viewBox="0 0 14 14" fill="#F59E0B"><polygon points="7,1 9,5 13,5.5 10,8.5 10.8,13 7,10.8 3.2,13 4,8.5 1,5.5 5,5"/></svg><svg viewBox="0 0 14 14" fill="#F59E0B"><polygon points="7,1 9,5 13,5.5 10,8.5 10.8,13 7,10.8 3.2,13 4,8.5 1,5.5 5,5"/></svg></div><p class="tc-q">"Todo el proceso fue muy claro y seguro. Lo que m&aacute;s destaco es el acompa&ntilde;amiento antes, durante y despu&eacute;s de llegar. Hoy estudio Odontolog&iacute;a en La Plata."</p><div class="tc-a"><div class="tc-av">LC</div><div><div class="tc-n">Lennin Carrillo</div><div class="tc-i">Odontolog&iacute;a &mdash; UNLP Argentina</div></div></div></div>
+    <div class="tc" data-r><div class="tc-stars"><svg viewBox="0 0 14 14" fill="#F59E0B"><polygon points="7,1 9,5 13,5.5 10,8.5 10.8,13 7,10.8 3.2,13 4,8.5 1,5.5 5,5"/></svg><svg viewBox="0 0 14 14" fill="#F59E0B"><polygon points="7,1 9,5 13,5.5 10,8.5 10.8,13 7,10.8 3.2,13 4,8.5 1,5.5 5,5"/></svg><svg viewBox="0 0 14 14" fill="#F59E0B"><polygon points="7,1 9,5 13,5.5 10,8.5 10.8,13 7,10.8 3.2,13 4,8.5 1,5.5 5,5"/></svg><svg viewBox="0 0 14 14" fill="#F59E0B"><polygon points="7,1 9,5 13,5.5 10,8.5 10.8,13 7,10.8 3.2,13 4,8.5 1,5.5 5,5"/></svg><svg viewBox="0 0 14 14" fill="#F59E0B"><polygon points="7,1 9,5 13,5.5 10,8.5 10.8,13 7,10.8 3.2,13 4,8.5 1,5.5 5,5"/></svg></div><p class="tc-q">"Experience Connect fue clave para mi homologaci&oacute;n y las pruebas PCE. Hoy mi proceso en la Complutense de Madrid avanza con paso firme gracias a ellos."</p><div class="tc-a"><div class="tc-av">GE</div><div><div class="tc-n">G&eacute;nesis Estrella</div><div class="tc-i">Medicina &mdash; UCM Madrid, Espa&ntilde;a</div></div></div></div>
+    <div class="tc" data-r><div class="tc-stars"><svg viewBox="0 0 14 14" fill="#F59E0B"><polygon points="7,1 9,5 13,5.5 10,8.5 10.8,13 7,10.8 3.2,13 4,8.5 1,5.5 5,5"/></svg><svg viewBox="0 0 14 14" fill="#F59E0B"><polygon points="7,1 9,5 13,5.5 10,8.5 10.8,13 7,10.8 3.2,13 4,8.5 1,5.5 5,5"/></svg><svg viewBox="0 0 14 14" fill="#F59E0B"><polygon points="7,1 9,5 13,5.5 10,8.5 10.8,13 7,10.8 3.2,13 4,8.5 1,5.5 5,5"/></svg><svg viewBox="0 0 14 14" fill="#F59E0B"><polygon points="7,1 9,5 13,5.5 10,8.5 10.8,13 7,10.8 3.2,13 4,8.5 1,5.5 5,5"/></svg><svg viewBox="0 0 14 14" fill="#F59E0B"><polygon points="7,1 9,5 13,5.5 10,8.5 10.8,13 7,10.8 3.2,13 4,8.5 1,5.5 5,5"/></svg></div><p class="tc-q">"Recomendamos los servicios de Experience Connect por su responsabilidad y calidad humana. Hoy mi hija Alison inicia Psicolog&iacute;a en la UNLP."</p><div class="tc-a"><div class="tc-av">BO</div><div><div class="tc-n">Byron Obando</div><div class="tc-i">Padre de familia &mdash; Psicolog&iacute;a UNLP 2025</div></div></div></div>
+    <div class="tc" data-r><div class="tc-stars"><svg viewBox="0 0 14 14" fill="#F59E0B"><polygon points="7,1 9,5 13,5.5 10,8.5 10.8,13 7,10.8 3.2,13 4,8.5 1,5.5 5,5"/></svg><svg viewBox="0 0 14 14" fill="#F59E0B"><polygon points="7,1 9,5 13,5.5 10,8.5 10.8,13 7,10.8 3.2,13 4,8.5 1,5.5 5,5"/></svg><svg viewBox="0 0 14 14" fill="#F59E0B"><polygon points="7,1 9,5 13,5.5 10,8.5 10.8,13 7,10.8 3.2,13 4,8.5 1,5.5 5,5"/></svg><svg viewBox="0 0 14 14" fill="#F59E0B"><polygon points="7,1 9,5 13,5.5 10,8.5 10.8,13 7,10.8 3.2,13 4,8.5 1,5.5 5,5"/></svg><svg viewBox="0 0 14 14" fill="#F59E0B"><polygon points="7,1 9,5 13,5.5 10,8.5 10.8,13 7,10.8 3.2,13 4,8.5 1,5.5 5,5"/></svg></div><p class="tc-q">"Hoy estudio Odontolog&iacute;a en la UBA desde marzo 2026. Muy agradecida por el compromiso, la atenci&oacute;n personalizada y el acompa&ntilde;amiento real del equipo."</p><div class="tc-a"><div class="tc-av">LC</div><div><div class="tc-n">Liz Cueva</div><div class="tc-i">Odontolog&iacute;a &mdash; UBA Buenos Aires</div></div></div></div>
+    <div class="tc" data-r style="display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;background:var(--b5);border-color:rgba(21,101,192,.2)">
+      <div style="font-family:Nunito,sans-serif;font-size:3rem;font-weight:900;color:var(--b);letter-spacing:-.05em;margin-bottom:6px">+50</div>
+      <p style="font-size:.84rem;color:var(--muted);margin-bottom:18px;line-height:1.7">testimonios reales verificados en nuestras redes sociales</p>
+      <a href="https://www.instagram.com/experience.connect" target="_blank" class="btn-p" style="font-size:.76rem;padding:10px 20px">Ver en Instagram</a>
+    </div>
+  </div>
+</div></section>
+
+<!-- GALERIA -->
+<section id="galeria" class="sec" style="background:var(--off)"><div class="sec-in">
+  <div data-r><div class="chip"><div class="chip-d"></div><span>Galer&iacute;a</span></div><h2>Momentos que<br><em>cambian vidas</em></h2><p class="sub">Estudiantes, universidades y el d&iacute;a a d&iacute;a de vivir tu sue&ntilde;o internacional con el respaldo de Experience Connect.</p></div>
+  <div class="gg">
+    <div class="gi" data-r><img src="images/galeria-1.jpg" alt="Experiencias"><div class="gi-ov"></div><div class="gi-l">Experiencias</div></div>
+    <div class="gi" data-r><img src="images/galeria-2.jpg" alt="Estudiantes"><div class="gi-ov"></div><div class="gi-l">Estudiantes</div></div>
+    <div class="gi" data-r><img src="images/galeria-3.jpg" alt="Universidades"><div class="gi-ov"></div><div class="gi-l">Universidades</div></div>
+    <div class="gi" data-r><img src="images/galeria-4.jpg" alt="Viajes"><div class="gi-ov"></div><div class="gi-l">Viajes</div></div>
+    <div class="gi" data-r><img src="images/galeria-5.jpg" alt="Graduaciones"><div class="gi-ov"></div><div class="gi-l">Graduaciones</div></div>
+    <div class="gi" data-r><img src="images/galeria-6.jpg" alt="Procesos"><div class="gi-ov"></div><div class="gi-l">Procesos</div></div>
+    <div class="gi" data-r><img src="images/galeria-7.jpg" alt="Comunidad"><div class="gi-ov"></div><div class="gi-l">Comunidad</div></div>
+    <div class="gi" data-r><img src="images/galeria-8.jpg" alt="Aventuras"><div class="gi-ov"></div><div class="gi-l">Aventuras</div></div>
+  </div>
+</div></section>
+
+<!-- BLOG -->
+<section id="blog" class="sec"><div class="sec-in">
+  <div data-r><div class="chip"><div class="chip-d"></div><span>Blog &amp; Recursos</span></div><h2>Gu&iacute;as para tu<br><em>aventura internacional</em></h2><p class="sub">Art&iacute;culos, gu&iacute;as pr&aacute;cticas y consejos de estudiantes que ya viven su sue&ntilde;o en el exterior.</p></div>
+  <div class="blog-g">
+    <div class="blog-c" data-r>
+      <div class="blog-img"><img src="images/argentina.jpg" alt="Estudiar en Argentina"></div>
+      <div class="blog-body">
+        <span class="blog-cat">Argentina</span>
+        <div class="blog-t">&iquest;C&oacute;mo estudiar medicina gratis en Argentina desde Ecuador?</div>
+        <div class="blog-d">Gu&iacute;a completa con requisitos, costos reales, proceso de inscripci&oacute;n y consejos de estudiantes ecuatorianos ya instalados en Buenos Aires y La Plata.</div>
+        <div class="blog-meta"><span class="blog-fecha">Mayo 2025</span><a href="blog/" class="blog-link">Leer m&aacute;s &rarr;</a></div>
+      </div>
+    </div>
+    <div class="blog-c" data-r>
+      <div class="blog-img"><img src="images/espana.jpg" alt="MIR en Espa&ntilde;a"></div>
+      <div class="blog-body">
+        <span class="blog-cat">Espa&ntilde;a</span>
+        <div class="blog-t">MIR en Espa&ntilde;a: todo lo que necesitas saber como m&eacute;dico ecuatoriano</div>
+        <div class="blog-d">Requisitos, plazos, homologaci&oacute;n de t&iacute;tulo y proceso completo para acceder al MIR desde Ecuador. Casos reales de nuestros estudiantes.</div>
+        <div class="blog-meta"><span class="blog-fecha">Abril 2025</span><a href="blog/" class="blog-link">Leer m&aacute;s &rarr;</a></div>
+      </div>
+    </div>
+    <div class="blog-c" data-r>
+      <div class="blog-img"><img src="images/universidad.jpg" alt="Costos de vida"></div>
+      <div class="blog-body">
+        <span class="blog-cat">Gu&iacute;a Pr&aacute;ctica</span>
+        <div class="blog-t">Costos reales de vida estudiantil en Europa: comparativa 2025</div>
+        <div class="blog-d">Alquiler, alimentaci&oacute;n, transporte y gastos personales en Espa&ntilde;a, Alemania, Italia y Portugal. Datos actualizados con experiencias de nuestros estudiantes.</div>
+        <div class="blog-meta"><span class="blog-fecha">Marzo 2025</span><a href="blog/" class="blog-link">Leer m&aacute;s &rarr;</a></div>
+      </div>
+    </div>
+  </div>
+  <div style="text-align:center;margin-top:36px" data-r>
+    <a href="blog/" class="btn-p" style="display:inline-flex">Ver todos los art&iacute;culos &rarr;</a>
+  </div>
+</div></section>
+
+<!-- CTA FINAL -->
+<section id="cta-f">
+  <div class="cta-blob"></div>
+  <div class="cta-in" data-r>
+    <div class="cta-badge"><div class="chip-d"></div><span>Experience Connect &mdash; Ecuador</span></div>
+    <div class="cta-t">Tu futuro<br>comienza <em>hoy mismo</em></div>
+    <p class="cta-s">No esperes el momento perfecto. M&aacute;s de 500 estudiantes ya dieron ese paso con nosotros y hoy viven su sue&ntilde;o internacional.</p>
+    <div class="cta-btns">
+      <button onclick="abrirModal()" class="btn-p" style="padding:16px 36px;font-size:.86rem">Agendar asesor&iacute;a gratuita</button>
+      <a href="https://wa.me/593983234334" target="_blank" class="btn-g" style="padding:16px 32px;font-size:.86rem;border-radius:50px"><svg viewBox="0 0 24 24" fill="white" width="17" height="17"><path d="M3 21l1.65-3.8a9 9 0 113.4 2.9L3 21"/><path d="M9 10c0 5 3.5 7.5 7.5 6" stroke="white" fill="none" stroke-width="1.5" stroke-linecap="round"/></svg>Escribir al WhatsApp</a>
+    </div>
+    <div class="cta-meta">
+      <div class="cta-m">Respuesta en 24 horas</div>
+      <div class="cta-m">Sin costo inicial</div>
+      <div class="cta-m">+500 estudiantes exitosos</div>
+      <div class="cta-m">10+ pa&iacute;ses disponibles</div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="fg">
+    <div>
+      <div class="f-logo"><img src="images/logo.png" alt="Experience Connect"></div>
+      <div class="f-tag">Travel &bull; Study &bull; Work</div>
+      <p class="f-desc">Conectamos tu talento con las mejores universidades del mundo. Presencia en Ecuador y Argentina.</p>
+      <div class="f-soc">
+        <a class="fss" href="https://www.instagram.com/experience.connect" target="_blank"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.2" fill="white" stroke="none"/></svg></a>
+        <a class="fss" href="https://www.facebook.com/share/18eC2YorDv/" target="_blank"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg></a>
+        <a class="fss" href="https://www.tiktok.com/@experienceconnect" target="_blank"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><path d="M9 12a4 4 0 104 4V4a5 5 0 005 5"/></svg></a>
+        <a class="fss" href="https://wa.me/593983234334" target="_blank"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><path d="M3 21l1.65-3.8a9 9 0 113.4 2.9L3 21"/><path d="M9 10c0 5 3.5 7.5 7.5 6" stroke-linecap="round"/></svg></a>
+      </div>
+      <a href="https://wa.me/593983234334" target="_blank" class="fwa"><svg viewBox="0 0 24 24" fill="#25D366" width="17" height="17"><path d="M3 21l1.65-3.8a9 9 0 113.4 2.9L3 21"/><path d="M9 10c0 5 3.5 7.5 7.5 6" stroke="#25D366" fill="none" stroke-width="1.5" stroke-linecap="round"/></svg><div class="fwa-t"><strong>+593 98 323 4334</strong>Esr&iacute;benos en WhatsApp</div></a>
+    </div>
+    <div class="fc"><h5>Destinos</h5><ul><li><a href="destinos/espana.html">Espa&ntilde;a</a></li><li><a href="destinos/italia.html">Italia</a></li><li><a href="destinos/alemania.html">Alemania</a></li><li><a href="destinos/argentina.html">Argentina</a></li><li><a href="destinos/portugal.html">Portugal</a></li><li><a href="destinos/republica-checa.html">Rep. Checa</a></li></ul></div>
+    <div class="fc"><h5>Programas</h5><ul><li><a href="#programas">Paquete Acad&eacute;mico</a></li><li><a href="#programas">Paquete Universitario</a></li><li><a href="#programas">Paquete Master</a></li><li><a href="#programas">Paquete Vinculaci&oacute;n</a></li><li><a href="worktravel.html">Work &amp; Travel</a></li><li><a href="visados.html">Visados</a></li></ul></div>
+    <div class="fc"><h5>Contacto</h5><ul><li><a href="mailto:asesoria@experienceconnectec.com">asesoria@experienceconnectec.com</a></li><li><a href="mailto:experienceconnectec@gmail.com">experienceconnectec@gmail.com</a></li><li><a href="https://wa.me/593983234334" target="_blank">+593 98 323 4334</a></li><li><a href="https://wa.me/593993528177" target="_blank">+593 99 352 8177</a></li><li><a href="blog/">Blog</a></li><li><a href="contacto.html">Contacto</a></li></ul></div>
+  </div>
+  <div class="fb"><span class="fcp">&copy; 2025 Experience Connect. Todos los derechos reservados.</span><span class="frf">experienceconnectec.com &bull; Travel &bull; Study &bull; Work</span></div>
+</footer>
+
+<div class="waf"><a class="waf-b" href="https://wa.me/593983234334?text=Hola,%20vengo%20de%20la%20web%20de%20Experience%20Connect." target="_blank"><svg viewBox="0 0 24 24" fill="white"><path d="M3 21l1.65-3.8a9 9 0 113.4 2.9L3 21"/><path d="M9 10c0 5 3.5 7.5 7.5 6" stroke="white" fill="none" stroke-width="1.5" stroke-linecap="round"/></svg></a></div>
+
+<div class="mov" id="modal" onclick="if(event.target===this)cerrarModal()">
+  <div class="mbox">
+    <div class="mh" style="position:relative">
+      <div class="mh-b">Asesor&iacute;a gratuita &mdash; Experience Connect</div>
+      <div class="mh-t">Agenda tu asesor&iacute;a</div>
+      <div class="mh-s">Respondemos en menos de 24 horas &mdash; Sin costo</div>
+      <button class="mc" onclick="cerrarModal()">&#x2715;</button>
+    </div>
+    <div class="mb">
+      <div class="fr2">
+        <div class="fg2"><label>Nombre completo</label><input type="text" id="mNom" placeholder="Tu nombre completo"></div>
+        <div class="fg2"><label>WhatsApp</label><input type="tel" id="mWA" placeholder="+593 98 323 4334"></div>
+      </div>
+      <div class="fr2">
+        <div class="fg2"><label>Email</label><input type="email" id="mEM" placeholder="tu@correo.com"></div>
+        <div class="fg2"><label>Tu perfil</label><select id="mPerfil"><option value="">Selecciona...</option><option>Bachiller / Estudiante</option><option>Profesional / Posgrado</option><option>M&eacute;dico / MIR</option><option>Otro</option></select></div>
+      </div>
+      <div class="fr2">
+        <div class="fg2"><label>Destino de inter&eacute;s</label><select id="mDest"><option value="">Selecciona...</option><option>Espa&ntilde;a</option><option>Italia</option><option>Alemania</option><option>Argentina</option><option>Portugal</option><option>Rep. Checa</option><option>No s&eacute; a&uacute;n</option></select></div>
+        <div class="fg2"><label>Cu&aacute;ndo planeas viajar</label><select id="mFecha"><option value="">Selecciona...</option><option>Pr&oacute;ximos 3 meses</option><option>En 6 meses</option><option>En 1 a&ntilde;o</option><option>M&aacute;s de 1 a&ntilde;o</option></select></div>
+      </div>
+      <div class="fg2"><label>Carrera o programa</label><input type="text" id="mCar" placeholder="Medicina, Ingenier&iacute;a, MBA..."></div>
+      <div class="fg2"><label>Cu&eacute;ntanos tus metas (opcional)</label><textarea id="mMsg" placeholder="&iquest;Qu&eacute; quieres lograr con tu experiencia internacional?"></textarea></div>
+      <button class="btn-sub" onclick="enviarModal()">Enviar y agendar asesor&iacute;a</button>
+      <a href="https://wa.me/593983234334?text=Hola,%20quiero%20agendar%20una%20asesoria" target="_blank" class="btn-mwa"><svg viewBox="0 0 24 24" fill="white" width="16" height="16"><path d="M3 21l1.65-3.8a9 9 0 113.4 2.9L3 21"/><path d="M9 10c0 5 3.5 7.5 7.5 6" stroke="white" fill="none" stroke-width="1.5" stroke-linecap="round"/></svg>O esr&iacute;benos por WhatsApp</a>
+    </div>
+  </div>
+</div>
+
+<script>
+window.addEventListener('scroll',function(){document.getElementById('nav').classList.toggle('scrolled',scrollY>50)});
+document.getElementById('ham').addEventListener('click',function(){document.getElementById('mob').classList.add('open')});
+document.getElementById('mobX').addEventListener('click',function(){document.getElementById('mob').classList.remove('open')});
+var ro=new IntersectionObserver(function(e){e.forEach(function(x){if(x.isIntersecting){x.target.classList.add('on');ro.unobserve(x.target)}})},{threshold:.08,rootMargin:'0px 0px -40px 0px'});
+document.querySelectorAll('[data-r]').forEach(function(el){ro.observe(el)});
+var PD=[
+  {t:'Agenda tu asesoría gratuita',d:'Completa el formulario con tu perfil. Un consultor experto te contacta en menos de 24 horas para una sesión personalizada y sin costo.',tags:['24H','Sin costo','Personalizada']},
+  {t:'Evaluamos tu perfil completo',d:'Analizamos historial académico, nivel de idioma, presupuesto y metas para encontrar la opción ideal para ti.',tags:['Perfil','Presupuesto','Metas']},
+  {t:'País, universidad y programa',d:'Presentamos opciones con costos reales, tasas de empleabilidad y calidad de vida verificada. Tú decides.',tags:['Opciones','Comparativa','Costos reales']},
+  {t:'Gestión documental completa',d:'Apostillados, traducciones certificadas, cartas de motivación y formularios de admisión universitaria.',tags:['Apostillado','Traducción','Admisión']},
+  {t:'Visa y proceso migratorio',d:'Visa estudiantil, seguro médico internacional y todos los trámites migratorios para tu país destino.',tags:['Visa','Seguro médico','Trámites']},
+  {t:'Tu experiencia internacional',d:'Orientación en alojamiento, logística de viaje y adaptación cultural completa en el destino elegido.',tags:['Alojamiento','Orientación','Acompañamiento']}
+];
+function sp(el,idx){
+  document.querySelectorAll('.paso').forEach(function(p){p.classList.remove('on')});
+  el.classList.add('on');
+  var d=PD[idx];
+  document.getElementById('pS').textContent='Paso 0'+(idx+1)+' de 06';
+  document.getElementById('pT').textContent=d.t;
+  document.getElementById('pD').textContent=d.d;
+  document.getElementById('pTg').innerHTML=d.tags.map(function(t){return '<span class="pp-tag">'+t+'</span>'}).join('');
+  document.getElementById('pB').style.width=((idx+1)/6*100)+'%';
+}
+function abrirModal(dest){
+  document.getElementById('modal').classList.add('open');
+  document.body.style.overflow='hidden';
+  if(dest)document.getElementById('mDest').value=dest;
+}
+function cerrarModal(){document.getElementById('modal').classList.remove('open');document.body.style.overflow='';}
+document.addEventListener('keydown',function(e){if(e.key==='Escape')cerrarModal()});
+function enviarModal(){
+  var n=document.getElementById('mNom').value.trim();
+  var w=document.getElementById('mWA').value.trim();
+  if(!n||!w){alert('Por favor ingresa tu nombre y WhatsApp.');return;}
+  fetch('https://formsubmit.co/ajax/asesoria@experienceconnectec.com',{
+    method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},
+    body:JSON.stringify({_subject:'Nueva solicitud - Experience Connect',_captcha:'false',nombre:n,whatsapp:w,email:document.getElementById('mEM').value,perfil:document.getElementById('mPerfil').value,destino:document.getElementById('mDest').value,fecha:document.getElementById('mFecha').value,carrera:document.getElementById('mCar').value,mensaje:document.getElementById('mMsg').value})
+  }).catch(function(){});
+  cerrarModal();
+  alert('Solicitud enviada. Te contactaremos en menos de 24 horas.');
+}
+</script>
+</body>
+</html>
